@@ -1,0 +1,2 @@
+python src/official.py --tag baseline --seed 0
+python src/check_submission.py --onnx results/baseline_seed0/model.onnx --size 224 --no-val
