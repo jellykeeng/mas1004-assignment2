@@ -91,3 +91,26 @@ End the log with your plan for what to try next.
 2. 학생이 사진 모음을 직접 보고 공통점을 적는다.
 3. 학생의 관찰을 바탕으로 변경할 항목을 하나 정한 뒤, 같은 seed와 예산으로
    변경 전후를 비교한다. 아직 사진 제외나 레시피 변경은 하지 않았다.
+
+## 2026-11-05 baseline 오답 사진 모음
+
+- 실행: `python src/curate.py mistakes results/baseline_seed0/model.onnx --n 48`
+  (commit `7e8ccc8`).
+- 결과: 검증 사진 12,077장에 seed 0 ONNX 모델을 적용한 후, 도시별로 확신이 높은
+  오답 48장씩을 골라 총 240장의 사진을 5개 모음으로 저장했다.
+- 파일: `results/curate/mistakes_baseline_seed0_<city>_00.png`와 같은 이름의 CSV.
+  `<city>`는 seoul, busan, tokyo, osaka, taipei다.
+- 모음의 도시 이름은 정답 라벨이고, 사진 아래 화살표 뒤의 도시는 모델의 예측이다.
+  숫자는 softmax 출력 확률이다. 번호는 같은 이름의 CSV에 있는 사진 경로와 대응한다.
+- 이 모음은 확신이 높은 오답을 살펴보는 자료이며, 전체 검증 사진의 무작위 표본은
+  아니다. 기존의 기준 실험 점수는 `official.py`의 `result.json` 값을 유지한다.
+- 원본: `from_colab-3.zip`과
+  `results/colab_logs/1105_165739_curate_mistakes.txt`.
+- 이 단계는 사진 검토 준비이므로 `experiments.csv`에 새 학습 행을 추가하지 않았다.
+- 학생의 사진 관찰과 개선 결정: 응답 대기.
+
+### 다음 계획
+
+1. 학생이 도시별 사진 모음을 직접 보고 공통적인 특징 두 가지를 설명한다.
+2. 관찰에서 나온 개선 가설을 하나 정하고, 훈련 사진 선택 또는 학습 방법 중
+   해당 항목 하나를 변경해 기준 실험과 비교한다.
