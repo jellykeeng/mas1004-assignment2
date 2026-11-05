@@ -51,3 +51,43 @@ End the log with your plan for what to try next.
 1. 레시피와 훈련 사진은 유지하고 seed 1로 같은 기준 실험을 실행한다.
 2. 두 실행의 점수 차이를 확인한 후, 오답 사진을 직접 살펴본다.
 3. 사진에서 관찰한 내용을 바탕으로 변경할 항목을 하나 정하고 그 효과를 측정한다.
+
+## 2026-11-05 baseline (Track A, seed 1)
+
+- 변경: seed 0에서 seed 1로만 변경했다. 레시피, 전체 훈련 사진, batch size,
+  steps, 예산, 모델과 입력 크기는 첫 기준 실험과 동일하다.
+- 목적: 같은 학습 방법에서 난수 선택에 따른 점수 차이를 관찰한다.
+- 코드: commit `0dd327b`, recipe hash `17ac485223fa` (seed 0과 동일).
+- 검증: 사진 12,077장에 대한 도시별 정확도의 평균 **0.4984**.
+
+| 도시 | seed 0 | seed 1 |
+| --- | ---: | ---: |
+| Seoul | 0.5774 | 0.5626 |
+| Busan | 0.3942 | 0.3842 |
+| Tokyo | 0.6385 | 0.6140 |
+| Osaka | 0.3604 | 0.3891 |
+| Taipei | 0.5515 | 0.5421 |
+| 도시별 정확도의 평균 | 0.5044 | 0.4984 |
+
+- 두 실행의 검증 점수 평균: **0.5014**. 절대 차이: **0.0060 (0.60%p)**.
+  `result.json` 두 개의 `val_score`에서 계산했다.
+- 해석의 범위: 방법을 바꾸지 않아도 이번 두 실행에서 0.60%p 차이가 났다.
+  작은 점수 상승 한 번만으로 개선 효과를 단정하지 않는다. 두 번의 실행으로
+  전체 변동 범위나 통계적 유의성을 추정한 것은 아니다.
+- 학습 시간: 2,179.5초 (약 36.3분). 준비, 검증, 내보내기 시간은 별도다.
+- Colab의 ONNX 검사 출력: 44.7 MB, 11.17 million parameters,
+  1.81 billion multiply-adds at 224 x 224; `format and limits: OK`.
+- 학생이 사진을 직접 보고 내린 판단: 아직 기록되지 않았다.
+- 원본: `from_colab-2.zip`의 `results/baseline_seed1/result.json`,
+  `results/colab_experiments.csv`,
+  `results/colab_logs/1105_161517_official_baseline_seed1.txt`,
+  `results/colab_logs/1105_165326_check_submission.txt`.
+
+### 다음 계획
+
+1. Colab에서 seed 0 모델이 검증 사진을 확신하면서 틀린 사례를 도시별 48장씩
+   모은다 (`curate.py mistakes`, `results/curate/`). 이 모음은 전체 사진의
+   무작위 표본이 아니라 확신이 높은 오답을 골라 본 자료다.
+2. 학생이 사진 모음을 직접 보고 공통점을 적는다.
+3. 학생의 관찰을 바탕으로 변경할 항목을 하나 정한 뒤, 같은 seed와 예산으로
+   변경 전후를 비교한다. 아직 사진 제외나 레시피 변경은 하지 않았다.
