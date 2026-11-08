@@ -14,8 +14,7 @@ What you cannot change, because official.py decides it:
   - the image size the model sees, 224 x 224
   - mixed precision (float16), and the seed
 
-This is the recipe the starter code came with. It is the baseline on the
-leaderboard.
+This recipe adds Random Erasing to the starter training transforms.
 """
 
 import torch
@@ -36,6 +35,9 @@ def train_transform():
         T.RandomResizedCrop(224, scale=(0.35, 1.0)),
         T.RandomHorizontalFlip(),
         T.ColorJitter(0.2, 0.2, 0.2),
+        T.ToTensor(),
+        T.RandomErasing(p=0.5, scale=(0.02, 0.15), ratio=(0.3, 3.3),
+                        value=(0.485, 0.456, 0.406)),
     ])
 
 

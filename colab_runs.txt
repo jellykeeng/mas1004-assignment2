@@ -1,2 +1,5 @@
-# The curated56 comparison is complete for seeds 0 and 1.
-# Queue the next experiment after its conditions are chosen.
+python src/curate.py count
+python src/official.py --tag erase15 --seed 0
+python src/check_submission.py --onnx results/erase15_seed0/model.onnx --size 224 --no-val
+python src/official.py --tag erase15 --seed 1
+python src/check_submission.py --onnx results/erase15_seed1/model.onnx --size 224 --no-val
