@@ -1,3 +1,2 @@
-python src/curate.py count
-python src/official.py --tag curated56 --seed 1
-python src/check_submission.py --onnx results/curated56_seed1/model.onnx --size 224 --no-val
+# The curated56 comparison is complete for seeds 0 and 1.
+# Queue the next experiment after its conditions are chosen.
