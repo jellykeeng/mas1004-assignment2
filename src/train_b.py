@@ -19,6 +19,7 @@ import argparse
 import csv
 import json
 import os
+import random
 import shutil
 import subprocess
 import sys
@@ -105,6 +106,7 @@ def shown(folder):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--tag", required=True)
+    ap.add_argument("--seed", type=int, help="random seed for data and model initialisation")
     ap.add_argument("--model", choices=sorted(MODELS), default="resnet18")
     ap.add_argument("--size", type=int, default=224)
     ap.add_argument("--folders", nargs="+", default=[str(ROOT / "data" / "starter" / "train")])
@@ -117,6 +119,11 @@ def main():
     ap.add_argument("--val-every", type=int, default=1,
                     help="measure on every n-th validation photo only (quicker without a GPU)")
     args = ap.parse_args()
+
+    if args.seed is not None:
+        random.seed(args.seed)
+        np.random.seed(args.seed)
+        torch.manual_seed(args.seed)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
     rows = [r for folder in args.folders for r in rules.list_photos(folder)]
@@ -171,6 +178,8 @@ def main():
     export_onnx(net, out / "model.onnx", args.size)
     info = {"image_size": args.size, "starting_weights": weights_name,
             "data": " + ".join(shown(f) for f in args.folders), "summary": f"{args.model} at {args.size}, {args.epochs} epochs"}
+    if args.seed is not None:
+        info["seed"] = args.seed
     (out / "submission.json").write_text(json.dumps(info, indent=2))
     m = rules.measure_onnx(out / "model.onnx", args.size)
     print(f"wrote {out / 'model.onnx'}: {m['parameters'] / 1e6:.2f} million parameters, {m['gmacs']:.2f} billion multiply-adds")
@@ -189,6 +198,7 @@ def main():
         if new:
             w.writeheader()
         w.writerow({"finished": datetime.now().isoformat(timespec="seconds"), "track": "B", "tag": args.tag,
+                    "seed": args.seed,
                     "budget": args.epochs * len(loader) * args.batch_size, "val_score": round(score, 4),
                     **{c: round(per_city.get(c, 0), 4) for c in CITIES}, "train_seconds": round(train_seconds, 1),
                     "device": str(device), "selection": f"{args.model} {args.size}px; " + " + ".join(shown(f) for f in args.folders),
