@@ -1,5 +1,5 @@
 python src/check_extra_photos.py --manifest-sha c885e760cf70bd5ee6757e42487549ade7c61adcaafde8d5c31dbfc413c2450f
-python src/train_b.py --tag b_control_seed0 --seed 0 --model resnet18 --size 224 --epochs 4 --workers 2
+python src/train_b.py --tag b_control_seed0 --seed 0 --model resnet18 --size 224 --epochs 4 --workers 0
 python src/check_submission.py --submission results/b_control_seed0 --no-val
-python src/train_b.py --tag b_own_sb_seed0 --seed 0 --model resnet18 --size 224 --epochs 4 --workers 2 --folders data/starter/train data/mine --submit
+python src/train_b.py --tag b_own_sb_seed0 --seed 0 --model resnet18 --size 224 --epochs 4 --workers 0 --folders data/starter/train data/mine --submit
 python src/check_submission.py --no-val

@@ -907,3 +907,27 @@ End the log with your plan for what to try next.
 1. 같은 실행 도구로 로컬의 두 전체 학습과 제출 파일 검사를 수행한다.
 2. 실제 MPS 실행의 점수, 도시별 정확도와 학습 시간을 가져와 같은 장치와
    seed의 기준 조건에 맞추어 추가 사진의 효과를 비교한다.
+
+## 2026-11-09 MPS 로컬 전체 학습 시작 조건
+
+- worker 2개를 사용한 성능 점검은 결과 저장과 모델 검사 후 Python 종료 단계에서
+  multiprocessing resource tracker의 종료를 기다리며 멈췄다.
+  완료된 점검 프로세스를 정리하고 로컬 비교는 worker 0개로 조정했다.
+- worker 0개와 `OMP_NUM_THREADS=1`에서 실제 학습 코드의 20 step,
+  ONNX 내보내기 및 형식 검사를 다시 확인했다. 프로세스 종료 코드도 0이었다.
+  원본은 `results/local_mps_smoke_workers0/smoke.json`이다.
+- 처음 5 step을 제외한 step 시간 중앙값은 약 0.782초였다.
+  이 측정에 따른 두 전체 학습 시간 합계는 약 72.1분이며,
+  전체 검증과 내보내기를 포함한 실제 시간은 완료 후 기록한다.
+- 두 전체 실행 모두 MPS, seed 0, worker 0개, batch size 64와 4 epochs를
+  사용하도록 했다. 실행 프로세스에 `TZ=Asia/Seoul`과 `OMP_NUM_THREADS=1`을
+  적용하고, 학습 중 자동 유휴 잠자기를 방지하는 프로세스 한정 설정을 사용한다.
+  Mac 전원이 연결되어 있고 배터리가 충전되어 있음을 확인했다.
+- 기존 실행 도구 `colab.py run`으로 로컬 명령을 차례로 수행한다.
+  이 실행에서 쓰는 `results/colab_logs/`와 `results/colab_experiments.csv`의
+  디렉터리 이름은 도구의 기본 이름이며 실제 실행 장치는 Mac의 MPS다.
+
+### 다음 계획
+
+두 실행과 검사가 끝날 때까지 진행 상태를 확인하고, 기록을 가져와 같은
+MPS 기준 조건에 대비한 사진 7장 추가의 효과를 계산한다.
