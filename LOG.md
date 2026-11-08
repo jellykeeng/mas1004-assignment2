@@ -715,3 +715,55 @@ End the log with your plan for what to try next.
 2. 결과 ZIP의 모델과 메타데이터, 검증 점수와 검사 출력을 확인한 뒤
    Track B의 첫 릴리스를 준비한다.
 3. Long report에 가리기 실험의 두 seed 결과와 첫 Track B 실행의 준비 상태를 추가한다.
+
+## 2026-11-09 b_baseline (Track B)
+
+- 학생이 선택한 Track B 첫 제출 준비에 따라 제공된 `train_b.py`를 실행했다.
+  ImageNet-1k V1에서 시작하는 ResNet18, 입력 224 x 224, 전체 스타터 훈련 사진
+  44,257장과 4 epochs, batch size 64를 사용했다.
+  실제 사진 제시 횟수는 176,896회로 기록되었다.
+  제공 코드의 기본 optimizer, scheduler, augmentation과 loss를 사용했다.
+- CUDA에서 학습했으며 학습 시간은 1,637.1초, 약 27.3분이다.
+  실행 commit은 `50530fc`, 완료 시각은 2026-11-09 01:14:53 KST다.
+  제공 스크립트는 seed를 고정하거나 기록하지 않아 seed 칸은 비어 있다.
+- Colab에서 기록한 전체 검증 점수는 **0.4895**다.
+
+| 도시 | 검증 정확도 |
+| --- | ---: |
+| Seoul | 55.40% |
+| Busan | 37.55% |
+| Tokyo | 63.77% |
+| Osaka | 34.87% |
+| Taipei | 53.14% |
+| 도시별 정확도의 평균 | 48.95% |
+
+- `submission/model.onnx`와 `submission/submission.json`을 결과 ZIP에서 가져왔다.
+  두 파일의 실제 바이트가 원본 ZIP과 일치하고, 메타데이터가 결과 폴더의 기록과
+  같은 것을 확인했다. 새 Track B 한 행을 가져와 전체 실행 기록은 일곱 행이다.
+- Colab과 로컬에서 공식 제출 검사로 `format and limits: OK`를 확인했다.
+  로컬 측정값은 11,174,283 parameters, 1.813563904 GMACs, 44.707595 MB,
+  ONNX opset 17이다. 한도인 12 million parameters와 2.0 GMACs를 만족한다.
+  ONNX 1.19.1과 ONNX Runtime 1.23.2로 CPU 배치 1과 3의 추론을 실행해
+  각 사진에 유한한 도시별 logit 다섯 개가 나오는 것도 확인했다.
+- 모델 SHA-256은
+  `5f530de70645fc15d855e2547619ba2e7708e938b6d8eee6b1c6309de52de572`다.
+  메타데이터 SHA-256은
+  `5fada1911b259d5d8145d2d26b1b1810ee94bb7b8f3f178a1e4cd96b661982c0`다.
+- 원본은 `from_colab-8.zip`의 `results/colab_experiments.csv`,
+  `results/colab_logs/1109_004557_train_b_b_baseline.txt`,
+  `results/colab_logs/1109_011454_check_submission.txt` 및 `submission/`의 두 파일이다.
+  로컬 검사 출력과 측정값은 `results/b_baseline_local_check.txt`,
+  `results/b_baseline_release_check.json`에 보관했다.
+- 에이전트는 실행 조건을 그대로 나타내는 첫 릴리스 제목으로
+  `Starter ResNet18 at 224, 4 epochs`를 정해 `track-b-1` 게시를 준비한다.
+  이 실행은 Track B 후속 비교의 첫 기준으로 보관한다.
+  학생이 점수에 대해 내린 추가 해석은 아직 받지 않았다.
+
+### 다음 계획
+
+1. 코드와 기록, 메타데이터를 커밋하고 실제 ONNX와 메타데이터를 첫 Track B
+   릴리스의 자산으로 게시한다.
+2. 게시된 자산의 크기와 SHA-256을 실제 파일과 대조한다.
+3. 학생이 다음 개선 실험을 선택한 뒤 조건과 비교 기준을 기록한다.
+   Long report의 Track B 결과와 제출 현황, 학생이 직접 작성할 short report도
+   최종 제출 전에 정리한다.

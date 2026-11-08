@@ -1,0 +1,6 @@
+{
+  "image_size": 224,
+  "starting_weights": "torchvision resnet18 IMAGENET1K_V1",
+  "data": "data/starter/train",
+  "summary": "resnet18 at 224, 4 epochs"
+}

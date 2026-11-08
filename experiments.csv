@@ -5,3 +5,4 @@ finished,track,tag,seed,official_budget,budget,val_score,seoul,busan,tokyo,osaka
 2026-11-08T22:39:04,A,curated56,1,True,249984,0.4914,0.5684,0.359,0.6558,0.3618,0.5118,2220.7,cuda,"selection.csv, 44201 rows",17ac485223fa,9ef44cac68cb,a2ac080
 2026-11-08T23:57:00,A,erase15,0,True,249984,0.4916,0.5589,0.3698,0.6583,0.3496,0.5212,2208.3,cuda,"selection.csv, 44257 rows",4c2c34345077,1a1ca6c18823,c6bf059
 2026-11-09T00:37:52,A,erase15,1,True,249984,0.4944,0.5828,0.3856,0.606,0.3543,0.5435,2207.2,cuda,"selection.csv, 44257 rows",4c2c34345077,1a1ca6c18823,c6bf059
+2026-11-09T01:14:53,B,b_baseline,,,176896,0.4895,0.554,0.3755,0.6377,0.3487,0.5314,1637.1,cuda,resnet18 224px; data/starter/train,,,50530fc

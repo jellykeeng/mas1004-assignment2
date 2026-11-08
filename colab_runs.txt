@@ -1,2 +1,2 @@
-python src/train_b.py --tag b_baseline --model resnet18 --size 224 --epochs 4 --submit
-python src/check_submission.py --no-val
+# The first Track B model finished training and passed submission checks.
+# Queue the next experiment after its conditions are chosen.
