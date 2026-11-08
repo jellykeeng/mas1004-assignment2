@@ -1,4 +1,3 @@
-python src/prepare_curation.py --tag curated56 --plan-sha 51af86b1f032400cde628cb33d9fd76252f7f1385ba8985df540603f57018351 --expected-removed 56
 python src/curate.py count
-python src/official.py --tag curated56 --seed 0
-python src/check_submission.py --onnx results/curated56_seed0/model.onnx --size 224 --no-val
+python src/official.py --tag curated56 --seed 1
+python src/check_submission.py --onnx results/curated56_seed1/model.onnx --size 224 --no-val
