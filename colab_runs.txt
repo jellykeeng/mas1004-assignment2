@@ -1,5 +1,2 @@
-python src/curate.py count
-python src/official.py --tag erase15 --seed 0
-python src/check_submission.py --onnx results/erase15_seed0/model.onnx --size 224 --no-val
-python src/official.py --tag erase15 --seed 1
-python src/check_submission.py --onnx results/erase15_seed1/model.onnx --size 224 --no-val
+python src/train_b.py --tag b_baseline --model resnet18 --size 224 --epochs 4 --submit
+python src/check_submission.py --no-val
