@@ -14,8 +14,7 @@ What you cannot change, because official.py decides it:
   - the image size the model sees, 224 x 224
   - mixed precision (float16), and the seed
 
-This is the recipe the starter code came with. It is the baseline on the
-leaderboard.
+This control uses starter sampling with an MPS input-layout workaround.
 """
 
 import torch
@@ -67,6 +66,9 @@ def mix(images, labels):
     city numbers. Return images of the same shape and the targets for
     loss_fn: the labels, or probabilities (BATCH_SIZE, 5) if you mix photos.
     """
+    if images.device.type == "mps":
+        # Avoid the MPS backward stride error in the pinned PyTorch version.
+        images = images.contiguous()
     return images, labels
 
 
