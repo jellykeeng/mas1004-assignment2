@@ -1,0 +1,69 @@
+{
+  "track": "A",
+  "tag": "erase15",
+  "seed": 1,
+  "official_budget": true,
+  "budget": 249984,
+  "batch_size": 64,
+  "steps": 3906,
+  "selection": "selection.csv, 44257 rows",
+  "selection_counts": {
+    "seoul": 11274,
+    "busan": 5191,
+    "tokyo": 13347,
+    "osaka": 7200,
+    "taipei": 7245
+  },
+  "device": "cuda",
+  "train_seconds": 2207.2,
+  "val_score": 0.4944,
+  "val_per_city": {
+    "seoul": 0.5828,
+    "busan": 0.3856,
+    "tokyo": 0.606,
+    "osaka": 0.3543,
+    "taipei": 0.5435
+  },
+  "val_confusion": [
+    [
+      1419,
+      151,
+      437,
+      158,
+      270
+    ],
+    [
+      438,
+      536,
+      209,
+      67,
+      140
+    ],
+    [
+      607,
+      95,
+      2352,
+      515,
+      312
+    ],
+    [
+      290,
+      68,
+      833,
+      754,
+      183
+    ],
+    [
+      403,
+      75,
+      413,
+      133,
+      1219
+    ]
+  ],
+  "onnx_gap": 3.2782554626464844e-07,
+  "recipe_sha": "4c2c34345077",
+  "selection_sha": "1a1ca6c18823",
+  "commit": "c6bf059",
+  "finished": "2026-11-09T00:37:52"
+}

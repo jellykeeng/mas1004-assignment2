@@ -1,0 +1,34 @@
+$ python src/prepare_curation.py --tag curated56 --plan-sha 51af86b1f032400cde628cb33d9fd76252f7f1385ba8985df540603f57018351 --expected-removed 56
+# commit 9cd86e1
+{
+  "tag": "curated56",
+  "prepared": "2026-11-08T12:10:46+00:00",
+  "plan_sha256": "51af86b1f032400cde628cb33d9fd76252f7f1385ba8985df540603f57018351",
+  "recipe_sha256": "17ac485223fa61741f2c63aeb1c91bc283c88c6b7aaa8f02fdb3e86924ff29c9",
+  "inventory_sha256": "1a1ca6c1882356b84701446e495973c375535d9d64b3cb3d3397c3dfd640f9e4",
+  "selection_sha256": "9ef44cac68cb392a341d4a9ec59bea7645e5b3df2757cf189eebe4f5f6c9de55",
+  "before_counts": {
+    "seoul": 11274,
+    "busan": 5191,
+    "tokyo": 13347,
+    "osaka": 7200,
+    "taipei": 7245
+  },
+  "removed_counts": {
+    "seoul": 9,
+    "busan": 9,
+    "tokyo": 20,
+    "osaka": 6,
+    "taipei": 12
+  },
+  "after_counts": {
+    "seoul": 11265,
+    "busan": 5182,
+    "tokyo": 13327,
+    "osaka": 7194,
+    "taipei": 7233
+  },
+  "before_total": 44257,
+  "removed_total": 56,
+  "after_total": 44201
+}

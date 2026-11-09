@@ -1,0 +1,10 @@
+$ python src/train_b.py --tag b_baseline --model resnet18 --size 224 --epochs 4 --submit
+# commit 50530fc
+44257 photos (seoul 11274, busan 5191, tokyo 13347, osaka 7200, taipei 7245) on cuda
+epoch 1/4: loss 1.362 (412s)
+epoch 2/4: loss 1.163 (821s)
+epoch 3/4: loss 1.019 (1226s)
+epoch 4/4: loss 0.890 (1637s)
+validation score 0.489 (seoul 0.554, busan 0.376, tokyo 0.638, osaka 0.349, taipei 0.531)
+wrote /content/drive/MyDrive/mas1004/assignment2/results/b_baseline/model.onnx: 11.17 million parameters, 1.81 billion multiply-adds
+copied to submission/. Check it with: python src/check_submission.py

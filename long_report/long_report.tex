@@ -1,90 +1,1175 @@
-% MAS1004 Assignment 2: long report.
-%
-% You fill this in with your agent, in your repository. AGENTS.md tells the
-% agent how. Red text in the PDF is what still has to be replaced.
-%
-% - Pictures go in figures/. Copy them from results/, which is not in git.
-% - Outputs go in outputs/: copy experiments.csv, LOG.md and the outputs of
-%   check_submission.py and curate.py count here. \outputfile{outputs/...}
-%   prints a file exactly as it is. Every number in this report has to come
-%   from such an output.
-%
-% To make the PDF: compress this folder into a zip, and on Overleaf choose
-% New Project, Upload Project. Set Menu, Compiler to XeLaTeX, and Recompile.
-
+% MAS1004 Assignment 2 long report, English edition prepared 10 November 2026.
+% Compile with XeLaTeX. The course style is supplied unchanged.
 \documentclass[11pt]{article}
 \usepackage{mas1004}
-
-\reporttitle{Assignment 2: Long report}
-\studentname{Your name}
-\studentid{Your student ID}
+\IfFontExistsTF{Noto Serif CJK KR}{}{%
+  \IfFontExistsTF{AppleMyungjo}{%
+    \setmainhangulfont[AutoFakeBold=2]{AppleMyungjo}
+    \setsanshangulfont{Apple SD Gothic Neo}
+    \setmonohangulfont{AppleMyungjo}
+  }{}%
+}
+\hypersetup{pdftitle={Assignment 2 Long report},pdfauthor={김서영}}
+\reporttitle{Assignment 2 Long report}
+\studentname{김서영}
+\studentid{20251120}
 
 \begin{document}
 \makeheader
+{\small Leaderboard nickname \texttt{SoSleepy}\hfill
+Final releases \texttt{track-a-2} and \texttt{track-b-1}}\par
 
-\fillin{Your leaderboard nickname, and the tags of your last Track A and Track B releases.}
+\section{Scope and experimental purpose}
 
-% The sections below are a suggestion. Change, merge or add sections as you
-% like; README.md, "The long report", says what a reader should be able to see.
+This assignment classifies photographs as Seoul, Busan, Tokyo, Osaka, or Taipei.
+We first measured how much the validation score changed when the starter recipe
+was trained again with a different seed. After completing the baseline with
+seeds 0 and 1, the student reviewed mistakes from all five cities and selected
+56 training photographs to exclude. With the same two seeds, the mean
+validation score was 50.14\% with all training photographs and 49.26\% after
+excluding the selected photographs. The student then proposed restoring all
+training photographs and masking small random regions during training.
+The mean score for that setting was 49.30\%.
+The student later selected balanced sampling. A paired comparison on the same
+Mac and seed 0 scored 49.51\% with the starter sampling and 50.91\% with
+balanced sampling, an observed increase of 1.40 percentage points.
 
-% ---------------------------------------------------------------------------
-\section*{Track A}
+The report covers eight full Track A training runs across the recorded CUDA
+and MPS conditions and three full Track B training runs. The first Track B model scored 48.95\% in its
+training-time validation. A subsequent paired comparison used the same MPS
+device and seed 0, with and without seven photographs supplied by the student.
+The scores were 48.61\% and 48.74\%, an observed increase of 0.13 percentage
+points. Each of these two conditions was run once.
 
-\begin{center}\footnotesize
-\begin{tabular}{lp{0.6\linewidth}r}
+After training, we performed an optional occlusion analysis on ten validation
+photographs using the final Track B model. The student\textquotesingle{}s question about an
+unexpected prediction change led to an additional comparison of replacement
+colors and blur at the same image coordinates.
+
+\begin{center}\small
+\begin{tabular}{@{}p{0.25\linewidth}p{0.70\linewidth}@{}}
 \toprule
-tag & what changed from the run before & validation \\
+Work & Completed work or recorded status \\
 \midrule
-\multicolumn{3}{l}{\fillin{one row per recipe, with the numbers from experiments.csv}} \\
+Track A baseline & Full training with seeds 0 and 1, followed by model format checks \\
+Photo review & Mistakes from all five cities reviewed, with 56 exclusions selected from 480 training candidates \\
+Track A changes & Exclusion and Random Erasing with two CUDA seeds, followed by balanced sampling and a matched MPS control with seed 0 \\
+Track A release & \texttt{track-a-2}, balanced sampling using the full training selection, selected and checked \\
+Track B experiments & Three full training runs, including a paired comparison of seven additional photographs \\
+Track B release & First model \texttt{track-b-1} selected, with ONNX/CPU revalidation of 48.94\% \\
+Leaderboard & No matching nickname in the snapshot updated at 02:41 KST on 9 November, checked again on 10 November \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\fillin{What you tried, why, and what you think each result means.}
+\section{Data and Track A training conditions}
 
-\fillin{Your final recipe and selection, and their leaderboard score next to
-their validation score.}
+The baseline used all starter training photographs. The following training
+counts come from the baseline \texttt{result.json}, and the validation counts
+are row totals of the saved confusion matrices. Counts for the exclusion
+condition are reported with that experiment.
 
-% ---------------------------------------------------------------------------
-\section*{Decisions you made from photos}
+\begin{center}\small
+\begin{tabular}{lrr}
+\toprule
+City & Training photographs & Validation photographs \\
+\midrule
+Seoul & 11,274 & 2,435 \\
+Busan & 5,191 & 1,390 \\
+Tokyo & 13,347 & 3,881 \\
+Osaka & 7,200 & 2,128 \\
+Taipei & 7,245 & 2,243 \\
+\midrule
+Total & 44,257 & 12,077 \\
+\bottomrule
+\end{tabular}
+\end{center}
 
+The model was ResNet18 initialized with ImageNet pretrained weights, with an
+input size of 224 $\times$ 224. Batch size 64 and 3,906 training steps resulted
+in 249,984 photograph presentations per run. All eight full Track A result files
+recorded \texttt{official\_budget=true}.
+
+The starter recipe applies random resized cropping, horizontal flipping, and
+color jitter. The crop area ranges from 0.35 to 1.0 of the original image area.
+Brightness, contrast, and saturation jitter are each 0.2. Training uses AdamW
+with learning rate $3\times10^{-4}$ and weight decay 0.05, together with
+OneCycleLR and label smoothing of 0.1. The recipe is preserved in
+\path{outputs/recipe_snapshot.py}.
+
+Both baseline runs used CUDA. The recipe and photo selection were identical,
+and the seed changed from 0 to 1. Both recipe hashes begin with
+\texttt{17ac485223fa}. The recorded commits were \texttt{a23f9e6} and
+\texttt{0dd327b}, respectively.
+
+The validation score is the mean of the five per-city accuracies. Each city
+therefore contributes equally, despite differences in the number of
+validation photographs.
+
+\section{Baseline results}
+
+\begin{center}\small
+\begin{tabular}{llrr}
+\toprule
+Run tag & Seed & Training time (min) & Validation (\%) \\
+\midrule
+\texttt{baseline} & 0 & 37.3 & 50.44 \\
+\texttt{baseline} & 1 & 36.3 & 49.84 \\
+\midrule
+Two-run mean & & & 50.14 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The recorded training times were 2,238.2 and 2,179.5 seconds. Data preparation,
+validation, and model export required additional time. The per-city scores
+below come from these same validation runs.
+
+\begin{center}\small
+\begin{tabular}{lrr}
+\toprule
+City & Seed 0 accuracy (\%) & Seed 1 accuracy (\%) \\
+\midrule
+Seoul & 57.74 & 56.26 \\
+Busan & 39.42 & 38.42 \\
+Tokyo & 63.85 & 61.40 \\
+Osaka & 36.04 & 38.91 \\
+Taipei & 55.15 & 54.21 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The absolute difference between the two overall scores was 0.60 percentage
+points. This illustrates variation from random choices under the same training
+method. Small improvements should be compared against a baseline using the
+same seed and checked with repeated runs when needed. Two runs provide
+limited information about the full distribution of training variability or
+statistical significance.
+
+Tokyo had the highest accuracy in both runs. Busan and Osaka had lower
+accuracies than the other cities. The agent first presented mistake sheets
+for Busan and Osaka, and the student inspected them and recorded observations.
+
+The Colab check outputs for both ONNX models reported 44.7 MB, 11.17 million
+parameters, and 1.81 billion multiply-adds for a 224 $\times$ 224 input.
+Both printed \texttt{format and limits: OK}. The original outputs are included
+in the appendix.
+
+\section{Photo observations and hypotheses}
+
+\subsection{How the mistake sheets were reviewed}
+
+The command \texttt{curate.py mistakes} applied the seed 0 ONNX model to the
+validation photographs and selected 48 high-confidence mistakes per city.
+The five sheets contain 240 photographs in total. The city in a sheet\textquotesingle{}s name
+is the ground-truth label. The city after the arrow under each photograph is
+the prediction, followed by its softmax output probability.
+
+These sheets focus on high-confidence mistakes. We also examined the complete
+validation confusion matrices saved by \texttt{official.py}. The sheets used
+CPU inference in ONNX Runtime, while the validation score tables use the
+values recorded by the official training code.
+
+\subsection{Similar urban scenes in Busan and Seoul}
+
+The student noticed streetscapes that appeared common to Busan and Seoul.
+During the review on 7 November, the student explained this in the following
+statement, translated from Korean.
+
+\begin{quote}\small
+Without the sea or a maritime feel, I do not think it is easy to tell whether
+a photograph is from Busan or Seoul.
+\end{quote}
+
+An earlier observation pointed to cars parked along a residential street in
+Busan photograph 8. The student hypothesized that ordinary roads and buildings
+shared by the two cities could contribute to confusion.
+
+Of the 48 mistakes on the Busan sheet, 34 were predicted as Seoul. The full
+validation confusion matrices showed the following pattern.
+
+\begin{center}\small
+\begin{tabular}{lrrrr}
+\toprule
+Seed & \shortstack{Busan\\photographs} & \shortstack{Busan\\errors} &
+\shortstack{Predicted\\Seoul} & \shortstack{Seoul share of\\Busan errors (\%)} \\
+\midrule
+0 & 1,390 & 842 & 442 & 52.49 \\
+1 & 1,390 & 856 & 463 & 54.09 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+More than half of the Busan errors in each run were predictions of Seoul.
+The causal role of visual similarity remains a hypothesis for further case
+review and measurement. The student\textquotesingle{}s initial impression about street parking
+in Japanese residential areas also requires a broader set of examples.
+
+\subsection{Utility poles and overhead wires in Busan photograph 48}
+
+The student noticed utility poles and wires in Busan photograph 48 and thought
+their association with Japan might be related to the mistake. Its ground-truth
+label is Busan, and the model predicted Tokyo with output probability 0.85.
+
+Overhead wires also exist in Korea. The Seoul Metropolitan Government\textquotesingle{}s
+published undergrounding plan describes sections where electricity and
+telecommunications lines and poles are to be moved underground. The presence
+of wires should be assessed alongside other visual cues, and their actual
+influence on this prediction requires measurement. The source is listed in
+the references.
+
+\subsection{Similar scenes in Osaka and Tokyo}
+
+The student\textquotesingle{}s initial observations on the Osaka sheet included shrines,
+houses, and residential streets with no visible sidewalks. On 8 November,
+the student explained that Osaka and Tokyo might be confused because both
+are Japanese cities with similar residential and shrine scenes.
+
+Among Osaka errors in the baseline confusion matrices, Tokyo predictions
+accounted for 855/1,361, or approximately 62.82\%, with seed 0, and 783/1,300,
+or approximately 60.23\%, with seed 1. The relationship between the shared
+scenes and these mistakes was recorded as a photo-based hypothesis.
+
+\subsection{Food photographs in Seoul and vehicle photographs in Tokyo}
+
+The student found it difficult to identify the city from Seoul photographs
+4 and 10, which mainly showed food. Subway and road scenes also appeared to
+share features across cities. For Seoul photograph 24, the student suggested
+that reflective paving blocks and an orderly street might evoke Japan.
+National differences in paving materials and the model\textquotesingle{}s actual use of these
+features remained questions for verification.
+
+For Tokyo photographs 4 and 8, the student similarly thought that a vehicle
+close-up could contain few city-specific cues. Subways and busy commercial
+streets could also resemble Osaka. The labels and predictions were checked
+against the sheet CSV files.
+
+\begin{center}\small
+\begin{tabular}{lllr}
+\toprule
+Sheet and number & Ground truth & Prediction & Output probability \\
+\midrule
+Seoul 4 & Seoul & Taipei & 0.96 \\
+Seoul 10 & Seoul & Osaka & 0.91 \\
+Seoul 24 & Seoul & Tokyo & 0.88 \\
+Tokyo 4 & Tokyo & Seoul & 0.96 \\
+Tokyo 8 & Tokyo & Osaka & 0.95 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Seoul photographs 11 and 46 were checked again after their labels and
+prediction directions were initially misread. Both have Seoul labels, with
+Tokyo and Taipei predictions respectively. The interpretation was corrected
+by distinguishing people\textquotesingle{}s positions on an escalator from the side of the
+road used by vehicles.
+
+\subsection{Cosplay, commercial spaces, and waterfront scenes in Taipei}
+
+The student explained that Taipei\textquotesingle{}s appearance and culture were unfamiliar.
+The cosplay in photograph 41 looked like a Japanese manga character and might
+evoke Tokyo. The crowded commercial spaces in photographs 1 and 33 reminded
+the student of Hongdae and Seongsu in Seoul. Water and waterfront structures
+in photograph 10 suggested a sea and breakwater, which evoked Busan. Simple
+nature photographs also seemed to provide few clues for identifying a city.
+
+\begin{center}\small
+\begin{tabular}{lllr}
+\toprule
+Sheet and number & Ground truth & Prediction & Output probability \\
+\midrule
+Taipei 1 & Taipei & Seoul & 0.96 \\
+Taipei 10 & Taipei & Busan & 0.91 \\
+Taipei 33 & Taipei & Seoul & 0.85 \\
+Taipei 41 & Taipei & Tokyo & 0.83 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The character\textquotesingle{}s identity, the type of waterfront, and the features used by
+the model require further verification. These observations motivated a review
+of photographs with limited city background. The student\textquotesingle{}s original Korean
+observations and the review process are preserved in the lab notebook at the
+end of the report.
+
+\section{Excluding 56 training photographs selected by the student}
+
+\subsection{Selection process and experimental scope}
+
+Following the observations about food in Seoul photographs and vehicles in
+Tokyo photographs, the student first chose to curate training photographs
+with food or vehicle close-ups. The agent applied the baseline seed 0 model
+to every fourth training photograph, a sample of 11,065. Photographs receiving
+a low probability for their ground-truth city were collected into 96
+candidates per city, or 480 in total. Each city had sheets 00 and 01, with
+photographs numbered from 1 to 48 on each sheet.
+
+The student directly selected the numbers listed below. The actual selections
+also included birds, signs, sky, book covers, and flowers. We therefore
+recorded the experiment as curation of the photographs individually selected
+from the candidate sheets. The sheet names, numbers, and paths were retained
+without assigning an inferred reason to each photograph.
+
+\begin{center}\small
+\begin{tabular}{llp{0.56\linewidth}r}
+\toprule
+City & Sheet & Numbers selected by the student & Count \\
+\midrule
+Seoul & 00 & 5, 10, 14, 45 & 4 \\
+Seoul & 01 & 2, 28, 30, 37, 39 & 5 \\
+Busan & 00 & 1, 16, 31, 45 & 4 \\
+Busan & 01 & 4, 24, 29, 38, 40 & 5 \\
+Tokyo & 00 & 4, 11, 16, 19, 28, 34, 42 & 7 \\
+Tokyo & 01 & 1, 3, 8, 10, 11, 15, 16, 21, 27, 33, 37, 42, 48 & 13 \\
+Osaka & 00 & 18, 24, 28, 38, 39 & 5 \\
+Osaka & 01 & 33 & 1 \\
+Taipei & 00 & 2, 14, 30, 39, 41, 45, 46 & 7 \\
+Taipei & 01 & 3, 11, 20, 23, 41 & 5 \\
+\midrule
+Total & & & 56 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The numbers and paths were checked against the sheet CSV files to create
+\texttt{curation\_plan.csv}. Exactly these 56 photographs, approximately
+0.13\% of the training set, were excluded from the full training inventory
+on Colab. The experiment measures the effect of this selection from the
+low-confidence candidate sheets.
+
+\begin{center}\small
+\begin{tabular}{lrrr}
+\toprule
+City & Original training set & Excluded & Retained \\
+\midrule
+Seoul & 11,274 & 9 & 11,265 \\
+Busan & 5,191 & 9 & 5,182 \\
+Tokyo & 13,347 & 20 & 13,327 \\
+Osaka & 7,200 & 6 & 7,194 \\
+Taipei & 7,245 & 12 & 7,233 \\
+\midrule
+Total & 44,257 & 56 & 44,201 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Both runs used the baseline training recipe, with hash prefix
+\texttt{17ac485223fa}. The selection hash prefix was \texttt{9ef44cac68cb}.
+The actual selection, exclusion record, original plan, and hash summary were
+exported from Colab and stored with the result ZIP. Checks covered duplicate
+paths and overlap between retained and excluded photographs. Combining both
+lists reproduced the original training count and inventory hash.
+
+\subsection{Results paired by seed}
+
+\begin{center}\small
+\begin{tabular}{lrrr}
+\toprule
+Run & All photographs (\%) & Exclude 56 (\%) & Change (pp) \\
+\midrule
+Seed 0 & 50.44 & 49.37 & -1.07 \\
+Seed 1 & 49.84 & 49.14 & -0.70 \\
+\midrule
+Two-run mean & 50.14 & 49.26 & -0.89 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Before rounding, the means were 0.5014 and 0.49255. Their difference was
+-0.00885, or -0.885 percentage points. Values were calculated from the saved
+result JSON files and then rounded to two decimal places. Subtracting the
+displayed means can therefore differ in the last digit from the displayed
+change.
+
+\begin{center}\small
+\begin{tabular}{lrrr}
+\toprule
+City & All-photo mean (\%) & Exclude-56 mean (\%) & Change (pp) \\
+\midrule
+Seoul & 57.00 & 57.66 & +0.66 \\
+Busan & 38.92 & 36.59 & -2.34 \\
+Tokyo & 62.63 & 64.49 & +1.86 \\
+Osaka & 37.48 & 36.11 & -1.37 \\
+Taipei & 54.68 & 51.43 & -3.26 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Training took 2,211.8 seconds for seed 0 and 2,220.7 seconds for seed 1,
+approximately 36.9 and 37.0 minutes. Both ONNX models passed the format and
+limit checks. The run commits were \texttt{9cd86e1} and \texttt{a2ac080}.
+
+The overall score decreased with both seeds. Mean accuracy increased for
+Seoul and Tokyo and decreased for Busan, Osaka, and Taipei. The measured
+conclusion concerns this particular set of 56 exclusions, these two seeds,
+and the public validation set. Further experiments would be needed to
+separate individual-photo effects or generalize to other curation rules.
+Changing the selection length also changes the official sampler\textquotesingle{}s random
+presentation order, including when the same seed is used.
+
+\section{Random Erasing proposed by the student}
+
+After reviewing both exclusion runs, the student made the following request,
+translated from Korean.
+
+\begin{quote}\small
+What about using all the photographs and masking some part of each one?
+\end{quote}
+
+After clarification, the student chose to mask small random regions during
+training so that the model could learn from multiple cues. The agent
+implemented the following initial comparison using torchvision\textquotesingle{}s
+\texttt{RandomErasing}.
+
+\begin{center}\small
+\begin{tabular}{@{}p{0.27\linewidth}p{0.68\linewidth}@{}}
+\toprule
+Item & Configuration \\
+\midrule
+Experiment tag & \texttt{erase15} \\
+Training photographs & All 44,257 photographs restored in the original order \\
+Application probability & 0.5 each time a training photograph is presented \\
+Erased area fraction & 0.02 to 0.15 of the transformed image area \\
+Rectangle aspect ratio & 0.3 to 3.3 \\
+Fill RGB & (0.485, 0.456, 0.406), which becomes 0 after ImageNet normalization \\
+Other transformations & Random resized crop with area 0.35 to 1.0, horizontal flip, and color jitter \\
+Comparison & Paired comparisons against the all-photo baseline with seeds 0 and 1 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The student selected the masking approach. The agent chose the probability,
+area range, and other numerical settings for this first comparison. The
+hypothesis was that learning from the remaining city cues after a small
+region was hidden might improve validation performance. The comparison
+restored the baseline\textquotesingle{}s complete training inventory and added the erasing
+augmentation.
+
+Erasing was applied after \texttt{ToTensor}, followed by normalization in the
+official code. With the assignment\textquotesingle{}s PyTorch 2.6.0 and torchvision 0.21.0,
+checks covered recipe rules, actual transformations, the official photo
+loader, and forward and backward passes on synthetic data. The recipe
+snapshot is stored in \path{outputs/erase15_recipe.py}. Full training and
+validation were then completed on Colab with seeds 0 and 1.
+
+\subsection{Measured effect of erasing}
+
+\begin{center}\small
+\begin{tabular}{lrrr}
+\toprule
+Run & Baseline (\%) & Random Erasing (\%) & Change (pp) \\
+\midrule
+Seed 0 & 50.44 & 49.16 & -1.28 \\
+Seed 1 & 49.84 & 49.44 & -0.40 \\
+\midrule
+Two-run mean & 50.14 & 49.30 & -0.84 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}\small
+\begin{tabular}{lrrr}
+\toprule
+City & Baseline mean (\%) & Erasing mean (\%) & Change (pp) \\
+\midrule
+Seoul & 57.00 & 57.09 & +0.09 \\
+Busan & 38.92 & 37.77 & -1.15 \\
+Tokyo & 62.63 & 63.22 & +0.59 \\
+Osaka & 37.48 & 35.20 & -2.28 \\
+Taipei & 54.68 & 53.24 & -1.45 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Each seed used the same training count and inventory order as the baseline,
+with matching batch size, step count, presentation budget, and validation
+photographs. Both runs had recipe hash prefix \texttt{4c2c34345077} and
+all-photo selection hash prefix \texttt{1a1ca6c18823}. The overall and per-city
+scores were recalculated from the saved confusion matrices and checked
+against the original results.
+
+Training took 2,208.3 and 2,207.2 seconds, approximately 36.8 minutes each.
+Both runs used commit \texttt{c6bf059}. They finished at 23:57 KST on
+8 November and 00:37 KST on 9 November 2026. Both ONNX models passed the
+format and limit checks.
+
+Under this probability and area range, the overall score decreased with both
+seeds. Mean accuracy increased for Seoul and Tokyo and decreased for Busan,
+Osaka, and Taipei. The comparison measures the performance of this particular
+configuration. Establishing which cues the model used, or the cause of the
+decrease, requires additional analysis. Further student interpretations can
+be recorded separately from these numerical comparisons.
+
+\subsection{Comparison of the initial CUDA conditions}
+
+\begin{center}\small
+\begin{tabular}{p{0.44\linewidth}rrr}
+\toprule
+Condition & Seed 0 (\%) & Seed 1 (\%) & Mean (\%) \\
+\midrule
+Baseline recipe, all photographs & 50.44 & 49.84 & 50.14 \\
+Student-selected 56-photo exclusion & 49.37 & 49.14 & 49.26 \\
+All photographs with Random Erasing & 49.16 & 49.44 & 49.30 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The baseline recipe had the highest two-seed mean among the three measured
+conditions. The exclusion and erasing runs are retained as measurements of
+the respective changes under their recorded settings.
+
+\section{Balanced sampling with a matched local control}
+\label{sec:balanced}
+
+\subsection{Choice and implementation}
+
+After seeing balanced sampling among other participants\textquotesingle{}
+settings, the student explicitly selected it as the next experiment.
+The agent explained the training imbalance and the scoring rule. Tokyo has
+13,347 training photographs and Busan has 5,191, so their shares in the
+starter selection are approximately 30.16\% and 11.73\%. The validation
+metric gives each of the five cities the same weight.
+
+The new recipe gives each photograph a sampling weight of one divided by
+the number of selected photographs from its city. The weights within every
+city sum to one, giving every city a sampling probability of 20\%.
+The official weighted sampler draws with replacement. The full original
+selection of 44,257 paths and its order were retained.
+
+The following counts were calculated by the official sampler using seed 0
+and the full budget. The total in each column is 249,984 presentations.
+They show how the experiment redistributed a fixed amount of training.
+
+\begin{center}\small
+\begin{tabular}{lrr}
+\toprule
+City & Starter sampling & Balanced sampling \\
+\midrule
+Seoul & 63,646 & 50,153 \\
+Busan & 29,328 & 49,745 \\
+Tokyo & 75,426 & 50,023 \\
+Osaka & 40,670 & 49,939 \\
+Taipei & 40,914 & 50,124 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Every selected photograph appeared at least once with starter sampling.
+With weighted sampling and replacement, 43,818 distinct photographs appeared
+at least once. These counts describe the actual draws from the full selection.
+
+\subsection{Local execution and controlled comparison}
+
+The first MPS smoke check failed during backward computation with a tensor
+stride/view error. Converting the MPS input batch to contiguous memory in
+\texttt{recipe.mix} allowed the official training, validation, and ONNX
+export to complete. This operation preserves the input values and labels.
+Both local conditions used this same compatibility adjustment.
+The official training, rules, export, and submission-check source files
+and the pinned package versions were preserved.
+
+Both conditions used the same MPS device, seed 0, worker count 0, 224
+$\times$ 224 inputs, batch size 64, 3,906 steps, and 249,984 presentations.
+Cropping, flipping, color jitter, AdamW, OneCycleLR, and label smoothing
+were the same. The official MPS path used float32. The earlier CUDA runs
+used mixed precision, which is one reason to measure a fresh local control.
+
+The control recipe was committed as \texttt{a108f5c}, with recipe hash
+\texttt{7c1cb9f0ee41}. The balanced recipe was committed as \texttt{bb6bc15},
+with recipe hash \texttt{e7500546f0a5}. Both recorded the full-selection
+hash \texttt{1a1ca6c18823}. Saved snapshots matched their recorded commits,
+and each result was checked against its experiment CSV row and confusion
+matrix. Both conditions and the exact final recipe passed official smoke
+checks. Smoke checks are recorded separately from full-budget training.
+
+\begin{center}\small
+\begin{tabular}{llrr}
+\toprule
+Run tag & Seed & Training time (min) & Validation (\%) \\
+\midrule
+\texttt{baseline\_mps} & 0 & 47.2 & 49.51 \\
+\texttt{balanced} & 0 & 48.0 & 50.91 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Training took 2,829.9 and 2,881.0 seconds, respectively, with validation and
+export taking additional time. Both runs satisfied the official budget.
+
+\subsection{Results and the student\textquotesingle{}s interpretation}
+
+\begin{center}\small
+\begin{tabular}{lrrr}
+\toprule
+City & Control (\%) & Balanced (\%) & Difference (pp) \\
+\midrule
+Seoul & 57.41 & 51.33 & -6.08 \\
+Busan & 39.57 & 46.62 & +7.05 \\
+Tokyo & 61.63 & 50.01 & -11.62 \\
+Osaka & 35.81 & 44.97 & +9.16 \\
+Taipei & 53.14 & 61.61 & +8.47 \\
+\midrule
+Mean over cities & 49.51 & 50.91 & +1.40 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Busan, Osaka, and Taipei increased, while Seoul and Tokyo decreased.
+The increases outweighed the decreases in the equally weighted city mean.
+After the agent explained the method and the score calculation, the student
+interpreted the Busan increase as more frequent exposure giving the model
+more opportunities to learn characteristics of Busan. The observed increase
+from 39.57\% to 46.62\% is consistent with that interpretation. Identifying
+the particular visual characteristics used requires further evidence.
+
+This experiment shows that changing how frequently the existing photographs
+are sampled can affect the measured score, with gains and losses differing
+by city. Each local condition was run once with seed 0. The improvement
+of 1.40 percentage points describes this matched pair, and repeated-seed
+variability for balanced sampling remains unmeasured. The original CUDA
+baseline mean of 50.14\% remains a separate two-seed result.
+
+The agent selected balanced sampling for final Track A release
+\texttt{track-a-2}, based on its higher score in the matched local comparison.
+The recipe and full selection were released together. The appendix contains
+the sampling audit, original run logs, and comparison evidence.
+
+\section{Track B experiments and submission}
+
+\subsection{First model training and release}
+
+After reviewing the erasing results, the student selected preparation of the
+first Track B submission as the next step. The experiment \texttt{b\_baseline}
+used the provided \texttt{src/train\_b.py}, with ResNet18 initialized from
+ImageNet-1k V1, 224 $\times$ 224 inputs, all starter training photographs,
+and four epochs. The default configuration used batch size 64, AdamW with
+learning rate 0.0003 and weight decay 0.05, OneCycleLR, and label smoothing 0.1.
+
+This script trains independently of the Track A recipe and evaluates the
+full starter validation set. The first run used the provided script as
+supplied. It had no seed-setting argument, so the experiment record has an
+empty seed field. This difference is relevant when comparing later runs.
+The run presented 176,896 photographs and recorded 1,637.1 seconds of
+training, approximately 27.3 minutes. It ran on CUDA from commit
+\texttt{50530fc} and finished at 01:14 KST on 9 November.
+
+\begin{center}\small
+\begin{tabular}{lr}
+\toprule
+City & Validation accuracy (\%) \\
+\midrule
+Seoul & 55.40 \\
+Busan & 37.55 \\
+Tokyo & 63.77 \\
+Osaka & 34.87 \\
+Taipei & 53.14 \\
+\midrule
+Mean across cities & 48.95 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The \texttt{--submit} option generated \path{submission/model.onnx} and
+\path{submission/submission.json}. The model passed the official format and
+Track B size-limit checks on Colab and locally. Local measurements were
+11,174,283 parameters, 1.813563904 GMACs, and 44.707595 MB, with ONNX opset 17.
+CPU inference at batch sizes 1 and 3 returned five finite logits for each
+photograph. The validation score above is the value recorded during Colab
+training.
+
+The release \texttt{track-b-1} was published at 01:22:42 KST on 9 November.
+Its title was \texttt{Starter ResNet18 at 224, 4 epochs}. Release publication,
+both completed asset uploads, and the agreement between the GitHub asset
+SHA-256 values and the checked files were verified. The release commit was
+\texttt{d4f7ce3}, and the training commit was \texttt{50530fc}. Full hashes and
+asset sizes are retained in the appendix evidence and release-query JSON.
+
+\subsection{Scope and preparation of the student\textquotesingle{}s additional photographs}
+
+The student said that Seoul and Busan photographs were available in Downloads.
+When the agent initially proposed processing all IMG photographs, the student
+restricted the scope to files downloaded that day. Finder\textquotesingle{}s date-added
+metadata, converted to Korean time, identified seven files added at
+01:27:30 KST on 9 November. The student confirmed that
+\texttt{IMG\_0549.HEIC} was Seoul and the other six photographs were Busan.
+
+\begin{center}\small
+\begin{tabular}{llr}
+\toprule
+City & Original photograph numbers & Count \\
+\midrule
+Seoul & 0549 & 1 \\
+Busan & 0237, 0240, 0276, 0286, 1403, 1413 & 6 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The HEIC images were converted into orientation-corrected RGB copies with
+512 pixels on the shorter side. The provided photo-preparation code saved
+city-organized JPEGs, and checks confirmed empty EXIF metadata. All seven
+files had distinct file hashes and decoded-pixel hashes. The SHA-256 of each
+copy was recorded in a manifest. The collection scope was the student\textquotesingle{}s one
+Seoul photograph and six Busan photographs supplied on 9 November.
+
+Because the first Track B run had an unspecified seed, the agent added an
+optional \texttt{--seed} argument for the data comparison. Both new conditions
+used seed 0, ImageNet V1 ResNet18, 224 $\times$ 224 inputs, four epochs, and
+batch size 64. They used 44,257 and 44,264 training photographs, respectively.
+Both yielded 691 complete batches per epoch and 176,896 photograph
+presentations per run.
+
+A photo-inventory check verified file paths and hashes before training.
+Synthetic-data checks covered repeatability with seed 0, experiment recording,
+and compatibility with the original unspecified-seed behavior. Both full
+runs also passed the exact seven-file inventory and hash checks before
+training began.
+
+\subsection{Paired local comparison on the Mac}
+
+Colab\textquotesingle{}s GPU usage limit prevented a new GPU connection, so the work moved to
+the student\textquotesingle{}s Mac at the student\textquotesingle{}s request. The environment was an Apple
+M1 Pro with 16 GiB memory and macOS 15.6, running PyTorch 2.6.0 and torchvision
+0.21.0 with MPS operations verified. The 44,257 starter training photographs
+and 12,077 validation photographs were copied into the local working folder.
+The training paths and order matched the existing all-photo selection.
+
+Both conditions ran the same \texttt{src/train\_b.py} with seed 0 and zero
+loader workers. They used ImageNet V1 ResNet18, 224 $\times$ 224 inputs, four
+epochs, batch size 64, AdamW, OneCycleLR, and the original training
+augmentations. Both full runs used commit \texttt{500ed72}.
+
+An initial short check with two workers was delayed during process shutdown
+after saving its outputs. With zero workers, training, export, checking, and
+normal shutdown were verified before full training began. These short checks
+were recorded separately from the eleven full experiments.
+
+The control tag was \path{b_control_seed0}, and the added-photo tag was
+\path{b_own_sb_seed0}. Seoul training photographs increased from 11,274 to
+11,275, and Busan photographs from 5,191 to 5,197. The other three cities
+and the validation set had the same inventories in both conditions.
+
+\begin{center}\small
+\begin{tabular}{p{0.30\linewidth}rrr}
+\toprule
+Condition & \shortstack{Training\\photographs} &
+\shortstack{Photograph\\presentations} & \shortstack{Validation\\(\%)} \\
+\midrule
+Starter photographs & 44,257 & 176,896 & 48.61 \\
+Add 7 photos & 44,264 & 176,896 & 48.74 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The recorded training times were 2,091.5 seconds, approximately 34.9 minutes,
+for the control and 2,098.4 seconds, approximately 35.0 minutes, for the
+added-photo condition. Validation and ONNX export took additional time.
+The runs finished at 03:16:31 and 03:52:58 KST on 9 November, respectively.
+
+\subsection{Added-photo results and interpretation}
+
+\begin{center}\small
+\begin{tabular}{lrrr}
+\toprule
+City & Starter photos (\%) & Add seven (\%) & Change (pp) \\
+\midrule
+Seoul & 61.44 & 56.34 & -5.10 \\
+Busan & 36.91 & 37.19 & +0.28 \\
+Tokyo & 59.86 & 61.63 & +1.77 \\
+Osaka & 34.02 & 35.43 & +1.41 \\
+Taipei & 50.82 & 53.10 & +2.28 \\
+\midrule
+Mean across cities & 48.61 & 48.74 & +0.13 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+These figures use the scores stored to four decimal places in
+\texttt{experiments.csv}. Among the cities receiving additional photographs,
+Seoul accuracy decreased and Busan accuracy increased slightly. Tokyo, Osaka,
+and Taipei accuracies also changed. The overall observed increase was
+0.13 percentage points. One run per condition at one seed provides limited
+information about persistent improvement and training variability.
+
+Adding photographs changes the dataset length and shuffled order. Connecting
+each per-city change directly to an individual added photograph requires
+further verification. The appropriate control for this paired data experiment
+is the 48.61\% result from the same device and seed. A comparison with the
+first Colab model\textquotesingle{}s 48.95\% also includes device and seed-setting differences.
+
+The seven photographs represent approximately 0.016\% of the starter training
+set. Generalizing from this small addition to the effect of collecting many
+more photographs requires experiments with greater numbers and diversity.
+The numerical comparisons and limitations in this section are the agent\textquotesingle{}s
+analysis of the records. Additional student interpretations can be recorded
+with their authorship identified.
+
+Both ONNX models passed the official Track B format and limit checks. Each
+had 11,174,283 parameters, 1.813563904 GMACs, a file size of 44,707,595 bytes,
+and opset 17. Full ONNX checking and CPU inference at batch sizes 1 and 3
+also confirmed five finite outputs per photograph.
+
+Each model and its metadata were stored in a separate result folder. The
+queued \texttt{--submit} command initially placed the seven-photo model in
+the local \texttt{submission/} folder after training. The final submission
+review subsequently selected the first model and restored that model to
+the submission folder. Model hashes, original run outputs, and check results
+are included in the appendix evidence.
+
+\section{Post-training occlusion analysis and interpretation checks}
+
+\subsection{Case selection and measurement}
+
+The student requested an optional analysis of which image regions affected
+the model\textquotesingle{}s outputs. We used the ONNX model in the final selected release
+\texttt{track-b-1}. The agent shuffled each city\textquotesingle{}s validation list with seed
+0 and evaluated the first 32 photographs per city, 160 in total. In that
+order, the first correctly classified and first incorrectly classified
+photograph from each city were selected, producing ten cases. This sampling
+supports a comparison of correct and incorrect cases. Overall accuracy is
+reported from the full validation set.
+
+The official \texttt{rules.grader\_input} produced a 224 $\times$ 224 center
+crop. Each input was partitioned into 49 non-overlapping 32 $\times$ 32
+regions. One region at a time was filled with RGB (0.5, 0.5, 0.5), followed
+by inference. For each photograph, the original predicted city was fixed as
+the target, and we measured the change in that target\textquotesingle{}s logit after masking.
+A logit is the output score before conversion to a softmax probability.
+
+Red indicates a decrease in the original predicted city\textquotesingle{}s logit after
+masking, and blue indicates an increase. All ten heatmaps use the same color
+scale. The probability columns below also refer to the original predicted
+city.
+
+\begin{center}\small
+\begin{tabular}{lllrrr}
+\toprule
+City & Original case & \shortstack{Original\\prediction} &
+\shortstack{Original\\prob. (\%)} & \shortstack{Masked\\prob. (\%)} &
+\shortstack{Prediction\\changes /49} \\
+\midrule
+Seoul & Correct & Seoul & 65.0 & 42.9 & 1 \\
+Seoul & Incorrect & Busan & 55.1 & 41.1 & 0 \\
+Busan & Correct & Busan & 40.6 & 31.1 & 1 \\
+Busan & Incorrect & Tokyo & 34.9 & 29.0 & 9 \\
+Tokyo & Correct & Tokyo & 85.1 & 78.4 & 0 \\
+Tokyo & Incorrect & Seoul & 64.8 & 48.7 & 0 \\
+Osaka & Correct & Osaka & 93.0 & 90.6 & 0 \\
+Osaka & Incorrect & Tokyo & 45.4 & 32.2 & 4 \\
+Taipei & Correct & Taipei & 39.0 & 28.4 & 0 \\
+Taipei & Incorrect & Seoul & 55.5 & 38.1 & 0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The masked probability is measured at the region giving the largest decrease
+in the original predicted city\textquotesingle{}s logit. The final column counts how many of
+the 49 masks changed the predicted city. Maximum logit decrease and a change
+in the final predicted city were recorded as separate measures.
+
+Across 490 masked inputs, 15 predictions changed, occurring in four of the
+ten photographs. One mask changed each of the correctly classified Seoul
+and Busan cases to an incorrect prediction. Four masks changed the
+incorrect Osaka case to the correct city, Osaka.
+
+The numerical results, original logits, case list, analysis code, and figures
+were retained. Checks covered the fixed original target, complete input
+coverage by the 49 regions, model and photograph hashes, and agreement
+between the stored arrays and CSV files.
+
+\subsection{The student\textquotesingle{}s question and replacement controls}
+
+In the incorrectly classified Osaka photograph, masking a sky region changed
+the prediction to Osaka. The student questioned this result in the following
+statement, translated from Korean.
+
+\begin{quote}\small
+Masking a completely unexpected area changes the prediction, so I really do
+not understand why.
+\end{quote}
+
+In response, we compared different replacement methods in the same photograph
+at the same coordinates. The region was \texttt{x [64,96)} and
+\texttt{y [96,128)} in the model input crop. The conditions included the mean
+color of the original sky patch, Gaussian blur with radius 8 pixels applied
+only to that patch, and grayscale fills at different brightness levels.
+
+\begin{center}\small
+\begin{tabular}{lrrl}
+\toprule
+Replacement & Tokyo prob. (\%) & Osaka prob. (\%) & Prediction \\
+\midrule
+Original & 45.4 & 19.9 & Tokyo \\
+Middle gray 0.50 & 32.2 & 34.7 & Osaka \\
+Original sky patch mean & 43.8 & 21.2 & Tokyo \\
+Blur, radius 8 pixels & 45.6 & 19.9 & Tokyo \\
+Dark gray 0.25 & 36.1 & 29.9 & Tokyo \\
+Light gray 0.75 & 32.5 & 36.8 & Osaka \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The predicted city depended on how the same sky region was replaced. The
+initial gray-mask result combined a change to the original information with
+the introduction of a new patch color and boundary. This case demonstrates
+output sensitivity to particular masking conditions. Interpreting semantic
+or cultural city cues requires considering this dependence on the analysis
+method. We also consulted Section 4.3 of Fong and Vedaldi\textquotesingle{}s ICCV 2017 paper,
+which discusses artifacts introduced by sharp color contrasts from constant
+perturbations.
+
+This diagnostic changed the inputs to a completed model. Its case-level
+outputs and replacement controls are stored separately from the eleven full
+training experiments. The report distinguishes training changes, diagnostic
+input changes, observed output sensitivity, and hypotheses about semantic
+causes.
+
+\section{Conclusions from the measurements and further work}
+
+Among the three initial CUDA Track A conditions, the highest mean validation score was
+50.14\%, obtained with the baseline recipe and all training photographs.
+The student\textquotesingle{}s 56-photo exclusion scored 49.26\%, and the student-proposed
+erasing experiment scored 49.30\%. Both changes scored lower than the
+baseline with the same two seeds. These conclusions apply to the particular
+selection and augmentation settings tested.
+
+The later matched MPS comparison improved from 49.51\% with starter sampling
+to 50.91\% with balanced sampling. Redistributing training appearances
+increased accuracy for Busan, Osaka, and Taipei and reduced it for Seoul and
+Tokyo. The student interpreted more frequent exposure as giving the model
+more opportunities to learn Busan characteristics. The measured score
+improvement applies to the one completed seed-0 pair. Balanced sampling
+was selected for the final Track A release.
+
+Photographs that seem difficult for a person to identify can still affect
+training. The intended benefit of encouraging multiple cues through
+augmentation also required measurement. Further analysis is needed to
+identify the specific causes of the decreases and the model\textquotesingle{}s use of visual
+features. The post-training diagnostic demonstrated sensitivity both to
+which region was masked and to how it was replaced, illustrating the
+importance of the analysis conditions when interpreting a model.
+
+In Track B, the student\textquotesingle{}s decision to supply one Seoul photograph and six
+Busan photographs was evaluated against a control on the same MPS device
+and seed. The observed change was +0.13 percentage points. Repeated
+measurements are needed to interpret this small difference from a single
+pair of runs. Final model selection considered the scores, their measurement
+conditions, and the first model that had already been released. The agent
+selected the condition with the highest recorded validation score among the
+available runs.
+
+With one more week, the agent would propose additional seeds under matching
+conditions and a larger, more varied collection of street, residential,
+and transport scenes from each city. Gradually increasing the collection
+would allow a comparison of the effect of data quantity. The 56-photo
+exclusion could also be divided into more specific reason-based groups to
+investigate which groups relate to score changes. Specific choices of
+additional collection and experiments would be made by the student and
+recorded with their rationale.
+
+\section{Final submission and validation checks}
+
+Across eleven full training runs, the agent selected balanced sampling for
+Track A and the first ResNet18 model for Track B. The comparisons and their
+measurement limitations are discussed above.
+
+\subsection{Validation and leaderboard scores}
+
+\begin{center}\small
+\begin{tabular}{llrl}
+\toprule
+Track & Final release & Validation (\%) & Leaderboard \\
+\midrule
+A & \texttt{track-a-2} & 50.91, MPS seed 0 & Pending \\
+B & \texttt{track-b-1} & 48.94, ONNX/CPU & Pending \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+At 03:07:11 KST on 10 November, the retrieved leaderboard still showed its
+02:41 KST update from 9 November. Neither track contained \texttt{SoSleepy}.
+Scores remain pending, as recorded in
+\path{outputs/leaderboard_status.json}.
+
+The leaderboard uses YouTube street-video frames from sources separate from
+starter validation. Its Track A result averages seeds 0, 1, and 2, while
+our final balanced result uses MPS seed 0. Source, scene, and execution
+differences can affect the scores. A numerical comparison awaits the
+leaderboard results.
+
+\subsection{Submission file checks}
+
+The final Track A recipe passed official rules and the 20-step MPS
+\texttt{--quick} check, including validation and export. The 44,257-photo
+selection retained all original paths and their order. The downloaded
+release files matched the checked local files.
+
+The Track B ONNX file passed official format and size-limit checks.
+CUDA validation was 48.95\%, and ONNX/CPU revalidation on all 12,077
+photographs was 0.48942471513433666, or 48.94\%. Every final local file
+matched its published asset SHA-256. The appendix includes the evidence.
+
+\section*{References}
+\begin{enumerate}\footnotesize
+\item \href{https://github.com/jdasam/mas1004-assignment2}{Assignment README and official training code, GitHub}.
+\item \href{https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-a-2}{Student repository, final Track A release}.
+\item \href{https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-b-1}{Student repository, first Track B release selected for final submission}.
+\item \href{https://jdasam.github.io/mas1004-leaderboard/board.json}{Public leaderboard data}.
+\item \href{https://news.seoul.go.kr/safe/archives/515090}{Seoul Metropolitan Government, overhead-line undergrounding plan update, 28 October 2024}.
+\item \href{https://docs.pytorch.org/vision/0.21/generated/torchvision.transforms.RandomErasing.html}{torchvision 0.21 documentation for RandomErasing}.
+\item \href{https://captum.ai/api/occlusion.html}{Captum documentation for Occlusion}.
+\item \href{https://robots.ox.ac.uk/~vedaldi/assets/pubs/fong17interpretable.pdf}{Fong and Vedaldi, Interpretable Explanations of Black Boxes by Meaningful Perturbation, ICCV 2017}.
+\end{enumerate}
+
+\clearpage
+\appendix
+\section{Photo review material}
+
+\begin{figure}[htbp]
+\centering
 \picturefile{figures/mistakes_baseline_seed0_busan_00.png}
+\caption{Forty-eight high-confidence mistakes among photographs labeled Busan
+under the seed 0 model. Predictions and output probabilities appear below
+the photographs. The student specifically identified roadside parking in
+photograph 8 and utility poles and wires in photograph 48.}
+\end{figure}
 
-\fillin{What you looked at, what you saw in common, and the rule you wrote
-before acting.}
+\clearpage
+\begin{figure}[htbp]
+\centering
+\picturefile{figures/mistakes_baseline_seed0_osaka_00.png}
+\caption{Forty-eight high-confidence mistakes among photographs labeled Osaka
+under the seed 0 model. The student\textquotesingle{}s initial observations concerned shrines,
+houses, and residential streets with no visible sidewalks.}
+\end{figure}
 
-\fillin{What you changed (the output of curate.py count, or the photos you
-added), and the scores before and after.}
+\clearpage
+\section{Occlusion analysis figures}
 
-\fillin{The requests you gave your agent for these decisions.}
+\begin{figure}[!ht]
+\centering
+\picturefile{figures/occlusion_report_examples.png}
+\caption{A correctly classified Seoul case and an incorrectly classified
+Osaka case. The original predicted city is fixed as the target. Black
+outlines indicate the regions with the largest target-logit decrease.
+Red indicates a logit decrease after masking and blue an increase.
+All ten cases use the same color scale.}
+\end{figure}
 
-% ---------------------------------------------------------------------------
-\section*{Track B}
+\clearpage
+\begin{figure}[!ht]
+\centering
+\picturefile{figures/occlusion_report_controls.png}
+\caption{Replacement controls for the same sky region of the incorrectly
+classified Osaka photograph. Middle and light gray produced Osaka
+predictions. The original sky patch mean and blur produced Tokyo predictions.
+This case demonstrates output sensitivity to the replacement method.}
+\end{figure}
 
-\fillin{What you tried, one step at a time, and the validation score after
-each step.}
+\clearpage
+\section{Recorded outputs and numerical evidence}
 
-\fillin{How you collected any extra photos.}
+Original machine outputs are reproduced in their recorded form. The evidence
+files support the numerical tables in the main report.
 
-\fillin{Your validation score next to your leaderboard score, and why they
-might disagree.}
-
-\subsection*{Your submission, as the grader sees it}
-\outputfile{outputs/check_submission.txt}
-
-% ---------------------------------------------------------------------------
-\section*{What made the difference}
-
-\fillin{Which change helped most and which least, in both tracks, with your
-numbers.}
-
-\fillin{What you would do next with one more week.}
-
-% ---------------------------------------------------------------------------
-\section*{All runs}
+\subsection*{All full training runs}
 \outputfile{outputs/experiments.csv}
 
-\section*{Lab notebook}
+\subsection*{Original format checks for the six Track A models}
+\outputfile{outputs/1105_155816_check_submission.txt}
+\outputfile{outputs/1105_165326_check_submission.txt}
+\outputfile{outputs/1108_215154_check_submission.txt}
+\outputfile{outputs/1108_223906_check_submission.txt}
+\outputfile{outputs/1108_235701_check_submission.txt}
+\outputfile{outputs/1109_003754_check_submission.txt}
+
+\subsection*{Per-city summary lines from mistake-sheet generation}
+\outputfile{outputs/curate_summary.txt}
+
+\clearpage
+\subsection*{Values calculated from the original baseline results}
+The supplied \texttt{make\_evidence.py} calculated these values from result
+JSON files, sheet CSV files, and the baseline recipe. Input files and full
+run logs are retained in the project\textquotesingle{}s \texttt{outputs/} folder.
+\outputfile{outputs/analysis_summary.txt}
+
+\clearpage
+\subsection*{Evidence for the exclusions and erasing configuration}
+The evidence script used four full training results, the selection lists,
+the candidate CSV files, and the new recipe.
+
+Selected training paths are recorded in the following file.
+\par\path{outputs/curated56_selection.csv}\par
+The exclusion plan is recorded in the following file.
+\par\path{outputs/curated56_curation_plan.csv}\par
+\outputfile{outputs/curation_analysis.txt}
+
+\clearpage
+\subsection*{Erasing results and comparison of the three conditions}
+These values were calculated from the six original Track A results, run
+records, recipes, and full-photo selection.
+\outputfile{outputs/erasing_analysis.txt}
+
+\clearpage
+\subsection*{Original first Track B training and format-check outputs}
+\outputfile{outputs/1109_004557_train_b_b_baseline.txt}
+\outputfile{outputs/1109_011454_check_submission.txt}
+
+\subsection*{Track B records and public release verification}
+This summary was calculated from the Colab experiment row, submission
+metadata, local measurements, and public release and tag query results.
+\outputfile{outputs/track_b_analysis.txt}
+
+\clearpage
+\subsection*{Student-photo preparation and paired-comparison evidence}
+This summary used the date metadata of the files supplied on 9 November,
+the city labels confirmed by the student, the actual prepared inventory,
+and local verification results. Both paired full training runs were completed.
+\outputfile{outputs/personal_photo_analysis.txt}
+
+\clearpage
+\subsection*{Original local MPS training and format-check output}
+\outputfile{outputs/local_training_mps_20261109.log}
+
+\subsection*{MPS scores and verification evidence}
+This summary cross-checked the two experiment CSV rows, comparison result
+JSON, both submission metadata files, actual run log, and photo-inventory
+checks. The original JSON is retained in
+\path{outputs/local_mps_comparison_seed0.json}.
+\outputfile{outputs/local_mps_analysis.txt}
+
+\clearpage
+\subsection*{Submission checks and selection recorded on 9 November}
+These checks preceded the balanced-sampling release. The earlier MPS
+smoke-check error is retained in
+\path{outputs/final_track_a_quick_mps_failed.txt}.
+\outputfile{outputs/final_track_a_quick.txt}
+\outputfile{outputs/final_track_b_check.txt}
+\outputfile{outputs/final_selection_analysis.txt}
+
+\clearpage
+\subsection*{Balanced sampling, matched local comparison, and final release}
+\outputfile{outputs/balanced_comparison.txt}
+\outputfile{outputs/balanced_sampling_audit.txt}
+\outputfile{outputs/baseline_mps_training.txt}
+\outputfile{outputs/balanced_training.txt}
+\outputfile{outputs/balanced_final_quick.txt}
+\outputfile{outputs/balanced_release_verification.txt}
+
+\clearpage
+\subsection*{Occlusion measurements and replacement-control evidence}
+This summary cross-checked the analysis JSON, case-level and region-level
+CSV files, and original logit arrays. The original arrays are retained in
+\path{outputs/occlusion_raw_outputs.npz}.
+\outputfile{outputs/occlusion_analysis.txt}
+
+\clearpage
+\section{Lab notebook in its original language}
+
+The complete dated entries of \texttt{LOG.md} are reproduced below in their
+original language, including the student\textquotesingle{}s Korean statements. English
+translations of the relevant observations appear in the main report.
+The original file including template guidance is retained in
+\path{outputs/LOG_original.md}.
 \outputfile{outputs/LOG.md}
 
 \end{document}

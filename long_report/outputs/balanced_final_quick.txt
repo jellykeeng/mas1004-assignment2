@@ -1,0 +1,18 @@
+warning: Using incompatible environment (`.venv`) due to `--no-sync` (The project environment's Python interpreter does not meet the Python preference: `only managed`)
+Track A, seed 0, on mps: selection.csv, 44257 rows (seoul 11274, busan 5191, tokyo 13347, osaka 7200, taipei 7245)
+20 steps of 64 photos = 1,280 photos through the network
+  step     2/20  loss 1.776  (2s)
+  step     4/20  loss 1.672  (3s)
+  step     6/20  loss 1.658  (5s)
+  step     8/20  loss 1.640  (6s)
+  step    10/20  loss 1.735  (7s)
+  step    12/20  loss 1.551  (9s)
+  step    14/20  loss 1.516  (10s)
+  step    16/20  loss 1.620  (12s)
+  step    18/20  loss 1.630  (13s)
+  step    20/20  loss 1.549  (14s)
+
+validation score 0.208  (seoul 0.146, busan 0.217, tokyo 0.292, osaka 0.171, taipei 0.211)
+training took 0.2 min; wrote results/balanced_20261110_checks/quick_mps_release/balanced_release_quick_seed0/model.onnx
+This was not an official run (--quick or a different --budget). The grader's numbers will differ.
+A full run on this computer (mps) would take about 49 minutes: 47 for training and 2 for the validation photos.

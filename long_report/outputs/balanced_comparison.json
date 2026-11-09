@@ -1,0 +1,159 @@
+{
+  "comparison": "same MPS device, seed 0, full original selection, equal budget and shared MPS input-layout workaround",
+  "control": {
+    "track": "A",
+    "tag": "baseline_mps",
+    "seed": 0,
+    "official_budget": true,
+    "budget": 249984,
+    "batch_size": 64,
+    "steps": 3906,
+    "selection": "selection.csv, 44257 rows",
+    "selection_counts": {
+      "seoul": 11274,
+      "busan": 5191,
+      "tokyo": 13347,
+      "osaka": 7200,
+      "taipei": 7245
+    },
+    "device": "mps",
+    "train_seconds": 2829.9,
+    "val_score": 0.4951,
+    "val_per_city": {
+      "seoul": 0.5741,
+      "busan": 0.3957,
+      "tokyo": 0.6163,
+      "osaka": 0.3581,
+      "taipei": 0.5314
+    },
+    "val_confusion": [
+      [
+        1398,
+        163,
+        416,
+        159,
+        299
+      ],
+      [
+        422,
+        550,
+        211,
+        59,
+        148
+      ],
+      [
+        601,
+        86,
+        2392,
+        485,
+        317
+      ],
+      [
+        272,
+        64,
+        858,
+        762,
+        172
+      ],
+      [
+        357,
+        56,
+        496,
+        142,
+        1192
+      ]
+    ],
+    "onnx_gap": 5.960464477539062e-07,
+    "recipe_sha": "7c1cb9f0ee41",
+    "selection_sha": "1a1ca6c18823",
+    "commit": "a108f5c",
+    "finished": "2026-11-10T02:05:41"
+  },
+  "balanced": {
+    "track": "A",
+    "tag": "balanced",
+    "seed": 0,
+    "official_budget": true,
+    "budget": 249984,
+    "batch_size": 64,
+    "steps": 3906,
+    "selection": "selection.csv, 44257 rows",
+    "selection_counts": {
+      "seoul": 11274,
+      "busan": 5191,
+      "tokyo": 13347,
+      "osaka": 7200,
+      "taipei": 7245
+    },
+    "device": "mps",
+    "train_seconds": 2881.0,
+    "val_score": 0.5091,
+    "val_per_city": {
+      "seoul": 0.5133,
+      "busan": 0.4662,
+      "tokyo": 0.5001,
+      "osaka": 0.4497,
+      "taipei": 0.6161
+    },
+    "val_confusion": [
+      [
+        1250,
+        268,
+        304,
+        202,
+        411
+      ],
+      [
+        364,
+        648,
+        122,
+        93,
+        163
+      ],
+      [
+        569,
+        170,
+        1941,
+        687,
+        514
+      ],
+      [
+        256,
+        122,
+        548,
+        957,
+        245
+      ],
+      [
+        314,
+        100,
+        273,
+        174,
+        1382
+      ]
+    ],
+    "onnx_gap": 7.152557373046875e-07,
+    "recipe_sha": "e7500546f0a5",
+    "selection_sha": "1a1ca6c18823",
+    "commit": "bb6bc15",
+    "finished": "2026-11-10T02:59:54"
+  },
+  "delta_percentage_points_from_recorded_scores": 1.4,
+  "per_city_delta_percentage_points": {
+    "seoul": -6.08,
+    "busan": 7.05,
+    "tokyo": -11.62,
+    "osaka": 9.16,
+    "taipei": 8.47
+  },
+  "full_training_run_count": 11,
+  "track_a_full_training_run_count": 8,
+  "track_b_full_training_run_count": 3,
+  "replicates_per_local_condition": 1,
+  "selected_track_a_recipe": "balanced",
+  "selection_basis": "Higher validation score in the matched local comparison. The previous CUDA baseline mean was 50.14 percent and used a different device and precision path.",
+  "selection_sha256": "1a1ca6c1882356b84701446e495973c375535d9d64b3cb3d3397c3dfd640f9e4",
+  "final_recipe_sha256": "e7500546f0a59a23f9bb7757b404c87ff61010c9f3d1b634d6c164a6335ecfe4",
+  "protected_official_sources_unchanged": true,
+  "recipe_rules": "OK"
+}

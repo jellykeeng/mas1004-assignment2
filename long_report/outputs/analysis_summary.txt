@@ -1,0 +1,57 @@
+Report evidence calculated from the saved Colab outputs
+Recipe SHA-256 = 17ac485223fa61741f2c63aeb1c91bc283c88c6b7aaa8f02fdb3e86924ff29c9
+Train photos = 44257
+Validation photos = 12077
+city,train_photos,validation_photos
+seoul,11274,2435
+busan,5191,1390
+tokyo,13347,3881
+osaka,7200,2128
+taipei,7245,2243
+
+seed,score,score_percent,training_seconds,training_minutes,commit
+0,0.5044,50.44,2238.2,37.3,a23f9e6
+1,0.4984,49.84,2179.5,36.3,0dd327b
+Mean score = 0.5014 = 50.14%
+Absolute score difference = 0.0060 = 0.60 percentage points
+batch_size = 64 steps = 3906 presentations = 249984 official_budget = True
+
+city,seed0_percent,seed1_percent
+seoul,57.74,56.26
+busan,39.42,38.42
+tokyo,63.85,61.40
+osaka,36.04,38.91
+taipei,55.15,54.21
+
+seed,busan_total,busan_errors,predicted_seoul,share_of_errors_percent
+0,1390,842,442,52.49
+1,1390,856,463,54.09
+Busan high-confidence mistake sheet photos = 48
+Busan sheet predicted Seoul = 34
+Generated city sheets = 5, photos per city = 48, total displayed photos = 240
+true_city = busan photo_number = 8 prediction = -> seoul 0.94
+true_city = busan photo_number = 48 prediction = -> tokyo 0.85
+true_city = seoul photo_number = 11 prediction = -> tokyo 0.90
+true_city = seoul photo_number = 46 prediction = -> taipei 0.81
+
+Recorded recipe functions
+function = train_transform
+return T.Compose([
+        T.RandomResizedCrop(224, scale=(0.35, 1.0)),
+        T.RandomHorizontalFlip(),
+        T.ColorJitter(0.2, 0.2, 0.2),
+    ])
+function = make_optimizer
+return torch.optim.AdamW(model.parameters(), lr=3e-4, weight_decay=0.05)
+function = make_scheduler
+return torch.optim.lr_scheduler.OneCycleLR(
+        optimizer, max_lr=3e-4, total_steps=total_steps, pct_start=0.15)
+function = loss_fn
+return F.cross_entropy(logits, targets, label_smoothing=0.1)
+
+Leaderboard updated = 2026-11-09 02:41 KST
+SoSleepy leaderboard matches = {'A': [], 'B': []}
+SoSleepy total matching entries = 0
+Track A release = track-a-1
+Track A release published = 2026-11-03 14:58:45 KST
+Track B release = track-b-1

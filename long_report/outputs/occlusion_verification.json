@@ -1,0 +1,17 @@
+{
+  "cases": 10,
+  "masks": 490,
+  "fixed_target_validated": true,
+  "grid_covers_every_input_pixel_once": true,
+  "source_and_model_hashes_match": true,
+  "first_correct_incorrect_selection_verified": true,
+  "toy_test_covers_prediction_change": true,
+  "prediction_changes": 15,
+  "cases_with_prediction_change": 4,
+  "analysis_source_sha256": "d9d391ae9518e914c1c4793a35b834263730375cce18eef4e6cc03142e63ce25",
+  "render_source_sha256": "293aefa297b14c9f9deafe7edc010cbcf8eac221bcd89f80a472e6efd492033b",
+  "matplotlib_version": "3.11.2",
+  "all_10_detailed_figures_visually_checked": true,
+  "same_patch_replacement_control_conditions": 6,
+  "replacement_control_model_hash_verified": true
+}

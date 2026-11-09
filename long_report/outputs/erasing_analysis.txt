@@ -1,0 +1,17 @@
+Random Erasing evidence from the completed Colab runs
+seed,baseline_percent,erase15_percent,delta_pp,train_seconds,finished,commit
+0,50.44,49.16,-1.28,2208.3,2026-11-08T23:57:00,c6bf059
+1,49.84,49.44,-0.40,2207.2,2026-11-09T00:37:52,c6bf059
+city,baseline_mean_percent,erase15_mean_percent,delta_pp
+seoul,57.00,57.09,0.09
+busan,38.92,37.77,-1.15
+tokyo,62.63,63.22,0.59
+osaka,37.48,35.20,-2.28
+taipei,54.68,53.24,-1.45
+tag,seed0_percent,seed1_percent,mean_percent,delta_from_baseline_pp
+baseline,50.44,49.84,50.14,0.00
+curated56,49.37,49.14,49.26,-0.89
+erase15,49.16,49.44,49.30,-0.84
+Erasing recipe SHA-256 = 4c2c343450775b1250263dc042874317484e9eb9b4262ecbd11c2c28d7fd9b01
+Full selection SHA-256 = 1a1ca6c1882356b84701446e495973c375535d9d64b3cb3d3397c3dfd640f9e4
+The six Track A full runs are shown above. Track B is reported separately.

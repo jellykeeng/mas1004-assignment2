@@ -1,0 +1,9 @@
+$ python src/curate.py count
+# commit 2b1c37e
+city      selected     of   by source
+seoul        11274  11274   commons 6770, osv5m 320, youtube 4184
+busan         5191   5191   commons 3487, youtube 1704
+tokyo        13347  13347   commons 6975, osv5m 1916, youtube 4456
+osaka         7200   7200   commons 5347, osv5m 341, youtube 1512
+taipei        7245   7245   commons 5668, osv5m 533, youtube 1044
+total 44257 rows

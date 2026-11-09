@@ -1,0 +1,16 @@
+warning: Using incompatible environment (`.venv`) due to `--no-sync` (The project environment's Python interpreter does not meet the Python preference: `only managed`)
+Track A, seed 0, on mps: selection.csv, 44257 rows (seoul 11274, busan 5191, tokyo 13347, osaka 7200, taipei 7245)
+20 steps of 64 photos = 1,280 photos through the network
+Traceback (most recent call last):
+  File "/Users/seoyoung/.codex/visualizations/2026/10/24/01a16bf5-3269-7541-bc77-bab34c8f2a3f/assignment2-work/mas1004-assignment2/src/official.py", line 382, in <module>
+    main()
+  File "/Users/seoyoung/.codex/visualizations/2026/10/24/01a16bf5-3269-7541-bc77-bab34c8f2a3f/assignment2-work/mas1004-assignment2/src/official.py", line 315, in main
+    scaler.scale(loss).backward()
+  File "/Users/seoyoung/.cache/uv/archive-v0/5Q68HWSt0eqsP8CP/torch/_tensor.py", line 626, in backward
+    torch.autograd.backward(
+  File "/Users/seoyoung/.cache/uv/archive-v0/5Q68HWSt0eqsP8CP/torch/autograd/__init__.py", line 347, in backward
+    _engine_run_backward(
+  File "/Users/seoyoung/.cache/uv/archive-v0/5Q68HWSt0eqsP8CP/torch/autograd/graph.py", line 823, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: view size is not compatible with input tensor's size and stride (at least one dimension spans across two contiguous subspaces). Use .reshape(...) instead.

@@ -1,0 +1,10 @@
+$ python src/check_extra_photos.py --manifest-sha c885e760cf70bd5ee6757e42487549ade7c61adcaafde8d5c31dbfc413c2450f
+# commit 500ed72
+{
+  "manifest_sha256": "c885e760cf70bd5ee6757e42487549ade7c61adcaafde8d5c31dbfc413c2450f",
+  "total": 7,
+  "counts": {
+    "seoul": 1,
+    "busan": 6
+  }
+}

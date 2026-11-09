@@ -1,0 +1,442 @@
+{
+  "completed_at_kst": "2026-11-09T11:04:11+09:00",
+  "model_sha256": "5f530de70645fc15d855e2547619ba2e7708e938b6d8eee6b1c6309de52de572",
+  "model_metadata": {
+    "image_size": 224,
+    "starting_weights": "torchvision resnet18 IMAGENET1K_V1",
+    "data": "data/starter/train",
+    "summary": "resnet18 at 224, 4 epochs"
+  },
+  "cities": [
+    "seoul",
+    "busan",
+    "tokyo",
+    "osaka",
+    "taipei"
+  ],
+  "selection_seed": 0,
+  "selection_pool_per_city": 32,
+  "selection_rule": "first correct and first incorrect in a seeded per-city validation shuffle",
+  "image_size": 224,
+  "patch_size": 32,
+  "mask_rgb_float": [
+    0.5,
+    0.5,
+    0.5
+  ],
+  "windows_per_photo": 49,
+  "attribution": "original predicted-class logit minus masked predicted-class logit",
+  "preprocessing": "rules.grader_input, resize shorter side then center crop",
+  "cases": [
+    {
+      "case_id": "seoul_correct",
+      "outcome": "correct",
+      "order": 0,
+      "path": "seoul/commons_108219109.jpg",
+      "true_city": "seoul",
+      "predicted_city": "seoul",
+      "p_seoul": 0.6497470736503601,
+      "p_busan": 0.0037640135269612074,
+      "p_tokyo": 0.0751991719007492,
+      "p_osaka": 0.017340989783406258,
+      "p_taipei": 0.25394871830940247,
+      "source_sha256": "b668f7a1d210a8fa70b6dec488319451f965fb4045e725c7f39513716eab3a1d",
+      "target_city": "seoul",
+      "original_logits": [
+        1.9419820308685303,
+        -3.209115505218506,
+        -0.21446123719215393,
+        -1.6815285682678223,
+        1.0025306940078735
+      ],
+      "original_probabilities": [
+        0.6497471928596497,
+        0.0037640142254531384,
+        0.07519915699958801,
+        0.01734098419547081,
+        0.2539486289024353
+      ],
+      "max_logit_drop": 0.6146762371063232,
+      "strongest_window_index": 19,
+      "strongest_window": [
+        160,
+        64,
+        192,
+        96
+      ],
+      "probability_drop_at_strongest_pp": 22.045616149902344,
+      "prediction_after_strongest": "seoul",
+      "prediction_changes": 1,
+      "masks_predicting_true_city": 48
+    },
+    {
+      "case_id": "seoul_incorrect",
+      "outcome": "incorrect",
+      "order": 1,
+      "path": "seoul/commons_112272203.jpg",
+      "true_city": "seoul",
+      "predicted_city": "busan",
+      "p_seoul": 0.040831610560417175,
+      "p_busan": 0.551360547542572,
+      "p_tokyo": 0.21399131417274475,
+      "p_osaka": 0.06303546577692032,
+      "p_taipei": 0.13078102469444275,
+      "source_sha256": "03dfac5f4e38b7d58541f446aaac9d03698f43c5281ef51dfe69b7ab45df96ca",
+      "target_city": "busan",
+      "original_logits": [
+        -1.397754192352295,
+        1.2051784992218018,
+        0.25872471928596497,
+        -0.9635124802589417,
+        -0.23368671536445618
+      ],
+      "original_probabilities": [
+        0.04083160310983658,
+        0.5513606071472168,
+        0.21399129927158356,
+        0.0630355104804039,
+        0.13078096508979797
+      ],
+      "max_logit_drop": 0.40413081645965576,
+      "strongest_window_index": 45,
+      "strongest_window": [
+        96,
+        192,
+        128,
+        224
+      ],
+      "probability_drop_at_strongest_pp": 14.072552680969238,
+      "prediction_after_strongest": "busan",
+      "prediction_changes": 0,
+      "masks_predicting_true_city": 0
+    },
+    {
+      "case_id": "busan_correct",
+      "outcome": "correct",
+      "order": 35,
+      "path": "busan/commons_18004824.jpg",
+      "true_city": "busan",
+      "predicted_city": "busan",
+      "p_seoul": 0.31646406650543213,
+      "p_busan": 0.4062575697898865,
+      "p_tokyo": 0.11144044250249863,
+      "p_osaka": 0.11520813405513763,
+      "p_taipei": 0.050629839301109314,
+      "source_sha256": "3e53974ae3bccc7931190fe0c04ce944117bd7733a4aa9b8569d366fd70108fb",
+      "target_city": "busan",
+      "original_logits": [
+        0.06237053871154785,
+        0.31214749813079834,
+        -0.9813492298126221,
+        -0.9480991959571838,
+        -1.7702980041503906
+      ],
+      "original_probabilities": [
+        0.3164641857147217,
+        0.40625742077827454,
+        0.11144043505191803,
+        0.11520811915397644,
+        0.05062985420227051
+      ],
+      "max_logit_drop": 0.32812362909317017,
+      "strongest_window_index": 39,
+      "strongest_window": [
+        128,
+        160,
+        160,
+        192
+      ],
+      "probability_drop_at_strongest_pp": 9.518781661987305,
+      "prediction_after_strongest": "busan",
+      "prediction_changes": 1,
+      "masks_predicting_true_city": 48
+    },
+    {
+      "case_id": "busan_incorrect",
+      "outcome": "incorrect",
+      "order": 32,
+      "path": "busan/commons_8098227.jpg",
+      "true_city": "busan",
+      "predicted_city": "tokyo",
+      "p_seoul": 0.08644618839025497,
+      "p_busan": 0.0325738862156868,
+      "p_tokyo": 0.3488933742046356,
+      "p_osaka": 0.27153658866882324,
+      "p_taipei": 0.26054999232292175,
+      "source_sha256": "c9dde0479dd89a6c7734cfb9070d5b23e39d864ad8b5a52d946e2422a5418d85",
+      "target_city": "tokyo",
+      "original_logits": [
+        -0.619055986404419,
+        -1.5950672626495361,
+        0.7761884927749634,
+        0.5255190134048462,
+        0.484216570854187
+      ],
+      "original_probabilities": [
+        0.08644618093967438,
+        0.0325738750398159,
+        0.3488934338092804,
+        0.27153661847114563,
+        0.26054996252059937
+      ],
+      "max_logit_drop": 0.2784757614135742,
+      "strongest_window_index": 34,
+      "strongest_window": [
+        192,
+        128,
+        224,
+        160
+      ],
+      "probability_drop_at_strongest_pp": 5.848029136657715,
+      "prediction_after_strongest": "osaka",
+      "prediction_changes": 9,
+      "masks_predicting_true_city": 0
+    },
+    {
+      "case_id": "tokyo_correct",
+      "outcome": "correct",
+      "order": 64,
+      "path": "tokyo/commons_148064335.jpg",
+      "true_city": "tokyo",
+      "predicted_city": "tokyo",
+      "p_seoul": 0.0101010762155056,
+      "p_busan": 0.008516713976860046,
+      "p_tokyo": 0.850669801235199,
+      "p_osaka": 0.11494138836860657,
+      "p_taipei": 0.01577100157737732,
+      "source_sha256": "9696a2408d32325f453323ff8fd7f6760febd2fe307366009460e9e759fbdafd",
+      "target_city": "tokyo",
+      "original_logits": [
+        -1.704401969909668,
+        -1.8750131130218506,
+        2.72898006439209,
+        0.7273781299591064,
+        -1.25887131690979
+      ],
+      "original_probabilities": [
+        0.010101077146828175,
+        0.008516714908182621,
+        0.8506698608398438,
+        0.11494138091802597,
+        0.01577099785208702
+      ],
+      "max_logit_drop": 0.43863821029663086,
+      "strongest_window_index": 7,
+      "strongest_window": [
+        0,
+        32,
+        32,
+        64
+      ],
+      "probability_drop_at_strongest_pp": 6.6389265060424805,
+      "prediction_after_strongest": "tokyo",
+      "prediction_changes": 0,
+      "masks_predicting_true_city": 49
+    },
+    {
+      "case_id": "tokyo_incorrect",
+      "outcome": "incorrect",
+      "order": 65,
+      "path": "tokyo/commons_151846778.jpg",
+      "true_city": "tokyo",
+      "predicted_city": "seoul",
+      "p_seoul": 0.6482857465744019,
+      "p_busan": 0.11978981643915176,
+      "p_tokyo": 0.08847805857658386,
+      "p_osaka": 0.07944855093955994,
+      "p_taipei": 0.06399775296449661,
+      "source_sha256": "e4656015c92a9ae912ff616047db8bf317b1cbe346d1852aa9fbb3281765401b",
+      "target_city": "seoul",
+      "original_logits": [
+        1.3347737789154053,
+        -0.3538188934326172,
+        -0.6568020582199097,
+        -0.7644471526145935,
+        -0.9807090759277344
+      ],
+      "original_probabilities": [
+        0.6482856273651123,
+        0.11978982388973236,
+        0.08847814053297043,
+        0.07944861054420471,
+        0.0639977902173996
+      ],
+      "max_logit_drop": 0.4737672209739685,
+      "strongest_window_index": 32,
+      "strongest_window": [
+        128,
+        128,
+        160,
+        160
+      ],
+      "probability_drop_at_strongest_pp": 16.163179397583008,
+      "prediction_after_strongest": "seoul",
+      "prediction_changes": 0,
+      "masks_predicting_true_city": 0
+    },
+    {
+      "case_id": "osaka_correct",
+      "outcome": "correct",
+      "order": 96,
+      "path": "osaka/commons_193645911.jpg",
+      "true_city": "osaka",
+      "predicted_city": "osaka",
+      "p_seoul": 0.013906233943998814,
+      "p_busan": 0.007561052218079567,
+      "p_tokyo": 0.022420791909098625,
+      "p_osaka": 0.9298204779624939,
+      "p_taipei": 0.026291431859135628,
+      "source_sha256": "46c7c267708bc5e14bec7065d0b734085fe12586676cdcb51828e7620a87cf50",
+      "target_city": "osaka",
+      "original_logits": [
+        -1.146613597869873,
+        -1.7559404373168945,
+        -0.6689615845680237,
+        3.0560407638549805,
+        -0.5097071528434753
+      ],
+      "original_probabilities": [
+        0.013906233943998814,
+        0.007561052218079567,
+        0.02242080494761467,
+        0.9298204779624939,
+        0.026291444897651672
+      ],
+      "max_logit_drop": 0.23991107940673828,
+      "strongest_window_index": 32,
+      "strongest_window": [
+        128,
+        128,
+        160,
+        160
+      ],
+      "probability_drop_at_strongest_pp": 2.3656845092773438,
+      "prediction_after_strongest": "osaka",
+      "prediction_changes": 0,
+      "masks_predicting_true_city": 49
+    },
+    {
+      "case_id": "osaka_incorrect",
+      "outcome": "incorrect",
+      "order": 97,
+      "path": "osaka/commons_55200169.jpg",
+      "true_city": "osaka",
+      "predicted_city": "tokyo",
+      "p_seoul": 0.0998072698712349,
+      "p_busan": 0.16437369585037231,
+      "p_tokyo": 0.4536595940589905,
+      "p_osaka": 0.19914108514785767,
+      "p_taipei": 0.08301836252212524,
+      "source_sha256": "bf6906a37db15442533a6dc57e54e96b4bd4374a57f4ed93ede9a9668228f4cc",
+      "target_city": "tokyo",
+      "original_logits": [
+        -0.8513233661651611,
+        -0.3524218201637268,
+        0.6627824306488037,
+        -0.16055095195770264,
+        -1.0355027914047241
+      ],
+      "original_probabilities": [
+        0.09980728477239609,
+        0.1643737405538559,
+        0.4536595046520233,
+        0.19914108514785767,
+        0.08301834762096405
+      ],
+      "max_logit_drop": 0.4095191955566406,
+      "strongest_window_index": 23,
+      "strongest_window": [
+        64,
+        96,
+        96,
+        128
+      ],
+      "probability_drop_at_strongest_pp": 13.135382652282715,
+      "prediction_after_strongest": "osaka",
+      "prediction_changes": 4,
+      "masks_predicting_true_city": 4
+    },
+    {
+      "case_id": "taipei_correct",
+      "outcome": "correct",
+      "order": 128,
+      "path": "taipei/commons_72121124.jpg",
+      "true_city": "taipei",
+      "predicted_city": "taipei",
+      "p_seoul": 0.22037437558174133,
+      "p_busan": 0.06831273436546326,
+      "p_tokyo": 0.1321791410446167,
+      "p_osaka": 0.18942652642726898,
+      "p_taipei": 0.3897072672843933,
+      "source_sha256": "44911625e075ed0524a2ad2a55a2541549584677aeb2ca3228dbbe0de232842c",
+      "target_city": "taipei",
+      "original_logits": [
+        -0.038732003420591354,
+        -1.2099635601043701,
+        -0.5499011278152466,
+        -0.19005829095840454,
+        0.5313364863395691
+      ],
+      "original_probabilities": [
+        0.22037428617477417,
+        0.06831270456314087,
+        0.1321791708469391,
+        0.1894264966249466,
+        0.3897072672843933
+      ],
+      "max_logit_drop": 0.34391236305236816,
+      "strongest_window_index": 44,
+      "strongest_window": [
+        64,
+        192,
+        96,
+        224
+      ],
+      "probability_drop_at_strongest_pp": 10.523062705993652,
+      "prediction_after_strongest": "taipei",
+      "prediction_changes": 0,
+      "masks_predicting_true_city": 49
+    },
+    {
+      "case_id": "taipei_incorrect",
+      "outcome": "incorrect",
+      "order": 130,
+      "path": "taipei/commons_165151961.jpg",
+      "true_city": "taipei",
+      "predicted_city": "seoul",
+      "p_seoul": 0.5552222728729248,
+      "p_busan": 0.05468873307108879,
+      "p_tokyo": 0.055564798414707184,
+      "p_osaka": 0.06630881130695343,
+      "p_taipei": 0.2682153582572937,
+      "source_sha256": "c8ecd8de9b28c34d83dd02d07f22d22a6345d3d0f644e49f53dee48161e000ae",
+      "target_city": "seoul",
+      "original_logits": [
+        1.0575958490371704,
+        -1.2601155042648315,
+        -1.244222640991211,
+        -1.0674498081207275,
+        0.33001744747161865
+      ],
+      "original_probabilities": [
+        0.5552223324775696,
+        0.0546887069940567,
+        0.055564820766448975,
+        0.06630881130695343,
+        0.2682153582572937
+      ],
+      "max_logit_drop": 0.4881017804145813,
+      "strongest_window_index": 40,
+      "strongest_window": [
+        160,
+        160,
+        192,
+        192
+      ],
+      "probability_drop_at_strongest_pp": 17.468774795532227,
+      "prediction_after_strongest": "seoul",
+      "prediction_changes": 0,
+      "masks_predicting_true_city": 0
+    }
+  ]
+}

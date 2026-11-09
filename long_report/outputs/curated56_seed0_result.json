@@ -1,0 +1,69 @@
+{
+  "track": "A",
+  "tag": "curated56",
+  "seed": 0,
+  "official_budget": true,
+  "budget": 249984,
+  "batch_size": 64,
+  "steps": 3906,
+  "selection": "selection.csv, 44201 rows",
+  "selection_counts": {
+    "seoul": 11265,
+    "busan": 5182,
+    "tokyo": 13327,
+    "osaka": 7194,
+    "taipei": 7233
+  },
+  "device": "cuda",
+  "train_seconds": 2211.8,
+  "val_score": 0.4937,
+  "val_per_city": {
+    "seoul": 0.5848,
+    "busan": 0.3727,
+    "tokyo": 0.6339,
+    "osaka": 0.3604,
+    "taipei": 0.5167
+  },
+  "val_confusion": [
+    [
+      1424,
+      155,
+      425,
+      164,
+      267
+    ],
+    [
+      436,
+      518,
+      225,
+      75,
+      136
+    ],
+    [
+      563,
+      93,
+      2460,
+      488,
+      277
+    ],
+    [
+      273,
+      63,
+      860,
+      767,
+      165
+    ],
+    [
+      433,
+      67,
+      457,
+      127,
+      1159
+    ]
+  ],
+  "onnx_gap": 1.1920928955078125e-06,
+  "recipe_sha": "17ac485223fa",
+  "selection_sha": "9ef44cac68cb",
+  "commit": "9cd86e1",
+  "finished": "2026-11-08T21:51:51"
+}

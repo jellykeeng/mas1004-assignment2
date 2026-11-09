@@ -1,0 +1,4 @@
+$ python src/check_submission.py --onnx results/baseline_seed0/model.onnx --size 224 --no-val
+# commit a23f9e6
+results/baseline_seed0/model.onnx: 44.7 MB, 11.17 million parameters, 1.81 billion multiply-adds per 224 x 224 photo
+  format and limits: OK

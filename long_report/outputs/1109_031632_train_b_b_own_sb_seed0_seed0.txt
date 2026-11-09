@@ -1,0 +1,10 @@
+$ python src/train_b.py --tag b_own_sb_seed0 --seed 0 --model resnet18 --size 224 --epochs 4 --workers 0 --folders data/starter/train data/mine --submit
+# commit 500ed72
+44264 photos (seoul 11275, busan 5197, tokyo 13347, osaka 7200, taipei 7245) on mps
+epoch 1/4: loss 1.366 (517s)
+epoch 2/4: loss 1.159 (1033s)
+epoch 3/4: loss 1.014 (1563s)
+epoch 4/4: loss 0.886 (2098s)
+validation score 0.487 (seoul 0.563, busan 0.372, tokyo 0.616, osaka 0.354, taipei 0.531)
+wrote /Users/seoyoung/.codex/visualizations/2026/10/24/01a16bf5-3269-7541-bc77-bab34c8f2a3f/assignment2-work/mas1004-assignment2/results/b_own_sb_seed0/model.onnx: 11.17 million parameters, 1.81 billion multiply-adds
+copied to submission/. Check it with: python src/check_submission.py

@@ -1,0 +1,14 @@
+Final public release verification
+Checked at 2026-11-10T03:07:14+09:00
+Track A = track-a-2, Balanced sampling
+Published at 2026-11-10T03:05:01+09:00
+Draft = false; prerelease = false; both assets uploaded
+Recipe and full selection downloaded anonymously with HTTP 200.
+Downloaded bytes and SHA-256 match the checked local files.
+recipe.py bytes = 3237
+recipe.py SHA-256 = e7500546f0a59a23f9bb7757b404c87ff61010c9f3d1b634d6c164a6335ecfe4
+selection.csv bytes = 1345856
+selection.csv SHA-256 = 1a1ca6c1882356b84701446e495973c375535d9d64b3cb3d3397c3dfd640f9e4
+Track B = track-b-1, first model previously checked and selected
+Current model and metadata hashes match the published asset digests.
+Track A and Track B publication dates are before 2026-11-10 22:00 KST.

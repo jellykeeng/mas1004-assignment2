@@ -1,0 +1,23 @@
+Matched Track A comparison on local MPS, seed 0
+Full training photos = 44257; validation photos = 12077
+Both runs = 3906 steps x 64 photos = 249984 presentations
+Shared MPS input-layout workaround; pinned torch 2.6.0
+Baseline control = 49.51 percent, 2829.9 seconds
+Balanced sampling = 50.91 percent, 2881.0 seconds
+Difference = +1.40 percentage points
+
+City       Control (%)  Balanced (%)  Difference (pp)
+seoul           57.41         51.33            -6.08
+busan           39.57         46.62            +7.05
+tokyo           61.63         50.01           -11.62
+osaka           35.81         44.97            +9.16
+taipei          53.14         61.61            +8.47
+
+One run per local condition. Repeated-seed effect is unmeasured.
+The earlier CUDA baseline (50.44% seed 0; 50.14% two-seed mean) used a different execution path.
+Full training records = 11 total, 8 Track A, 3 Track B.
+Both recipe snapshots match the committed source recorded in their result JSON.
+CSV rows match result JSON; scores were checked against the confusion matrices.
+Official protected sources match the repository state before this experiment.
+Final recipe SHA-256 = e7500546f0a59a23f9bb7757b404c87ff61010c9f3d1b634d6c164a6335ecfe4
+Full selection SHA-256 = 1a1ca6c1882356b84701446e495973c375535d9d64b3cb3d3397c3dfd640f9e4

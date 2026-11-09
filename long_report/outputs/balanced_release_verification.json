@@ -1,0 +1,55 @@
+{
+  "checked_at_kst": "2026-11-10T03:07:14+09:00",
+  "releases": {
+    "track-a-2": {
+      "url": "https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-a-2",
+      "title": "Balanced sampling",
+      "published_at": "2026-11-09T18:05:01Z",
+      "published_at_kst": "2026-11-10T03:05:01+09:00",
+      "draft": false,
+      "prerelease": false,
+      "target_commit": "310648d0956024954d7eb430794f73e5ee02698e",
+      "assets": [
+        {
+          "name": "recipe.py",
+          "bytes": 3237,
+          "sha256": "e7500546f0a59a23f9bb7757b404c87ff61010c9f3d1b634d6c164a6335ecfe4",
+          "published_digest_matches": true,
+          "anonymous_http_status": 200,
+          "anonymous_download_matches": true
+        },
+        {
+          "name": "selection.csv",
+          "bytes": 1345856,
+          "sha256": "1a1ca6c1882356b84701446e495973c375535d9d64b3cb3d3397c3dfd640f9e4",
+          "published_digest_matches": true,
+          "anonymous_http_status": 200,
+          "anonymous_download_matches": true
+        }
+      ]
+    },
+    "track-b-1": {
+      "url": "https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-b-1",
+      "title": "Starter ResNet18 at 224, 4 epochs",
+      "published_at": "2026-11-08T16:22:42Z",
+      "published_at_kst": "2026-11-09T01:22:42+09:00",
+      "draft": false,
+      "prerelease": false,
+      "target_commit": "d4f7ce375856c9d22642cfad265743b57183b1a3",
+      "assets": [
+        {
+          "name": "model.onnx",
+          "bytes": 44707595,
+          "sha256": "5f530de70645fc15d855e2547619ba2e7708e938b6d8eee6b1c6309de52de572",
+          "published_digest_matches": true
+        },
+        {
+          "name": "submission.json",
+          "bytes": 157,
+          "sha256": "5fada1911b259d5d8145d2d26b1b1810ee94bb7b8f3f178a1e4cd96b661982c0",
+          "published_digest_matches": true
+        }
+      ]
+    }
+  }
+}

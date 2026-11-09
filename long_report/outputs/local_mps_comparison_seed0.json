@@ -1,0 +1,147 @@
+{
+  "execution": "local Mac Apple M1 Pro, MPS",
+  "timezone": "Asia/Seoul",
+  "training_commit": "500ed72",
+  "common_conditions": {
+    "seed": 0,
+    "model": "resnet18",
+    "image_size": 224,
+    "epochs": 4,
+    "batch_size": 64,
+    "workers": 0,
+    "presentations_per_run": 176896,
+    "validation_photos": 12077
+  },
+  "extra_photos": {
+    "manifest_sha256": "c885e760cf70bd5ee6757e42487549ade7c61adcaafde8d5c31dbfc413c2450f",
+    "total": 7,
+    "counts": {
+      "seoul": 1,
+      "busan": 6
+    }
+  },
+  "models": {
+    "b_control_seed0": {
+      "experiment": {
+        "finished": "2026-11-09T03:16:31",
+        "track": "B",
+        "tag": "b_control_seed0",
+        "seed": "0",
+        "official_budget": "",
+        "budget": "176896",
+        "val_score": "0.4861",
+        "seoul": "0.6144",
+        "busan": "0.3691",
+        "tokyo": "0.5986",
+        "osaka": "0.3402",
+        "taipei": "0.5082",
+        "train_seconds": "2091.5",
+        "device": "mps",
+        "selection": "resnet18 224px; data/starter/train",
+        "recipe_sha": "",
+        "selection_sha": "",
+        "commit": "500ed72"
+      },
+      "metadata": {
+        "image_size": 224,
+        "starting_weights": "torchvision resnet18 IMAGENET1K_V1",
+        "data": "data/starter/train",
+        "summary": "resnet18 at 224, 4 epochs",
+        "seed": 0
+      },
+      "sha256": "82d6396475d1343a8e24ca17597cc9a37d3b66d304c0989367c7d42bbcc3d632",
+      "file_bytes": 44707595,
+      "onnx_metrics": {
+        "parameters": 11174283,
+        "gmacs": 1.813563904,
+        "file_mb": 44.707595,
+        "opset": 17,
+        "ops": [
+          "Add",
+          "Conv",
+          "Div",
+          "Flatten",
+          "Gemm",
+          "GlobalAveragePool",
+          "MaxPool",
+          "Relu",
+          "Sub"
+        ],
+        "problems": []
+      },
+      "onnx_full_check_passed": true,
+      "runtime_test_batches": [
+        1,
+        3
+      ]
+    },
+    "b_own_sb_seed0": {
+      "experiment": {
+        "finished": "2026-11-09T03:52:58",
+        "track": "B",
+        "tag": "b_own_sb_seed0",
+        "seed": "0",
+        "official_budget": "",
+        "budget": "176896",
+        "val_score": "0.4874",
+        "seoul": "0.5634",
+        "busan": "0.3719",
+        "tokyo": "0.6163",
+        "osaka": "0.3543",
+        "taipei": "0.531",
+        "train_seconds": "2098.4",
+        "device": "mps",
+        "selection": "resnet18 224px; data/starter/train + data/mine",
+        "recipe_sha": "",
+        "selection_sha": "",
+        "commit": "500ed72"
+      },
+      "metadata": {
+        "image_size": 224,
+        "starting_weights": "torchvision resnet18 IMAGENET1K_V1",
+        "data": "data/starter/train + data/mine",
+        "summary": "resnet18 at 224, 4 epochs",
+        "seed": 0
+      },
+      "sha256": "5a5d6a95bd853c531031412de841665012d232085c1bec07ae33abf09d22c3e4",
+      "file_bytes": 44707595,
+      "onnx_metrics": {
+        "parameters": 11174283,
+        "gmacs": 1.813563904,
+        "file_mb": 44.707595,
+        "opset": 17,
+        "ops": [
+          "Add",
+          "Conv",
+          "Div",
+          "Flatten",
+          "Gemm",
+          "GlobalAveragePool",
+          "MaxPool",
+          "Relu",
+          "Sub"
+        ],
+        "problems": []
+      },
+      "onnx_full_check_passed": true,
+      "runtime_test_batches": [
+        1,
+        3
+      ]
+    }
+  },
+  "extra_minus_control_percentage_points": {
+    "val_score": 0.13,
+    "seoul": -5.1,
+    "busan": 0.28,
+    "tokyo": 1.77,
+    "osaka": 1.41,
+    "taipei": 2.28
+  },
+  "interpretation": "One seed per condition. The observed +0.13 percentage-point score difference does not establish a consistent benefit.",
+  "local_submission_tag": "b_own_sb_seed0",
+  "official_format_checks_passed": 2,
+  "all_queued_commands_completed": true,
+  "public_release_created_for_this_comparison": false,
+  "training_log": "results/local_training_mps_20261109.log"
+}

@@ -1,0 +1,18 @@
+warning: Using incompatible environment (`.venv`) due to `--no-sync` (The project environment's Python interpreter does not meet the Python preference: `only managed`)
+Track A, seed 0, on cpu: selection.csv, 44257 rows (seoul 11274, busan 5191, tokyo 13347, osaka 7200, taipei 7245)
+20 steps of 64 photos = 1,280 photos through the network
+  step     2/20  loss 1.751  (18s)
+  step     4/20  loss 1.722  (37s)
+  step     6/20  loss 1.666  (55s)
+  step     8/20  loss 1.522  (74s)
+  step    10/20  loss 1.533  (94s)
+  step    12/20  loss 1.590  (112s)
+  step    14/20  loss 1.595  (131s)
+  step    16/20  loss 1.657  (151s)
+  step    18/20  loss 1.622  (170s)
+  step    20/20  loss 1.616  (188s)
+
+validation score 0.229  (seoul 0.293, busan 0.000, tokyo 0.692, osaka 0.057, taipei 0.105)
+training took 3.1 min; wrote results/final_submission_check/track_a_quick/final_check_seed0/model.onnx
+This was not an official run (--quick or a different --budget). The grader's numbers will differ.
+A full run on this computer (cpu) would take about 625 minutes: 611 for training and 14 for the validation photos.

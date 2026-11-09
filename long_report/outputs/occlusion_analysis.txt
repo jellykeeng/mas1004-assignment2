@@ -1,0 +1,28 @@
+Occlusion analysis of the selected final Track B model
+Model SHA-256 = 5f530de70645fc15d855e2547619ba2e7708e938b6d8eee6b1c6309de52de572
+Selection = seed 0, 32 validation photos per city, first correct / incorrect
+Cases = 10, masked inputs = 490, patch = 32 by 32, gray RGB = 0.5
+Target = each photo's original predicted class, fixed across all masks
+case,original_prediction,original_percent,masked_target_percent,changed_masks
+seoul_correct,seoul,65.0,42.9,1
+seoul_incorrect,busan,55.1,41.1,0
+busan_correct,busan,40.6,31.1,1
+busan_incorrect,tokyo,34.9,29.0,9
+tokyo_correct,tokyo,85.1,78.4,0
+tokyo_incorrect,seoul,64.8,48.7,0
+osaka_correct,osaka,93.0,90.6,0
+osaka_incorrect,tokyo,45.4,32.2,4
+taipei_correct,taipei,39.0,28.4,0
+taipei_incorrect,seoul,55.5,38.1,0
+Prediction changes = 15 of 490 masks, in 4 of 10 selected cases
+Replacement controls at the same Osaka patch x [64,96), y [96,128)
+replacement,tokyo_percent,osaka_percent,prediction
+Original,45.4,19.9,tokyo
+Gray 0.50,32.2,34.7,osaka
+Local sky mean,43.8,21.2,tokyo
+Blur radius 8,45.6,19.9,tokyo
+Gray 0.25,36.1,29.9,tokyo
+Gray 0.75,32.5,36.8,osaka
+Interpretation is conditional on these photos and replacement choices.
+The original model information and inserted patch appearance both change.
+Recorded full training runs = 9. This is post-training input perturbation analysis.

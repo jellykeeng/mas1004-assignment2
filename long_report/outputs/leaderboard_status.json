@@ -1,0 +1,16 @@
+{
+  "checked_at_kst": "2026-11-10T03:07:11+09:00",
+  "updated": "2026-11-09 02:41 KST",
+  "nickname": "SoSleepy",
+  "matches": {
+    "A": [],
+    "B": []
+  },
+  "track_counts": {
+    "A": 16,
+    "B": 9
+  },
+  "source": "https://jdasam.github.io/mas1004-leaderboard/board.json",
+  "repository_public": true,
+  "registration_and_private_grader_status": "not accessible from the public board"
+}

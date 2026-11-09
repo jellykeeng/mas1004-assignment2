@@ -1,0 +1,17 @@
+Sampling audit using official.draw_order, seed 0
+Full original selection and order = verified (44257 rows)
+Weight for each photo = 1 / selected photo count of its city
+Total weight per city = 1.0; sampling probability per city = 0.2
+Balanced sampling uses replacement.
+
+City       Training photos  Control draws  Balanced draws
+seoul                11274          63646           50153
+busan                 5191          29328           49745
+tokyo                13347          75426           50023
+osaka                 7200          40670           49939
+taipei                7245          40914           50124
+
+Total draws in each condition = 249984
+Unique photos drawn in control = 44257
+Unique photos drawn with balanced sampling = 43818
+Recipe rules = OK

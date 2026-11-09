@@ -1,0 +1,5 @@
+seoul: 1029 of 2435 wrong; the 48 most confident on mistakes_baseline_seed0_seoul_00
+busan: 843 of 1390 wrong; the 48 most confident on mistakes_baseline_seed0_busan_00
+tokyo: 1402 of 3881 wrong; the 48 most confident on mistakes_baseline_seed0_tokyo_00
+osaka: 1361 of 2128 wrong; the 48 most confident on mistakes_baseline_seed0_osaka_00
+taipei: 1003 of 2243 wrong; the 48 most confident on mistakes_baseline_seed0_taipei_00

@@ -1,0 +1,3 @@
+# Final submissions selected and checked on 2026-11-09.
+# No training runs are queued.
+# Completed commands and checks are saved in results/final_submission_check/.

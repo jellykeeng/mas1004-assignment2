@@ -1,0 +1,18 @@
+$ python src/official.py --tag curated56 --seed 1
+# commit a2ac080
+Track A, seed 1, on cuda: selection.csv, 44201 rows (seoul 11265, busan 5182, tokyo 13327, osaka 7194, taipei 7233)
+3906 steps of 64 photos = 249,984 photos through the network
+  step   390/3906  loss 1.415  (234s)
+  step   780/3906  loss 1.285  (461s)
+  step  1170/3906  loss 1.189  (685s)
+  step  1560/3906  loss 1.117  (908s)
+  step  1950/3906  loss 1.068  (1132s)
+  step  2340/3906  loss 0.994  (1350s)
+  step  2730/3906  loss 0.943  (1568s)
+  step  3120/3906  loss 0.853  (1784s)
+  step  3510/3906  loss 0.817  (2002s)
+  step  3900/3906  loss 0.775  (2218s)
+  step  3906/3906  loss 0.805  (2221s)
+
+validation score 0.491  (seoul 0.568, busan 0.359, tokyo 0.656, osaka 0.362, taipei 0.512)
+training took 37.0 min; wrote /content/drive/MyDrive/mas1004/assignment2/results/curated56_seed1/model.onnx

@@ -1,0 +1,69 @@
+{
+  "track": "A",
+  "tag": "baseline",
+  "seed": 0,
+  "official_budget": true,
+  "budget": 249984,
+  "batch_size": 64,
+  "steps": 3906,
+  "selection": "all training photos",
+  "selection_counts": {
+    "seoul": 11274,
+    "busan": 5191,
+    "tokyo": 13347,
+    "osaka": 7200,
+    "taipei": 7245
+  },
+  "device": "cuda",
+  "train_seconds": 2238.2,
+  "val_score": 0.5044,
+  "val_per_city": {
+    "seoul": 0.5774,
+    "busan": 0.3942,
+    "tokyo": 0.6385,
+    "osaka": 0.3604,
+    "taipei": 0.5515
+  },
+  "val_confusion": [
+    [
+      1406,
+      167,
+      429,
+      150,
+      283
+    ],
+    [
+      442,
+      548,
+      217,
+      60,
+      123
+    ],
+    [
+      614,
+      89,
+      2478,
+      414,
+      286
+    ],
+    [
+      255,
+      83,
+      855,
+      767,
+      168
+    ],
+    [
+      351,
+      58,
+      472,
+      125,
+      1237
+    ]
+  ],
+  "onnx_gap": 8.344650268554688e-07,
+  "recipe_sha": "17ac485223fa",
+  "selection_sha": "",
+  "commit": "a23f9e6",
+  "finished": "2026-11-05T15:58:13"
+}

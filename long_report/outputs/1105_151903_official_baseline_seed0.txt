@@ -1,0 +1,26 @@
+$ python src/official.py --tag baseline --seed 0
+# commit a23f9e6
+Downloading: "https://download.pytorch.org/models/resnet18-f37072fd.pth" to /root/.cache/torch/hub/checkpoints/resnet18-f37072fd.pth
+
+  0%|          | 0.00/44.7M [00:00<?, ?B/s]
+ 20%|█▉        | 8.75M/44.7M [00:00<00:00, 91.5MB/s]
+ 39%|███▉      | 17.5M/44.7M [00:00<00:00, 90.8MB/s]
+ 61%|██████    | 27.2M/44.7M [00:00<00:00, 95.8MB/s]
+ 89%|████████▉ | 39.8M/44.7M [00:00<00:00, 109MB/s] 
+100%|██████████| 44.7M/44.7M [00:00<00:00, 107MB/s]
+Track A, seed 0, on cuda: all training photos (seoul 11274, busan 5191, tokyo 13347, osaka 7200, taipei 7245)
+3906 steps of 64 photos = 249,984 photos through the network
+  step   390/3906  loss 1.436  (284s)
+  step   780/3906  loss 1.291  (514s)
+  step  1170/3906  loss 1.193  (738s)
+  step  1560/3906  loss 1.127  (954s)
+  step  1950/3906  loss 1.075  (1167s)
+  step  2340/3906  loss 0.996  (1376s)
+  step  2730/3906  loss 0.944  (1592s)
+  step  3120/3906  loss 0.860  (1808s)
+  step  3510/3906  loss 0.822  (2021s)
+  step  3900/3906  loss 0.782  (2235s)
+  step  3906/3906  loss 0.802  (2238s)
+
+validation score 0.504  (seoul 0.577, busan 0.394, tokyo 0.638, osaka 0.360, taipei 0.551)
+training took 37.3 min; wrote /content/drive/MyDrive/mas1004/assignment2/results/baseline_seed0/model.onnx

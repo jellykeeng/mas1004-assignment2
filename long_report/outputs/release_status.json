@@ -1,0 +1,42 @@
+{
+  "checked_date": "2026-11-09",
+  "checked_at_kst": "2026-11-09T10:14:37+09:00",
+  "repository": "jellykeeng/mas1004-assignment2",
+  "track_a": {
+    "tag": "track-a-1",
+    "title": "Starter recipe",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-11-03T05:58:45Z",
+    "published_kst": "2026-11-03 14:58:45 KST",
+    "url": "https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-a-1",
+    "assets": [
+      {
+        "name": "recipe.py",
+        "size_bytes": 3018,
+        "sha256": "17ac485223fa61741f2c63aeb1c91bc283c88c6b7aaa8f02fdb3e86924ff29c9"
+      }
+    ]
+  },
+  "track_b": {
+    "tag": "track-b-1",
+    "title": "Starter ResNet18 at 224, 4 epochs",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-11-08T16:22:42Z",
+    "published_kst": "2026-11-09 01:22:42 KST",
+    "url": "https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-b-1",
+    "assets": [
+      {
+        "name": "model.onnx",
+        "size_bytes": 44707595,
+        "sha256": "5f530de70645fc15d855e2547619ba2e7708e938b6d8eee6b1c6309de52de572"
+      },
+      {
+        "name": "submission.json",
+        "size_bytes": 157,
+        "sha256": "5fada1911b259d5d8145d2d26b1b1810ee94bb7b8f3f178a1e4cd96b661982c0"
+      }
+    ]
+  }
+}

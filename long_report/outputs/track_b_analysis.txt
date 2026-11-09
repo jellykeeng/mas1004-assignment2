@@ -1,0 +1,19 @@
+Track B evidence from the Colab experiment row, checks and public release
+tag,score,training_seconds,presentations,seed,commit,finished
+b_baseline,0.4895,1637.1,176896,,50530fc,2026-11-09T01:14:53
+city,validation_percent
+seoul,55.40
+busan,37.55
+tokyo,63.77
+osaka,34.87
+taipei,53.14
+Metadata = {'image_size': 224, 'starting_weights': 'torchvision resnet18 IMAGENET1K_V1', 'data': 'data/starter/train', 'summary': 'resnet18 at 224, 4 epochs'}
+Measurements = {'parameters': 11174283, 'gmacs': 1.813563904, 'file_mb': 44.707595, 'opset': 17, 'ops': ['Add', 'Conv', 'Div', 'Flatten', 'Gemm', 'GlobalAveragePool', 'MaxPool', 'Relu', 'Sub'], 'problems': []}
+Release = track-b-1
+Title = Starter ResNet18 at 224, 4 epochs
+Published UTC = 2026-11-08T16:22:42Z
+Published KST = 2026-11-09 01:22:42 KST
+Release URL = https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-b-1
+Tag commit = d4f7ce375856c9d22642cfad265743b57183b1a3
+asset = model.onnx bytes = 44707595 SHA-256 = sha256:5f530de70645fc15d855e2547619ba2e7708e938b6d8eee6b1c6309de52de572
+asset = submission.json bytes = 157 SHA-256 = sha256:5fada1911b259d5d8145d2d26b1b1810ee94bb7b8f3f178a1e4cd96b661982c0

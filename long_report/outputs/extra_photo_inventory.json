@@ -1,0 +1,133 @@
+{
+  "label_source": "student_confirmed_manual_labels",
+  "shorter_side_limit": 512,
+  "date_added_evidence": {
+    "date": "2026-11-09",
+    "basis": "Finder kMDItemDateAdded converted to Asia/Seoul",
+    "files": [
+      {
+        "filename": "IMG_0237.HEIC",
+        "date_added_kst": "2026-11-09T01:27:30+09:00",
+        "city": "busan"
+      },
+      {
+        "filename": "IMG_0240.HEIC",
+        "date_added_kst": "2026-11-09T01:27:30+09:00",
+        "city": "busan"
+      },
+      {
+        "filename": "IMG_0276.HEIC",
+        "date_added_kst": "2026-11-09T01:27:30+09:00",
+        "city": "busan"
+      },
+      {
+        "filename": "IMG_0286.HEIC",
+        "date_added_kst": "2026-11-09T01:27:30+09:00",
+        "city": "busan"
+      },
+      {
+        "filename": "IMG_0549.HEIC",
+        "date_added_kst": "2026-11-09T01:27:30+09:00",
+        "city": "seoul"
+      },
+      {
+        "filename": "IMG_1403.HEIC",
+        "date_added_kst": "2026-11-09T01:27:30+09:00",
+        "city": "busan"
+      },
+      {
+        "filename": "IMG_1413.HEIC",
+        "date_added_kst": "2026-11-09T01:27:30+09:00",
+        "city": "busan"
+      }
+    ]
+  },
+  "sources": [
+    {
+      "filename": "IMG_0237.HEIC",
+      "city": "busan",
+      "sha256": "e29f99df6aa45391183e32ea40e9b7d6148e16826b8f1257ae52fecb9b70aa90"
+    },
+    {
+      "filename": "IMG_0240.HEIC",
+      "city": "busan",
+      "sha256": "a59ede446568c6ba9a5772b13f169b0dd06d6ecf294818a9de6b13905eacbd33"
+    },
+    {
+      "filename": "IMG_0276.HEIC",
+      "city": "busan",
+      "sha256": "1569298122af5d254107eae73feab37925ae84d7d32c4f3e63db9e1c6c1b8454"
+    },
+    {
+      "filename": "IMG_0286.HEIC",
+      "city": "busan",
+      "sha256": "97a88eb6c0c1e9ea88e121e9ae75df1b27f8f5b18d777580bdc7af11c6915651"
+    },
+    {
+      "filename": "IMG_0549.HEIC",
+      "city": "seoul",
+      "sha256": "f0ddd5df88a43e650e7ddd030b4ada5630625962153403ba09638d7f9f17a9c5"
+    },
+    {
+      "filename": "IMG_1403.HEIC",
+      "city": "busan",
+      "sha256": "46c3c902c6e4b5ddadfd93539dcbe8300274141587d934fbecea5e7d9674bd73"
+    },
+    {
+      "filename": "IMG_1413.HEIC",
+      "city": "busan",
+      "sha256": "bd324a2665b8fa1126af8c2cccc52d5530377744df84344bee9db4eef50fc5a7"
+    }
+  ],
+  "rows": [
+    {
+      "path": "seoul/seoul_img-0549_ee7641.jpg",
+      "sha256": "5c9570b86e5e2cb7f5c7700dbed31303617d6ef51b8f274494480065841e07f0",
+      "width": 512,
+      "height": 683,
+      "pixel_sha256": "91488d929a3a7fabb9050e4425d31540817ccccc86c98c35f8c7ae700707629a"
+    },
+    {
+      "path": "busan/busan_img-0237_fd2bb5.jpg",
+      "sha256": "39aa7c955ef7a1e63e2b078ca1eef3300acbbc3891199a84ad8e46dc14211f1b",
+      "width": 512,
+      "height": 683,
+      "pixel_sha256": "e489e8858bf52d2ef05d14988107bec3791c70609889887ec22cafdad85668bc"
+    },
+    {
+      "path": "busan/busan_img-0240_e51431.jpg",
+      "sha256": "0665539d2bb61117cdfeac4c9015466e4218d0032a773973cb05eaeab6d49449",
+      "width": 683,
+      "height": 512,
+      "pixel_sha256": "f7fbccbbd418562bfd31092c43d11b3cd6a5b49662105a1d716cbb76c907da07"
+    },
+    {
+      "path": "busan/busan_img-0276_f1182d.jpg",
+      "sha256": "1deb9d9a9f05bbd7030204e8ff33198ba8d21e2330335ab48713ae11d3b36bbd",
+      "width": 512,
+      "height": 683,
+      "pixel_sha256": "3c28d14fe8ad8b1c2e50c0a4427be423ee40b2ffbd36dc2cb4cf5d791d8523d3"
+    },
+    {
+      "path": "busan/busan_img-0286_ee4839.jpg",
+      "sha256": "afa991cda3b0ff5b3fd60f491a54086aa493e9d2d9c71477e5d40fbbe845a963",
+      "width": 683,
+      "height": 512,
+      "pixel_sha256": "fb7af6deb4dfbc48dce8aed47c544ce4282f2b19b53c01d1962caaab5febb7fb"
+    },
+    {
+      "path": "busan/busan_img-1403_1b71f4.jpg",
+      "sha256": "b595aca4238726e2949e9b44966d749d8e809011101132526df00502fd91ffcd",
+      "width": 512,
+      "height": 683,
+      "pixel_sha256": "5d7a02b86b7dd29edf585a0743bec9fd0a2f108e8b4f3cd3e6c5e7d87f0b86f4"
+    },
+    {
+      "path": "busan/busan_img-1413_0cecae.jpg",
+      "sha256": "9bad1fe63e0a57ea22cc3c7ca9aedd0dcbef46242eb8e946abc9d9fc10ebc26a",
+      "width": 683,
+      "height": 512,
+      "pixel_sha256": "f89000458e0042e8e7bc24e7ea64838f962921b30c2e773885fcceff06f92265"
+    }
+  ]
+}

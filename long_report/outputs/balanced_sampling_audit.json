@@ -1,0 +1,61 @@
+{
+  "seed": 0,
+  "selection_rows": 44257,
+  "selection_sha256": "1a1ca6c1882356b84701446e495973c375535d9d64b3cb3d3397c3dfd640f9e4",
+  "selection_is_full_original_order": true,
+  "train_counts": {
+    "seoul": 11274,
+    "busan": 5191,
+    "tokyo": 13347,
+    "osaka": 7200,
+    "taipei": 7245
+  },
+  "original_city_proportions": {
+    "seoul": 0.2547393632645683,
+    "busan": 0.11729217976817227,
+    "tokyo": 0.3015794111665951,
+    "osaka": 0.16268612874799468,
+    "taipei": 0.16370291705266962
+  },
+  "balanced_total_city_weight": {
+    "seoul": 1.0,
+    "busan": 1.0,
+    "tokyo": 1.0,
+    "osaka": 1.0,
+    "taipei": 1.0
+  },
+  "balanced_city_draw_probabilities": {
+    "seoul": 0.2,
+    "busan": 0.2,
+    "tokyo": 0.2,
+    "osaka": 0.2,
+    "taipei": 0.2
+  },
+  "weight_formula": "1 / number of selected photos in the city",
+  "balanced_draws_with_replacement": true,
+  "sampling": {
+    "baseline_mps": {
+      "city_draws": {
+        "seoul": 63646,
+        "busan": 29328,
+        "tokyo": 75426,
+        "osaka": 40670,
+        "taipei": 40914
+      },
+      "unique_photos_drawn": 44257,
+      "total_draws": 249984
+    },
+    "balanced": {
+      "city_draws": {
+        "seoul": 50153,
+        "busan": 49745,
+        "tokyo": 50023,
+        "osaka": 49939,
+        "taipei": 50124
+      },
+      "unique_photos_drawn": 43818,
+      "total_draws": 249984
+    }
+  },
+  "recipe_rules": "OK"
+}

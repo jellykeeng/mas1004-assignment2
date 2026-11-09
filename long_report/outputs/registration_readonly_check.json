@@ -1,0 +1,17 @@
+{
+  "checked_at_kst": "2026-11-09T10:41:11+09:00",
+  "method": "read-only GET of the student-provided response edit link",
+  "google_accounts_redirect": false,
+  "student_number_present": true,
+  "repository_url_present": true,
+  "nickname_present": true,
+  "submitted_changes": false,
+  "saved_response_fields_match": {
+    "student_number": true,
+    "repository_url": true,
+    "nickname": true
+  },
+  "response_is_prepopulated": true,
+  "verification_source": "exact field IDs and answer records in the saved form data-response attribute",
+  "all_three_saved_response_fields_match": true
+}

@@ -1,0 +1,72 @@
+{
+  "case_id": "osaka_incorrect",
+  "model_sha256": "5f530de70645fc15d855e2547619ba2e7708e938b6d8eee6b1c6309de52de572",
+  "window": [
+    64,
+    96,
+    96,
+    128
+  ],
+  "blur_radius_pixels": 8,
+  "local_mean_rgb_float": [
+    0.3596009612083435,
+    0.5478783845901489,
+    0.7472771406173706
+  ],
+  "conditions": [
+    {
+      "replacement": "Original",
+      "predicted_city": "tokyo",
+      "p_seoul_percent": 9.980727195739746,
+      "p_busan_percent": 16.43737030029297,
+      "p_tokyo_percent": 45.36595916748047,
+      "p_osaka_percent": 19.914108276367188,
+      "p_taipei_percent": 8.301836013793945
+    },
+    {
+      "replacement": "Gray 0.50",
+      "predicted_city": "osaka",
+      "p_seoul_percent": 7.302479267120361,
+      "p_busan_percent": 17.192222595214844,
+      "p_tokyo_percent": 32.230567932128906,
+      "p_osaka_percent": 34.68389892578125,
+      "p_taipei_percent": 8.590832710266113
+    },
+    {
+      "replacement": "Local sky mean",
+      "predicted_city": "tokyo",
+      "p_seoul_percent": 9.340295791625977,
+      "p_busan_percent": 17.051820755004883,
+      "p_tokyo_percent": 43.7615852355957,
+      "p_osaka_percent": 21.22447395324707,
+      "p_taipei_percent": 8.621821403503418
+    },
+    {
+      "replacement": "Blur radius 8",
+      "predicted_city": "tokyo",
+      "p_seoul_percent": 10.000853538513184,
+      "p_busan_percent": 16.211008071899414,
+      "p_tokyo_percent": 45.61870574951172,
+      "p_osaka_percent": 19.87834930419922,
+      "p_taipei_percent": 8.291080474853516
+    },
+    {
+      "replacement": "Gray 0.25",
+      "predicted_city": "tokyo",
+      "p_seoul_percent": 7.651711940765381,
+      "p_busan_percent": 17.79882049560547,
+      "p_tokyo_percent": 36.06581497192383,
+      "p_osaka_percent": 29.851171493530273,
+      "p_taipei_percent": 8.632488250732422
+    },
+    {
+      "replacement": "Gray 0.75",
+      "predicted_city": "osaka",
+      "p_seoul_percent": 7.219408988952637,
+      "p_busan_percent": 15.710158348083496,
+      "p_tokyo_percent": 32.47970199584961,
+      "p_osaka_percent": 36.760658264160156,
+      "p_taipei_percent": 7.830075740814209
+    }
+  ]
+}

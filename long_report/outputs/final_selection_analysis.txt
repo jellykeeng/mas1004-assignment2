@@ -1,0 +1,14 @@
+Final selection from all nine recorded full training runs
+Track A = track-a-1 baseline, all 44257 photos, mean 50.14 percent
+Track A quick check = passed on CPU, 20 steps / 1280 presentations
+Track B = track-b-1 b_baseline
+Track B training / ONNX CPU scores = 0.4895 / 0.48942471513433666
+Track B ONNX CPU validation photos = 12077
+Track B ONNX CPU validation percent = 48.94
+Published record commit = b8b87fa93dbde8e0ca19ab51dbe993187a6714e9
+Published assets match the selected local files. Both later models are retained.
+Leaderboard updated = 2026-11-09 02:41 KST
+SoSleepy matches = {'A': [], 'B': []}
+Saved registration response exact field matches = {'student_number': True, 'repository_url': True, 'nickname': True}
+Registration read-only check KST = 2026-11-09T10:41:11+09:00
+Registration verification record commit = 6918fdbddd4899508fd980a37925388227fdf036

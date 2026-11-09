@@ -1187,3 +1187,29 @@ MPS 기준 조건에 대비한 사진 7장 추가의 효과를 계산한다.
 1. 검사를 마친 balanced 레시피와 전체 선택 목록을 새 Track A 릴리스로 게시한다.
 2. Long report에 비교 조건, 도시별 변화와 최종 릴리스 정보를 반영한다.
 3. 최종 보고서 두 PDF를 마감 전에 LMS에 제출하고 공개 채점 결과를 확인한다.
+
+## 2026-11-10 balanced 최종 릴리스 검증
+
+- 최종 Track A 릴리스 `track-a-2`를 11월 10일 03시 05분 KST에
+  `Balanced sampling`이라는 제목으로 게시했다. 대상 commit은 `310648d`다.
+  공개 주소는 [Track A 최종 릴리스](https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-a-2)다.
+- `recipe.py`와 전체 `selection.csv` 두 자산이 업로드 완료 상태이며,
+  draft와 prerelease는 모두 false다. 두 자산을 비로그인 상태에서 HTTP 200으로
+  내려받아 검사한 로컬 파일과 바이트 단위로 일치함을 확인했다.
+- 레시피 SHA-256은
+  `e7500546f0a59a23f9bb7757b404c87ff61010c9f3d1b634d6c164a6335ecfe4`,
+  선택 목록 SHA-256은
+  `1a1ca6c1882356b84701446e495973c375535d9d64b3cb3d3397c3dfd640f9e4`다.
+- 최종 Track B `track-b-1`의 모델과 메타데이터도 현재 로컬 파일의 해시가
+  공개 자산 digest와 일치했다. 두 트랙의 릴리스는 과제 마감 전에 게시되었다.
+- 11월 10일 03시 07분 KST에 조회한 리더보드는 11월 9일 02시 41분 갱신본이며,
+  `SoSleepy` 항목은 두 트랙 모두에서 0건이었다. 보고서의 공개 점수는 pending으로
+  기록한다. 비공개 채점 처리 상태는 공개 자료에서 확인할 수 없다.
+- 검증 원문과 공개 자산 정보는 `results/balanced_20261110_checks/`의
+  `release_verification.json`, `release_verification.txt`,
+  `leaderboard_status.json`에 보관했다.
+
+### 다음 계획
+
+1. 이번 비교와 학생의 해석, 최종 릴리스 정보를 반영한 Long report를 제출한다.
+2. 최종 보고서 두 PDF를 11월 10일 22시까지 LMS에 제출한다.

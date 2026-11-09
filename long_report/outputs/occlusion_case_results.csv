@@ -1,0 +1,11 @@
+case_id,true_city,original_prediction,original_probability_percent,max_drop_patch_target_probability_percent,prediction_after_max_drop_patch,prediction_changes_out_of_49,path
+seoul_correct,seoul,seoul,64.9747,42.9291,seoul,1,seoul/commons_108219109.jpg
+seoul_incorrect,seoul,busan,55.1361,41.0635,busan,0,seoul/commons_112272203.jpg
+busan_correct,busan,busan,40.6257,31.107,busan,1,busan/commons_18004824.jpg
+busan_incorrect,busan,tokyo,34.8893,29.0413,osaka,9,busan/commons_8098227.jpg
+tokyo_correct,tokyo,tokyo,85.067,78.4281,tokyo,0,tokyo/commons_148064335.jpg
+tokyo_incorrect,tokyo,seoul,64.8286,48.6654,seoul,0,tokyo/commons_151846778.jpg
+osaka_correct,osaka,osaka,92.982,90.6164,osaka,0,osaka/commons_193645911.jpg
+osaka_incorrect,osaka,tokyo,45.366,32.2306,osaka,4,osaka/commons_55200169.jpg
+taipei_correct,taipei,taipei,38.9707,28.4477,taipei,0,taipei/commons_72121124.jpg
+taipei_incorrect,taipei,seoul,55.5222,38.0535,seoul,0,taipei/commons_165151961.jpg

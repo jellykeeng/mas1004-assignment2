@@ -1,0 +1,5 @@
+$ python src/check_submission.py --submission results/b_control_seed0 --no-val
+# commit 500ed72
+results/b_control_seed0/model.onnx: 44.7 MB, 11.17 million parameters, 1.81 billion multiply-adds per 224 x 224 photo
+  limits: 12 million parameters, 2.0 billion multiply-adds
+  format and limits: OK

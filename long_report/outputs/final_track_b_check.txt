@@ -1,0 +1,13 @@
+warning: Using incompatible environment (`.venv`) due to `--no-sync` (The project environment's Python interpreter does not meet the Python preference: `only managed`)
+/Users/seoyoung/.codex/visualizations/2026/10/24/01a16bf5-3269-7541-bc77-bab34c8f2a3f/assignment2-work/mas1004-assignment2/submission/model.onnx: 44.7 MB, 11.17 million parameters, 1.81 billion multiply-adds per 224 x 224 photo
+  limits: 12 million parameters, 2.0 billion multiply-adds
+  format and limits: OK
+
+/Users/seoyoung/.codex/visualizations/2026/10/24/01a16bf5-3269-7541-bc77-bab34c8f2a3f/assignment2-work/mas1004-assignment2/data/starter/val: score 0.489 on 12077 photos (238s)
+  seoul 0.554, busan 0.376, tokyo 0.637, osaka 0.349, taipei 0.531
+  confusion (rows: true city, columns: answer):
+    seoul    1349   177   440   156   313
+    busan     436   522   235    69   128
+    tokyo     557    94  2474   498   258
+    osaka     257    73   901   742   155
+    taipei    352    77   482   140  1192

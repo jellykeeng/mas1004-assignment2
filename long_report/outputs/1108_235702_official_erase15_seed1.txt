@@ -1,0 +1,18 @@
+$ python src/official.py --tag erase15 --seed 1
+# commit c6bf059
+Track A, seed 1, on cuda: selection.csv, 44257 rows (seoul 11274, busan 5191, tokyo 13347, osaka 7200, taipei 7245)
+3906 steps of 64 photos = 249,984 photos through the network
+  step   390/3906  loss 1.430  (214s)
+  step   780/3906  loss 1.292  (427s)
+  step  1170/3906  loss 1.208  (644s)
+  step  1560/3906  loss 1.141  (868s)
+  step  1950/3906  loss 1.097  (1088s)
+  step  2340/3906  loss 1.022  (1312s)
+  step  2730/3906  loss 0.974  (1539s)
+  step  3120/3906  loss 0.896  (1762s)
+  step  3510/3906  loss 0.858  (1983s)
+  step  3900/3906  loss 0.817  (2205s)
+  step  3906/3906  loss 0.854  (2207s)
+
+validation score 0.494  (seoul 0.583, busan 0.386, tokyo 0.606, osaka 0.354, taipei 0.543)
+training took 36.8 min; wrote /content/drive/MyDrive/mas1004/assignment2/results/erase15_seed1/model.onnx

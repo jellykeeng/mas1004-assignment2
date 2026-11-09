@@ -1,0 +1,17 @@
+warning: Using incompatible environment (`.venv`) due to `--no-sync` (The project environment's Python interpreter does not meet the Python preference: `only managed`)
+Track A, seed 0, on mps: selection.csv, 44257 rows (seoul 11274, busan 5191, tokyo 13347, osaka 7200, taipei 7245)
+3906 steps of 64 photos = 249,984 photos through the network
+  step   390/3906  loss 1.435  (286s)
+  step   780/3906  loss 1.261  (584s)
+  step  1170/3906  loss 1.156  (867s)
+  step  1560/3906  loss 1.086  (1153s)
+  step  1950/3906  loss 1.025  (1436s)
+  step  2340/3906  loss 0.953  (1721s)
+  step  2730/3906  loss 0.884  (2013s)
+  step  3120/3906  loss 0.827  (2303s)
+  step  3510/3906  loss 0.788  (2591s)
+  step  3900/3906  loss 0.765  (2877s)
+  step  3906/3906  loss 0.784  (2881s)
+
+validation score 0.509  (seoul 0.513, busan 0.466, tokyo 0.500, osaka 0.450, taipei 0.616)
+training took 48.0 min; wrote /Users/seoyoung/.codex/visualizations/2026/10/24/01a16bf5-3269-7541-bc77-bab34c8f2a3f/assignment2-work/mas1004-assignment2/results/balanced_seed0/model.onnx

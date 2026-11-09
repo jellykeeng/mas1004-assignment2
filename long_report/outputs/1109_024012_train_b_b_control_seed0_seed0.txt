@@ -1,0 +1,9 @@
+$ python src/train_b.py --tag b_control_seed0 --seed 0 --model resnet18 --size 224 --epochs 4 --workers 0
+# commit 500ed72
+44257 photos (seoul 11274, busan 5191, tokyo 13347, osaka 7200, taipei 7245) on mps
+epoch 1/4: loss 1.369 (524s)
+epoch 2/4: loss 1.164 (1046s)
+epoch 3/4: loss 1.019 (1570s)
+epoch 4/4: loss 0.891 (2092s)
+validation score 0.486 (seoul 0.614, busan 0.369, tokyo 0.599, osaka 0.340, taipei 0.508)
+wrote /Users/seoyoung/.codex/visualizations/2026/10/24/01a16bf5-3269-7541-bc77-bab34c8f2a3f/assignment2-work/mas1004-assignment2/results/b_control_seed0/model.onnx: 11.17 million parameters, 1.81 billion multiply-adds

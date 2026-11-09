@@ -1,0 +1,23 @@
+{
+  "model_sha256": "5f530de70645fc15d855e2547619ba2e7708e938b6d8eee6b1c6309de52de572",
+  "metadata_sha256": "5fada1911b259d5d8145d2d26b1b1810ee94bb7b8f3f178a1e4cd96b661982c0",
+  "measurements": {
+    "parameters": 11174283,
+    "gmacs": 1.813563904,
+    "file_mb": 44.707595,
+    "opset": 17,
+    "ops": [
+      "Add",
+      "Conv",
+      "Div",
+      "Flatten",
+      "Gemm",
+      "GlobalAveragePool",
+      "MaxPool",
+      "Relu",
+      "Sub"
+    ],
+    "problems": []
+  },
+  "problems": []
+}

@@ -1,0 +1,175 @@
+{
+  "checked_at_kst": "2026-11-09T10:36:45+09:00",
+  "selection_basis": "The agent selected the highest recorded validation scores among existing runs after the student requested final submission preparation. Track B run/device/seed differences limit performance comparisons.",
+  "selected_published_releases": {
+    "A": {
+      "tag": "track-a-1",
+      "url": "https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-a-1",
+      "title": "Starter recipe",
+      "assets": [
+        {
+          "name": "recipe.py",
+          "size": 3018,
+          "digest": "sha256:17ac485223fa61741f2c63aeb1c91bc283c88c6b7aaa8f02fdb3e86924ff29c9",
+          "state": "uploaded"
+        }
+      ],
+      "experiment_tag": "baseline",
+      "seeds": [
+        0,
+        1
+      ],
+      "validation_mean": 0.5014,
+      "selection_photos": 44257,
+      "recipe_sha256": "17ac485223fa61741f2c63aeb1c91bc283c88c6b7aaa8f02fdb3e86924ff29c9",
+      "selection_sha256": "1a1ca6c1882356b84701446e495973c375535d9d64b3cb3d3397c3dfd640f9e4",
+      "quick_check_device": "cpu",
+      "quick_check_steps": 20,
+      "quick_check_passed": true,
+      "mps_quick_check_issue": "backward view/stride incompatibility in official.py MPS execution"
+    },
+    "B": {
+      "tag": "track-b-1",
+      "url": "https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-b-1",
+      "title": "Starter ResNet18 at 224, 4 epochs",
+      "assets": [
+        {
+          "name": "model.onnx",
+          "size": 44707595,
+          "digest": "sha256:5f530de70645fc15d855e2547619ba2e7708e938b6d8eee6b1c6309de52de572",
+          "state": "uploaded"
+        },
+        {
+          "name": "submission.json",
+          "size": 157,
+          "digest": "sha256:5fada1911b259d5d8145d2d26b1b1810ee94bb7b8f3f178a1e4cd96b661982c0",
+          "state": "uploaded"
+        }
+      ],
+      "experiment_tag": "b_baseline",
+      "training_validation_score": 0.4895,
+      "onnx_cpu_validation": {
+        "n": 12077,
+        "score": 0.48942471513433666,
+        "score_percent": "48.94",
+        "per_city": {
+          "seoul": 0.5540041067761807,
+          "busan": 0.37553956834532376,
+          "tokyo": 0.637464570986859,
+          "osaka": 0.34868421052631576,
+          "taipei": 0.531431119037004
+        },
+        "confusion": [
+          [
+            1349,
+            177,
+            440,
+            156,
+            313
+          ],
+          [
+            436,
+            522,
+            235,
+            69,
+            128
+          ],
+          [
+            557,
+            94,
+            2474,
+            498,
+            258
+          ],
+          [
+            257,
+            73,
+            901,
+            742,
+            155
+          ],
+          [
+            352,
+            77,
+            482,
+            140,
+            1192
+          ]
+        ],
+        "device": "onnxruntime CPUExecutionProvider",
+        "source": "track_b_check.txt",
+        "original_training_record_score": 0.4895
+      },
+      "measurements": {
+        "parameters": 11174283,
+        "gmacs": 1.813563904,
+        "file_mb": 44.707595,
+        "opset": 17,
+        "ops": [
+          "Add",
+          "Conv",
+          "Div",
+          "Flatten",
+          "Gemm",
+          "GlobalAveragePool",
+          "MaxPool",
+          "Relu",
+          "Sub"
+        ],
+        "problems": []
+      },
+      "metadata": {
+        "image_size": 224,
+        "starting_weights": "torchvision resnet18 IMAGENET1K_V1",
+        "data": "data/starter/train",
+        "summary": "resnet18 at 224, 4 epochs"
+      },
+      "model_sha256": "5f530de70645fc15d855e2547619ba2e7708e938b6d8eee6b1c6309de52de572",
+      "metadata_sha256": "5fada1911b259d5d8145d2d26b1b1810ee94bb7b8f3f178a1e4cd96b661982c0",
+      "format_check_passed": true
+    }
+  },
+  "leaderboard": {
+    "checked_at_kst": "2026-11-09T10:30:33+09:00",
+    "updated": "2026-11-09 02:41 KST",
+    "nickname": "SoSleepy",
+    "matches": {
+      "A": [],
+      "B": []
+    },
+    "track_counts": {
+      "A": 16,
+      "B": 9
+    },
+    "source": "https://jdasam.github.io/mas1004-leaderboard/board.json",
+    "repository_public": true,
+    "registration_and_private_grader_status": "not accessible from the public board"
+  },
+  "new_release_created": false,
+  "other_trained_models_preserved": [
+    "results/b_control_seed0",
+    "results/b_own_sb_seed0"
+  ],
+  "full_training_experiments": 9,
+  "published_record_commit": "b8b87fa93dbde8e0ca19ab51dbe993187a6714e9",
+  "worktree_clean": true,
+  "published_assets_match_local_selection": true,
+  "registration_response_verification": {
+    "checked_at_kst": "2026-11-09T10:41:11+09:00",
+    "method": "read-only GET of the student-provided response edit link",
+    "google_accounts_redirect": false,
+    "student_number_present": true,
+    "repository_url_present": true,
+    "nickname_present": true,
+    "submitted_changes": false,
+    "saved_response_fields_match": {
+      "student_number": true,
+      "repository_url": true,
+      "nickname": true
+    },
+    "response_is_prepopulated": true,
+    "verification_source": "exact field IDs and answer records in the saved form data-response attribute",
+    "all_three_saved_response_fields_match": true
+  },
+  "registration_record_commit": "6918fdbddd4899508fd980a37925388227fdf036"
+}
