@@ -1,7 +1,7 @@
 {
   "source": "https://jdasam.github.io/mas1004-leaderboard/board.json",
-  "checked_at_kst": "2026-11-10T20:42:31+09:00",
-  "updated": "2026-11-10 20:33 KST",
+  "checked_at_kst": "2026-11-10T21:07:33+09:00",
+  "updated": "2026-11-10 21:04 KST",
   "own": {
     "A": [
       {
@@ -26,21 +26,21 @@
     "B": [
       {
         "nick": "SoSleepy",
-        "tag": "track-b-2",
-        "submissions": 2,
-        "published_at": "2026-11-10T08:32:25Z",
-        "title": "ResNet18 at 224, balanced sampling, seed 0",
-        "score": 0.4203,
+        "tag": "track-b-3",
+        "submissions": 3,
+        "published_at": "2026-11-10T12:00:46Z",
+        "title": "MobileNetV3-Large at 448, balanced sampling",
+        "score": 0.4502,
         "per_city": {
-          "seoul": 0.623,
-          "busan": 0.309,
-          "tokyo": 0.618,
-          "osaka": 0.3,
-          "taipei": 0.251
+          "seoul": 0.638,
+          "busan": 0.304,
+          "tokyo": 0.763,
+          "osaka": 0.348,
+          "taipei": 0.198
         },
-        "gmacs": 1.814,
-        "parameters": 11174283,
-        "image_size": 224
+        "gmacs": 0.853,
+        "parameters": 4196243,
+        "image_size": 448
       }
     ]
   },
@@ -48,12 +48,12 @@
     "A": [
       {
         "rank": 11,
-        "total": 28
+        "total": 29
       }
     ],
     "B": [
       {
-        "rank": 15,
+        "rank": 3,
         "total": 28
       }
     ]

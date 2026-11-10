@@ -52,6 +52,9 @@ The student then chose to end experimentation and release the selected
 model. The planned MobileNet 224 control was cancelled. The comparison
 therefore measures a configuration change involving model, starting
 weights, resolution, and batch size.
+The 21:04 KST leaderboard update scored this final B release at 45.02\%,
+rank 3 among 28 scored models. The final A recipe scored 41.06\%,
+rank 11 among 29 scored recipes in the same update.
 
 After training, we performed an optional occlusion analysis on ten validation
 photographs using the first Track B model, \texttt{track-b-1}. The student\textquotesingle{}s question about an
@@ -69,7 +72,7 @@ Track A changes & Exclusion and Random Erasing with two CUDA seeds, followed by 
 Track A release & \texttt{track-a-2}, balanced sampling using the full training selection, selected and checked \\
 Track B experiments & Four full training runs, including a paired comparison of seven additional photographs and the final MobileNet 448 experiment \\
 Track B release & MobileNetV3-Large at 448 selected for \texttt{track-b-3}, after 57.94\% MPS validation and official ONNX verification \\
-Leaderboard & Track A scored 41.06\%, rank 11 of 28, in the 20:33 KST update on 10 November. The balanced B release scored 42.03\% \\
+Leaderboard & The 21:04 KST update on 10 November reported A at 41.06\%, rank 11 of 29, and the final B model at 45.02\%, rank 3 of 28 \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -971,6 +974,35 @@ format and limit checks. Full ONNX/CPU validation, release verification,
 and the selected submission files are recorded in Section 11 and the
 appendix.
 
+The 21:04 KST leaderboard update scored \texttt{track-b-3} at 45.02\%,
+rank 3 among 28 scored models. This exceeded the balanced B release\textquotesingle{}s
+42.03\% by 2.99 percentage points. The following values come from the
+published per-city scores, with their displayed precision.
+
+\begin{center}\small
+\begin{tabular}{lrrr}
+\toprule
+City & Balanced B leaderboard (\%) & MobileNet 448 (\%) & Change (pp) \\
+\midrule
+Seoul & 62.3 & 63.8 & +1.5 \\
+Busan & 30.9 & 30.4 & -0.5 \\
+Tokyo & 61.8 & 76.3 & +14.5 \\
+Osaka & 30.0 & 34.8 & +4.8 \\
+Taipei & 25.1 & 19.8 & -5.3 \\
+\midrule
+Published overall score & 42.03 & 45.02 & +2.99 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+All five local validation accuracies increased, while the public
+leaderboard showed increases for Seoul, Tokyo, and Osaka and decreases for
+Busan and Taipei. The largest public increase was for Tokyo. The overall
+gain therefore combines different per-city changes on this separate set
+of street scenes. This observation limits a claim that the new configuration
+improves every city across data sources. The final private photographs
+remain a separate evaluation after the deadline.
+
 \section{Post-training occlusion analysis and interpretation checks}
 
 \subsection{Case selection and measurement}
@@ -1124,6 +1156,11 @@ MPS validation set, exceeding the balanced ResNet18\textquotesingle{}s 50.91\% b
 comes from one seed and a combined change in model, starting weights,
 resolution, and batch size. The student ended experimentation after this
 run, so the planned MobileNet 224 comparison was cancelled.
+Its public score increased from the balanced model\textquotesingle{}s 42.03\% to
+45.02\%, reaching rank 3 of 28 in the recorded update. Public gains varied
+by city, including decreases for Busan and Taipei despite their local
+validation increases. Evaluation across the two photo sources therefore
+provides additional information beyond the overall local validation gain.
 
 With one more week, the agent would propose additional seeds under matching
 conditions and a larger, more varied collection of street, residential,
@@ -1150,40 +1187,35 @@ Track & Release & Validation (\%) & Leaderboard \\
 \midrule
 A & \texttt{track-a-2} & 50.91, MPS seed 0 & 41.06\% \\
 B, earlier & \texttt{track-b-2} & 50.91, ONNX/CPU & 42.03\% \\
-B, final & \texttt{track-b-3} & 57.94, ONNX/CPU & Pending \\
+B, final & \texttt{track-b-3} & 57.94, ONNX/CPU & 45.02\% \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-The public data checked at 20:42:31 KST on 10 November showed an update
-time of 20:33 KST. It contained \texttt{SoSleepy} in both tracks.
-Track A ranked 11 among 28 scored recipes, with mean public accuracy of
+The public data checked at 21:07:33 KST on 10 November showed an update
+time of 21:04 KST. It contained \texttt{SoSleepy} with the selected final
+release in each track. Track A ranked 11 among 29 scored recipes, with mean public accuracy of
 41.06\%. Its three-seed public scores ranged from 40.19\% to 42.22\%,
 and its server-side mean starter-validation score was 50.22\%.
-The balanced B release ranked 15 among 28 scored models with 42.03\%.
-That public B score belongs to \texttt{track-b-2}. A final check at
-21:02:54 KST retrieved the 20:52 KST update with the same A and B2
-results. The final MobileNet release, published at 21:00:46 KST, requires
-its own public grading result. The later snapshot and status are retained
-in \path{outputs/leaderboard_final.json} and
-\path{outputs/leaderboard_final_status.json}.
-The original snapshot and extracted status are retained in
+The final MobileNet B release ranked 3 among 28 scored models with
+45.02\%. The earlier balanced release scored 42.03\% before replacement.
+The latest snapshot and extracted status are retained in
 \path{outputs/leaderboard_status.json} and
-\path{outputs/leaderboard_2033.json}.
+\path{outputs/leaderboard_b3_scored.json}. Earlier snapshots are retained
+separately for the historical comparisons above.
 
 The displayed starter-recipe reference was 40.1\%, and the starter-model
-reference was 40.3\%. The recorded A release and balanced B release
-exceeded these rounded references by approximately 0.96 and 1.73 percentage
+reference was 40.3\%. The final A and B releases
+exceeded these rounded references by approximately 0.96 and 4.72 percentage
 points, respectively. These comparisons describe the public leaderboard
 split available before the deadline. The assignment also evaluates the last
 releases on a separate final set after the deadline.
 
-The leaderboard uses YouTube street-video frames from sources separate from
-starter validation. Its Track A result averages seeds 0, 1, and 2, while
-our local balanced result uses MPS seed 0. Source, scene, execution, and
-seed differences can affect the scores. The local balanced result of 50.91\%,
-the server-side three-seed validation mean of 50.22\%, and the public A
-score of 41.06\% therefore have distinct evaluation conditions.
+The leaderboard uses YouTube street-video frames from sources separate
+from starter validation. Track A averages three grader-trained seeds,
+while local balanced validation used MPS seed 0. The final B model\textquotesingle{}s
+local ONNX/CPU score of 57.94\% and public score of 45.02\% also refer
+to different photographs.
 
 \subsection{Submission file checks}
 
@@ -1375,6 +1407,7 @@ release files were retrieved anonymously and matched the checked candidates.
 \outputfile{outputs/mobilenet_448_analysis.txt}
 \outputfile{outputs/mobilenet_448_full_check.txt}
 \outputfile{outputs/mobilenet_448_release_verification.txt}
+\outputfile{outputs/leaderboard_b3_scored_analysis.txt}
 
 \clearpage
 \subsection*{Occlusion measurements and replacement-control evidence}

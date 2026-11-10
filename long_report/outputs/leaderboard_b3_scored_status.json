@@ -1,0 +1,61 @@
+{
+  "source": "https://jdasam.github.io/mas1004-leaderboard/board.json",
+  "checked_at_kst": "2026-11-10T21:07:33+09:00",
+  "updated": "2026-11-10 21:04 KST",
+  "own": {
+    "A": [
+      {
+        "nick": "SoSleepy",
+        "tag": "track-a-2",
+        "submissions": 1,
+        "published_at": "2026-11-09T18:05:01Z",
+        "title": "Balanced sampling",
+        "score": 0.4106,
+        "low": 0.4019,
+        "high": 0.4222,
+        "per_city": {
+          "seoul": 0.586,
+          "busan": 0.2836666666666667,
+          "tokyo": 0.6216666666666667,
+          "osaka": 0.29466666666666663,
+          "taipei": 0.26699999999999996
+        },
+        "val": 0.5022333333333333
+      }
+    ],
+    "B": [
+      {
+        "nick": "SoSleepy",
+        "tag": "track-b-3",
+        "submissions": 3,
+        "published_at": "2026-11-10T12:00:46Z",
+        "title": "MobileNetV3-Large at 448, balanced sampling",
+        "score": 0.4502,
+        "per_city": {
+          "seoul": 0.638,
+          "busan": 0.304,
+          "tokyo": 0.763,
+          "osaka": 0.348,
+          "taipei": 0.198
+        },
+        "gmacs": 0.853,
+        "parameters": 4196243,
+        "image_size": 448
+      }
+    ]
+  },
+  "ranks": {
+    "A": [
+      {
+        "rank": 11,
+        "total": 29
+      }
+    ],
+    "B": [
+      {
+        "rank": 3,
+        "total": 28
+      }
+    ]
+  }
+}

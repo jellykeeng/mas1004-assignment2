@@ -1,0 +1,24 @@
+Final public leaderboard scores for the selected releases
+Source = https://jdasam.github.io/mas1004-leaderboard/board.json
+Updated = 2026-11-10 21:04 KST
+Checked = 2026-11-10T21:07:33+09:00
+Track A = track-a-2, 41.06 percent, rank 11 of 29
+Track A server-side three-seed validation mean = 50.2233 percent
+Track B = track-b-3, 45.02 percent, rank 3 of 28
+Previous B2 public score = 42.03 percent
+Public B improvement = 2.99 percentage points
+Displayed starter references = A 40.1 percent, B 40.3 percent
+Final A gain over its rounded reference = 0.96 percentage points
+Final B gain over its rounded reference = 4.72 percentage points
+B3 ONNX/CPU validation = 57.94 percent on the separate starter-validation set
+
+City       Previous B2 public (%)  Final B3 public (%)  Change (pp)
+seoul                        62.3                 63.8          1.5
+busan                        30.9                 30.4         -0.5
+tokyo                        61.8                 76.3         14.5
+osaka                        30.0                 34.8          4.8
+taipei                       25.1                 19.8         -5.3
+Local validation increased for all five cities.
+Public accuracy increased for Seoul, Tokyo, and Osaka, and decreased for Busan and Taipei.
+This is a one-seed configuration comparison with multiple training factors changed.
+The private final evaluation after the deadline remains a separate evaluation set.
