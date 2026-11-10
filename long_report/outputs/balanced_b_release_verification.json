@@ -1,0 +1,24 @@
+{
+  "checked_at_kst": "2026-11-10T17:37:01+09:00",
+  "tag": "track-b-2",
+  "title": "ResNet18 at 224, balanced sampling, seed 0",
+  "url": "https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-b-2",
+  "published_at_kst": "2026-11-10T17:32:25+09:00",
+  "target": "8a8245dc5a147f567a72d1d5d205cddce5fb1e2b",
+  "assets": [
+    {
+      "name": "model.onnx",
+      "bytes": 44707595,
+      "sha256": "ea94e4de284f9e685ba3736214871542069943c210bddade7287c0f13ffbefd5",
+      "anonymous_status": 200,
+      "download_matches": true
+    },
+    {
+      "name": "submission.json",
+      "bytes": 197,
+      "sha256": "d1f5eca299ace908479ffae7f05ba16a9498029ca0f001640b09b2581e621897",
+      "anonymous_status": 200,
+      "download_matches": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "checked_at_kst": "2026-11-10T17:22:26+09:00",
+  "n": 12077,
+  "score": 0.509104010051048,
+  "score_percent": "50.91",
+  "per_city": {
+    "seoul": 0.5133470225872689,
+    "busan": 0.46618705035971225,
+    "tokyo": 0.5001288327750579,
+    "osaka": 0.44971804511278196,
+    "taipei": 0.6161390994204191
+  },
+  "confusion": [
+    [
+      1250,
+      268,
+      304,
+      202,
+      411
+    ],
+    [
+      364,
+      648,
+      122,
+      93,
+      163
+    ],
+    [
+      569,
+      170,
+      1941,
+      687,
+      514
+    ],
+    [
+      256,
+      122,
+      548,
+      957,
+      245
+    ],
+    [
+      314,
+      100,
+      273,
+      174,
+      1382
+    ]
+  ],
+  "model_sha256": "ea94e4de284f9e685ba3736214871542069943c210bddade7287c0f13ffbefd5",
+  "measurements": {
+    "parameters": 11174283,
+    "gmacs": 1.813563904,
+    "file_mb": 44.707595,
+    "opset": 17,
+    "ops": [
+      "Add",
+      "Conv",
+      "Div",
+      "Flatten",
+      "Gemm",
+      "GlobalAveragePool",
+      "MaxPool",
+      "Relu",
+      "Sub"
+    ],
+    "problems": []
+  },
+  "source_training": "balanced_seed0",
+  "source_training_commit": "bb6bc15",
+  "source_training_device": "mps",
+  "source_training_budget": 249984,
+  "source_training_seed": 0,
+  "training_repeated": false,
+  "old_b1_validation_score": 0.48942471513433666,
+  "validation_gain_percentage_points": 1.9679294916711332,
+  "old_b1_leaderboard_score": 0.3826,
+  "old_b1_leaderboard_rank": [
+    26,
+    27
+  ]
+}

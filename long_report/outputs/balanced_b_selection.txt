@@ -1,0 +1,26 @@
+Track B final selection by reusing the completed balanced Track A model
+Source training = balanced_seed0, commit bb6bc15
+MPS seed 0; 3906 steps x 64 = 249984 presentations
+Evaluation = official check_submission.py, ONNX Runtime CPU, all 12077 validation photos
+Previous B1 validation = 48.94 percent
+Balanced candidate validation = 50.91 percent
+Difference in validation = +1.97 percentage points
+B1 leaderboard = 38.26 percent, rank 26 of 27, snapshot 2026-11-10 17:04 KST
+
+City       B1 ONNX CPU (%)  Balanced ONNX CPU (%)
+seoul                55.40                  51.33
+busan                37.55                  46.62
+tokyo                63.75                  50.01
+osaka                34.87                  44.97
+taipei               53.14                  61.61
+
+Format and Track B limits = OK
+Parameters = 11174283
+GMACs = 1.813563904
+Model bytes = 44707595
+New model SHA-256 = ea94e4de284f9e685ba3736214871542069943c210bddade7287c0f13ffbefd5
+The candidate predictions match the original MPS validation confusion matrix.
+Model reuse added no training run. Full training record count = 11.
+B1 and the reused model have different training budgets, devices, and seed settings.
+Their validation comparison supports model selection and does not isolate the sampling effect.
+A leaderboard score for the new model requires a new grading result.

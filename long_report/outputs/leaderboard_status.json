@@ -1,16 +1,37 @@
 {
-  "checked_at_kst": "2026-11-10T03:07:11+09:00",
-  "updated": "2026-11-09 02:41 KST",
-  "nickname": "SoSleepy",
-  "matches": {
+  "checked_at_kst": "2026-11-10T17:54:05+09:00",
+  "updated": "2026-11-10 17:45 KST",
+  "split": "leaderboard",
+  "own": {
     "A": [],
-    "B": []
+    "B": [
+      {
+        "nick": "SoSleepy",
+        "tag": "track-b-2",
+        "submissions": 2,
+        "published_at": "2026-11-10T08:32:25Z",
+        "title": "ResNet18 at 224, balanced sampling, seed 0",
+        "score": 0.4203,
+        "per_city": {
+          "seoul": 0.623,
+          "busan": 0.309,
+          "tokyo": 0.618,
+          "osaka": 0.3,
+          "taipei": 0.251
+        },
+        "gmacs": 1.814,
+        "parameters": 11174283,
+        "image_size": 224
+      }
+    ]
   },
-  "track_counts": {
-    "A": 16,
-    "B": 9
-  },
-  "source": "https://jdasam.github.io/mas1004-leaderboard/board.json",
-  "repository_public": true,
-  "registration_and_private_grader_status": "not accessible from the public board"
+  "ranks": {
+    "A": [],
+    "B": [
+      {
+        "rank": 14,
+        "total": 27
+      }
+    ]
+  }
 }

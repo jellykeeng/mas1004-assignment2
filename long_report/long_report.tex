@@ -17,7 +17,7 @@
 \begin{document}
 \makeheader
 {\small Leaderboard nickname \texttt{SoSleepy}\hfill
-Final releases \texttt{track-a-2} and \texttt{track-b-1}}\par
+Selected releases \texttt{track-a-2} and \texttt{track-b-2}}\par
 
 \section{Scope and experimental purpose}
 
@@ -41,8 +41,16 @@ device and seed 0, with and without seven photographs supplied by the student.
 The scores were 48.61\% and 48.74\%, an observed increase of 0.13 percentage
 points. Each of these two conditions was run once.
 
+On 10 November, the student selected reuse of the completed balanced Track A
+model for Track B. Its full ONNX/CPU validation score was 50.91\%, and it
+was published as \texttt{track-b-2}. The leaderboard updated at 17:45 KST
+reported 42.03\% and rank 14 among 27 scored models. Reusing this model
+added no training run. Student-selected MobileNetV3-Large experiments were
+still in progress when this revision was prepared, so their results are
+reserved for a subsequent revision.
+
 After training, we performed an optional occlusion analysis on ten validation
-photographs using the final Track B model. The student\textquotesingle{}s question about an
+photographs using the first Track B model, \texttt{track-b-1}. The student\textquotesingle{}s question about an
 unexpected prediction change led to an additional comparison of replacement
 colors and blur at the same image coordinates.
 
@@ -56,8 +64,8 @@ Photo review & Mistakes from all five cities reviewed, with 56 exclusions select
 Track A changes & Exclusion and Random Erasing with two CUDA seeds, followed by balanced sampling and a matched MPS control with seed 0 \\
 Track A release & \texttt{track-a-2}, balanced sampling using the full training selection, selected and checked \\
 Track B experiments & Three full training runs, including a paired comparison of seven additional photographs \\
-Track B release & First model \texttt{track-b-1} selected, with ONNX/CPU revalidation of 48.94\% \\
-Leaderboard & No matching nickname in the snapshot updated at 02:41 KST on 9 November, checked again on 10 November \\
+Track B release & Balanced model reused as \texttt{track-b-2}, with full ONNX/CPU validation of 50.91\% \\
+Leaderboard & Track B scored 42.03\%, rank 14 of 27, in the 17:45 KST update on 10 November. Track A had no matching entry \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -810,18 +818,92 @@ also confirmed five finite outputs per photograph.
 
 Each model and its metadata were stored in a separate result folder. The
 queued \texttt{--submit} command initially placed the seven-photo model in
-the local \texttt{submission/} folder after training. The final submission
-review subsequently selected the first model and restored that model to
-the submission folder. Model hashes, original run outputs, and check results
-are included in the appendix evidence.
+the local \texttt{submission/} folder after training. The submission review
+on 9 November selected the first model and restored it to the submission
+folder. The selection was revised on 10 November as described below.
+Model hashes, original run outputs, and check results are included in the
+appendix evidence.
+
+\subsection{Using the balanced Track A model for Track B}
+
+The leaderboard snapshot updated at 17:04 KST on 10 November reported
+38.26\% for \texttt{track-b-1}, rank 26 among 27 scored models. After
+expressing concern about that result, the student selected the agent\textquotesingle{}s
+proposal to validate and submit the already trained balanced model.
+
+The source was \path{results/balanced_seed0/model.onnx}, trained from
+commit \texttt{bb6bc15} on MPS with seed 0, batch size 64, 3,906 steps,
+and 249,984 presentations. We evaluated all 12,077 starter validation
+photographs with the official Track B checker using ONNX Runtime on CPU.
+The exact mean city accuracy was 0.509104010051048, or 50.91\%.
+Its confusion matrix matched the original balanced MPS validation result.
+
+\begin{center}\small
+\begin{tabular}{lrr}
+\toprule
+City & First B model, ONNX/CPU (\%) & Balanced, ONNX/CPU (\%) \\
+\midrule
+Seoul & 55.40 & 51.33 \\
+Busan & 37.55 & 46.62 \\
+Tokyo & 63.75 & 50.01 \\
+Osaka & 34.87 & 44.97 \\
+Taipei & 53.14 & 61.61 \\
+\midrule
+Mean across cities & 48.94 & 50.91 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The increase of 1.97 percentage points supports selecting the balanced
+model from these available candidates. The two models also differ in
+training budget, device, and seed-setting conditions. The paired sampling
+comparison in Section 7 provides the controlled evidence for the sampling
+change, with 49.51\% and 50.91\% under the same MPS and seed-0 conditions.
+Reusing a completed model added no training run to the eleven recorded
+full experiments.
+
+The checked model was published as \texttt{track-b-2} at 17:32:25 KST
+on 10 November, titled \texttt{ResNet18 at 224, balanced sampling, seed 0}.
+Both release assets were downloaded without authentication and matched
+the validated local files byte for byte. The model has 11,174,283 parameters,
+1.813563904 GMACs, and a size of 44,707,595 bytes. The complete model and
+metadata hashes and the official full check are reproduced in the appendix.
+
+The subsequent leaderboard update at 17:45 KST reported 42.03\% for this
+release, rank 14 among 27 scored models. Compared with the first release\textquotesingle{}s
+38.26\%, the public score increased by 3.77 percentage points. It also
+exceeded the displayed starter-model reference of 40.3\% by approximately
+1.7 percentage points. The leaderboard and local validation use different
+photographs, so their absolute scores describe separate evaluation sets.
+
+\begin{center}\small
+\begin{tabular}{lrr}
+\toprule
+City & First B leaderboard (\%) & Balanced B leaderboard (\%) \\
+\midrule
+Seoul & 58.0 & 62.3 \\
+Busan & 15.9 & 30.9 \\
+Tokyo & 70.5 & 61.8 \\
+Osaka & 23.7 & 30.0 \\
+Taipei & 23.2 & 25.1 \\
+\midrule
+Published overall score & 38.26 & 42.03 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The per-city public values are rounded in the source data. The overall
+row uses each published score, retaining its provided precision.
 
 \section{Post-training occlusion analysis and interpretation checks}
 
 \subsection{Case selection and measurement}
 
 The student requested an optional analysis of which image regions affected
-the model\textquotesingle{}s outputs. We used the ONNX model in the final selected release
-\texttt{track-b-1}. The agent shuffled each city\textquotesingle{}s validation list with seed
+the model\textquotesingle{}s outputs. This analysis was completed on 9 November with
+the first release, \texttt{track-b-1}, which was selected at that time.
+The later balanced-model submission uses a different ONNX file.
+The agent shuffled each city\textquotesingle{}s validation list with seed
 0 and evaluated the first 32 photographs per city, 160 in total. In that
 order, the first correctly classified and first incorrectly classified
 photograph from each city were selected, producing ten cases. This sampling
@@ -952,10 +1034,13 @@ In Track B, the student\textquotesingle{}s decision to supply one Seoul photogra
 Busan photographs was evaluated against a control on the same MPS device
 and seed. The observed change was +0.13 percentage points. Repeated
 measurements are needed to interpret this small difference from a single
-pair of runs. Final model selection considered the scores, their measurement
-conditions, and the first model that had already been released. The agent
-selected the condition with the highest recorded validation score among the
-available runs.
+pair of runs. On 10 November, the student selected reuse of the balanced
+Track A model for Track B. Full ONNX/CPU validation increased from 48.94\%
+for the first B model to 50.91\%. The subsequent public leaderboard score
+increased from 38.26\% to 42.03\%. Differences in training budget, device,
+and seed-setting conditions also contribute to this model-selection
+comparison. The controlled evidence for balanced sampling comes from the
+matched Track A pair.
 
 With one more week, the agent would propose additional seeds under matching
 conditions and a larger, more varied collection of street, residential,
@@ -968,9 +1053,9 @@ recorded with their rationale.
 
 \section{Final submission and validation checks}
 
-Across eleven full training runs, the agent selected balanced sampling for
-Track A and the first ResNet18 model for Track B. The comparisons and their
-measurement limitations are discussed above.
+The selected releases use the completed balanced ResNet18 model for both
+tracks. The eleven completed full training runs and their measurement
+limitations are reported above. MobileNet experiments remain in progress.
 
 \subsection{Validation and leaderboard scores}
 
@@ -980,21 +1065,25 @@ measurement limitations are discussed above.
 Track & Final release & Validation (\%) & Leaderboard \\
 \midrule
 A & \texttt{track-a-2} & 50.91, MPS seed 0 & Pending \\
-B & \texttt{track-b-1} & 48.94, ONNX/CPU & Pending \\
+B & \texttt{track-b-2} & 50.91, ONNX/CPU & 42.03\% \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-At 03:07:11 KST on 10 November, the retrieved leaderboard still showed its
-02:41 KST update from 9 November. Neither track contained \texttt{SoSleepy}.
-Scores remain pending, as recorded in
-\path{outputs/leaderboard_status.json}.
+The public data checked at 17:54:05 KST on 10 November showed an update
+time of 17:45 KST. It contained \texttt{SoSleepy} with \texttt{track-b-2}
+and rank 14 of 27. The Track A list still contained no matching nickname,
+so its official leaderboard score remains unavailable. The original
+snapshot and extracted status are retained in
+\path{outputs/leaderboard_status.json} and
+\path{outputs/leaderboard_1745.json}.
 
 The leaderboard uses YouTube street-video frames from sources separate from
 starter validation. Its Track A result averages seeds 0, 1, and 2, while
 our final balanced result uses MPS seed 0. Source, scene, and execution
-differences can affect the scores. A numerical comparison awaits the
-leaderboard results.
+differences can affect the scores. The local balanced result of 50.91\%
+and the B leaderboard result of 42.03\% therefore refer to different
+evaluation sets. The official A result still requires a public grading entry.
 
 \subsection{Submission file checks}
 
@@ -1003,16 +1092,18 @@ The final Track A recipe passed official rules and the 20-step MPS
 selection retained all original paths and their order. The downloaded
 release files matched the checked local files.
 
-The Track B ONNX file passed official format and size-limit checks.
-CUDA validation was 48.95\%, and ONNX/CPU revalidation on all 12,077
-photographs was 0.48942471513433666, or 48.94\%. Every final local file
-matched its published asset SHA-256. The appendix includes the evidence.
+The selected balanced Track B ONNX file passed official format and
+size-limit checks and full CPU validation on all 12,077 photographs.
+Its exact score was 0.509104010051048, or 50.91\%. Each checked local
+submission file matched the corresponding published \texttt{track-b-2}
+asset SHA-256. The appendix includes the evidence.
 
 \section*{References}
 \begin{enumerate}\footnotesize
 \item \href{https://github.com/jdasam/mas1004-assignment2}{Assignment README and official training code, GitHub}.
 \item \href{https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-a-2}{Student repository, final Track A release}.
-\item \href{https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-b-1}{Student repository, first Track B release selected for final submission}.
+\item \href{https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-b-2}{Student repository, selected balanced Track B release}.
+\item \href{https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-b-1}{Student repository, first Track B release used for the occlusion analysis}.
 \item \href{https://jdasam.github.io/mas1004-leaderboard/board.json}{Public leaderboard data}.
 \item \href{https://news.seoul.go.kr/safe/archives/515090}{Seoul Metropolitan Government, overhead-line undergrounding plan update, 28 October 2024}.
 \item \href{https://docs.pytorch.org/vision/0.21/generated/torchvision.transforms.RandomErasing.html}{torchvision 0.21 documentation for RandomErasing}.
@@ -1049,7 +1140,8 @@ houses, and residential streets with no visible sidewalks.}
 \centering
 \picturefile{figures/occlusion_report_examples.png}
 \caption{A correctly classified Seoul case and an incorrectly classified
-Osaka case. The original predicted city is fixed as the target. Black
+Osaka case from the first Track B model, \texttt{track-b-1}.
+The original predicted city is fixed as the target. Black
 outlines indicate the regions with the largest target-logit decrease.
 Red indicates a logit decrease after masking and blue an increase.
 All ten cases use the same color scale.}
@@ -1059,8 +1151,8 @@ All ten cases use the same color scale.}
 \begin{figure}[!ht]
 \centering
 \picturefile{figures/occlusion_report_controls.png}
-\caption{Replacement controls for the same sky region of the incorrectly
-classified Osaka photograph. Middle and light gray produced Osaka
+\caption{Replacement controls for the first Track B model on the same
+sky region of the incorrectly classified Osaka photograph. Middle and light gray produced Osaka
 predictions. The original sky patch mean and blur produced Tokyo predictions.
 This case demonstrates output sensitivity to the replacement method.}
 \end{figure}
@@ -1154,6 +1246,15 @@ smoke-check error is retained in
 \outputfile{outputs/balanced_training.txt}
 \outputfile{outputs/balanced_final_quick.txt}
 \outputfile{outputs/balanced_release_verification.txt}
+
+\clearpage
+\subsection*{Balanced-model reuse and the second Track B release}
+The official checker evaluated all 12,077 validation photographs. The public
+release files were retrieved anonymously and matched the checked candidates.
+\outputfile{outputs/balanced_b_full_check.txt}
+\outputfile{outputs/balanced_b_selection.txt}
+\outputfile{outputs/balanced_b_release_verification.txt}
+\outputfile{outputs/leaderboard_1745_analysis.txt}
 
 \clearpage
 \subsection*{Occlusion measurements and replacement-control evidence}

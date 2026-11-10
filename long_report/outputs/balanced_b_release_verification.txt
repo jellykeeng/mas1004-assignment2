@@ -1,0 +1,11 @@
+Track B balanced-model public release verification
+Tag = track-b-2
+Title = ResNet18 at 224, balanced sampling, seed 0
+Published at 2026-11-10T17:32:25+09:00
+Target commit = 8a8245dc5a147f567a72d1d5d205cddce5fb1e2b
+Both assets uploaded and downloaded anonymously with HTTP 200.
+model.onnx bytes = 44707595
+model.onnx SHA-256 = ea94e4de284f9e685ba3736214871542069943c210bddade7287c0f13ffbefd5
+submission.json bytes = 197
+submission.json SHA-256 = d1f5eca299ace908479ffae7f05ba16a9498029ca0f001640b09b2581e621897
+Published bytes match the fully validated local candidate.

@@ -45,7 +45,7 @@ for row, case_id in enumerate(["seoul_correct", "osaka_incorrect"]):
     axes[row, 1].set_title(f"Target {case['target_city']}\nMax logit drop {case['max_logit_drop']:.3f}")
     for axis in axes[row]:
         axis.set_axis_off()
-figure.suptitle("Two occlusion cases from the final model", fontsize=13, y=0.98)
+figure.suptitle("Two occlusion cases from Track B model 1", fontsize=13, y=0.98)
 figure.text(0.5, 0.93, "32 x 32 gray patches | fixed original predicted class", ha="center", fontsize=10)
 bar_axis = figure.add_axes([0.20, 0.13, 0.60, 0.023])
 bar = figure.colorbar(matplotlib.cm.ScalarMappable(norm=norm, cmap=cmap),

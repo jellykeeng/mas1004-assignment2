@@ -1,0 +1,20 @@
+Public leaderboard after the second Track B release
+Source = https://jdasam.github.io/mas1004-leaderboard/board.json
+Updated = 2026-11-10 17:45 KST
+Checked = 2026-11-10T17:54:05+09:00
+Nickname = SoSleepy
+Track B tag = track-b-2
+Previous B1 published score = 0.3826 (38.26 percent)
+New B2 published score = 0.4203 (42.03 percent)
+Score increase = 3.77 percentage points
+Rank = 14 of 27 scored models
+Displayed starter-model reference = 40.3 percent
+Published per-city values are rounded in the source data.
+seoul = 62.3 percent
+busan = 30.9 percent
+tokyo = 61.8 percent
+osaka = 30.0 percent
+taipei = 25.1 percent
+No matching nickname in Track A. The official Track A score remains unavailable.
+The local balanced seed-0 validation score of 50.91 percent uses the starter validation set.
+These leaderboard results refer specifically to track-b-2.
