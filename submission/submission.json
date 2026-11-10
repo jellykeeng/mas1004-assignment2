@@ -1,6 +1,9 @@
 {
-  "image_size": 224,
-  "starting_weights": "torchvision resnet18 IMAGENET1K_V1",
+  "image_size": 448,
+  "starting_weights": "torchvision mobilenet_v3_large IMAGENET1K_V2",
   "data": "data/starter/train",
-  "summary": "resnet18 at 224; balanced sampling; seed 0; 249984 presentations"
+  "summary": "mobilenet_v3_large at 448, 7812 steps",
+  "seed": 0,
+  "training_presentations": 249984,
+  "balanced_sampling": true
 }
