@@ -111,6 +111,8 @@ def main():
     ap.add_argument("--size", type=int, default=224)
     ap.add_argument("--folders", nargs="+", default=[str(ROOT / "data" / "starter" / "train")])
     ap.add_argument("--epochs", type=int, default=4)
+    ap.add_argument("--steps", type=int,
+                    help="train for this many batches in one pass, using the Track A sampling order")
     ap.add_argument("--lr", type=float, default=3e-4)
     ap.add_argument("--batch-size", type=int, default=64)
     ap.add_argument("--balance", action="store_true", help="draw every city equally often")
@@ -119,6 +121,9 @@ def main():
     ap.add_argument("--val-every", type=int, default=1,
                     help="measure on every n-th validation photo only (quicker without a GPU)")
     args = ap.parse_args()
+    if args.steps is not None and args.steps <= 0:
+        ap.error("--steps must be positive")
+    commit = git_commit()
 
     if args.seed is not None:
         random.seed(args.seed)
@@ -139,25 +144,38 @@ def main():
 
     tf = T.Compose([T.RandomResizedCrop(args.size, scale=(0.35, 1.0)), T.RandomHorizontalFlip(),
                     T.ColorJitter(0.2, 0.2, 0.2), T.ToTensor(), T.Normalize(MEAN, STD)])
-    if args.balance:
-        weights = [1.0 / counts[c] for _, c in rows]
+    weights = [1.0 / counts[c] for _, c in rows] if args.balance else None
+    sampler = None
+    generator = None
+    epochs = args.epochs
+    if args.steps is not None:
+        from official import draw_order
+
+        sampling_seed = args.seed if args.seed is not None else 0
+        sampler = draw_order(len(rows), args.steps * args.batch_size, weights, sampling_seed)
+        generator = torch.Generator().manual_seed(sampling_seed)
+        epochs = 1
+    elif args.balance:
         sampler = torch.utils.data.WeightedRandomSampler(weights, len(rows), replacement=True)
-        loader = DataLoader(Photos(rows, tf), batch_size=args.batch_size, sampler=sampler,
-                            num_workers=args.workers, drop_last=True)
-    else:
-        loader = DataLoader(Photos(rows, tf), batch_size=args.batch_size, shuffle=True,
-                            num_workers=args.workers, drop_last=True)
+    loader = DataLoader(Photos(rows, tf), batch_size=args.batch_size, sampler=sampler,
+                        shuffle=sampler is None, num_workers=args.workers, drop_last=True,
+                        generator=generator)
 
     net, weights_name = build(args.model)
     net = net.to(device)
     opt = torch.optim.AdamW(net.parameters(), lr=args.lr, weight_decay=0.05)
-    sched = torch.optim.lr_scheduler.OneCycleLR(opt, max_lr=args.lr, total_steps=args.epochs * len(loader), pct_start=0.15)
+    total_steps = epochs * len(loader)
+    sched = torch.optim.lr_scheduler.OneCycleLR(opt, max_lr=args.lr, total_steps=total_steps, pct_start=0.15)
     scaler = torch.amp.GradScaler("cuda", enabled=device.type == "cuda")
+    if args.steps is not None and args.seed is not None:
+        random.seed(args.seed)
+        np.random.seed(args.seed)
+        torch.manual_seed(args.seed)
     start = time.time()
-    for epoch in range(args.epochs):
+    for epoch in range(epochs):
         net.train()
         losses = []
-        for x, y in loader:
+        for step, (x, y) in enumerate(loader):
             x, y = x.to(device), y.to(device)
             with torch.autocast(device.type, dtype=torch.float16, enabled=device.type == "cuda"):
                 loss = nn.functional.cross_entropy(net(x), y, label_smoothing=0.1)
@@ -167,22 +185,39 @@ def main():
             scaler.update()
             sched.step()
             losses.append(loss.item())
-        print(f"epoch {epoch + 1}/{args.epochs}: loss {np.mean(losses):.3f} ({time.time() - start:.0f}s)", flush=True)
+            if args.steps is not None and ((step + 1) % max(1, len(loader) // 10) == 0 or step + 1 == len(loader)):
+                print(f"step {step + 1}/{len(loader)}: loss {np.mean(losses):.3f} ({time.time() - start:.0f}s)", flush=True)
+        print(f"epoch {epoch + 1}/{epochs}: loss {np.mean(losses):.3f} ({time.time() - start:.0f}s)", flush=True)
     train_seconds = time.time() - start
 
     val = rules.list_photos(ROOT / "data" / "starter" / "val")[::args.val_every]
-    score, per_city, _ = measure(net, val, args.size, device, args.workers)
+    score, per_city, confusion = measure(net, val, args.size, device, args.workers)
     print(f"validation score {score:.3f} (" + ", ".join(f"{c} {v:.3f}" for c, v in per_city.items()) + ")")
 
     out = ROOT / "results" / args.tag
-    export_onnx(net, out / "model.onnx", args.size)
+    onnx_gap = export_onnx(net, out / "model.onnx", args.size)
+    training_length = f"{args.epochs} epochs" if args.steps is None else f"{args.steps} steps"
     info = {"image_size": args.size, "starting_weights": weights_name,
-            "data": " + ".join(shown(f) for f in args.folders), "summary": f"{args.model} at {args.size}, {args.epochs} epochs"}
+            "data": " + ".join(shown(f) for f in args.folders), "summary": f"{args.model} at {args.size}, {training_length}"}
     if args.seed is not None:
         info["seed"] = args.seed
+    if args.steps is not None:
+        info["training_presentations"] = total_steps * args.batch_size
+        info["balanced_sampling"] = args.balance
     (out / "submission.json").write_text(json.dumps(info, indent=2))
     m = rules.measure_onnx(out / "model.onnx", args.size)
     print(f"wrote {out / 'model.onnx'}: {m['parameters'] / 1e6:.2f} million parameters, {m['gmacs']:.2f} billion multiply-adds")
+    result = {
+        "track": "B", "tag": args.tag, "seed": args.seed, "model": args.model,
+        "image_size": args.size, "balanced_sampling": args.balance, "batch_size": args.batch_size,
+        "steps": total_steps, "budget": total_steps * args.batch_size, "device": str(device),
+        "selection_counts": counts, "validation_n": len(val), "validation_every": args.val_every,
+        "val_score": round(score, 4), "val_per_city": {city: round(value, 4) for city, value in per_city.items()},
+        "val_confusion": confusion.tolist(), "train_seconds": round(train_seconds, 1),
+        "onnx_gap": onnx_gap, "commit": commit,
+        "finished": datetime.now().isoformat(timespec="seconds"),
+    }
+    (out / "result.json").write_text(json.dumps(result, indent=2))
     if args.submit:
         (ROOT / "submission").mkdir(exist_ok=True)
         for name in ("model.onnx", "submission.json"):
@@ -199,10 +234,10 @@ def main():
             w.writeheader()
         w.writerow({"finished": datetime.now().isoformat(timespec="seconds"), "track": "B", "tag": args.tag,
                     "seed": args.seed,
-                    "budget": args.epochs * len(loader) * args.batch_size, "val_score": round(score, 4),
+                    "budget": total_steps * args.batch_size, "val_score": round(score, 4),
                     **{c: round(per_city.get(c, 0), 4) for c in CITIES}, "train_seconds": round(train_seconds, 1),
                     "device": str(device), "selection": f"{args.model} {args.size}px; " + " + ".join(shown(f) for f in args.folders),
-                    "commit": git_commit()})
+                    "commit": commit})
 
 
 if __name__ == "__main__":
