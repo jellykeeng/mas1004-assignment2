@@ -1,0 +1,24 @@
+{
+  "checked_at_kst": "2026-11-10T21:01:31+09:00",
+  "tag": "track-b-3",
+  "title": "MobileNetV3-Large at 448, balanced sampling",
+  "url": "https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-b-3",
+  "published_at_kst": "2026-11-10T21:00:46+09:00",
+  "target_commit": "595003fe99618621e28181bf2a176dd5be6e54a1",
+  "assets": [
+    {
+      "name": "model.onnx",
+      "bytes": 16825941,
+      "sha256": "e18718be94887a770658f32c5af64f84b9a43018ae601bd6ad7a0b7d6e999dd0",
+      "anonymous_status": 200,
+      "download_matches": true
+    },
+    {
+      "name": "submission.json",
+      "bytes": 257,
+      "sha256": "fef09ffebc7e6386435ac730873f884704b7a10ea0fd6d4bb43494b3e9d9ed0a",
+      "anonymous_status": 200,
+      "download_matches": true
+    }
+  ]
+}

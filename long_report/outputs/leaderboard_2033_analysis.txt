@@ -1,0 +1,25 @@
+Public leaderboard after Track A grading
+Source = https://jdasam.github.io/mas1004-leaderboard/board.json
+Updated = 2026-11-10 20:33 KST
+Checked = 2026-11-10T20:42:31+09:00
+Nickname = SoSleepy
+Track A = track-a-2, score 41.06 percent, rank 11 of 28
+Track A three-seed public range = 40.19 to 42.22 percent
+Track A three-seed starter-validation mean = 50.2233 percent
+Track B = track-b-2, score 42.03 percent, rank 15 of 28
+Displayed starter-recipe reference = 40.1 percent
+Displayed starter-model reference = 40.3 percent
+A gain over the rounded reference = 0.96 percentage points
+B2 gain over the rounded reference = 1.73 percentage points
+A seoul = 58.6000 percent
+A busan = 28.3667 percent
+A tokyo = 62.1667 percent
+A osaka = 29.4667 percent
+A taipei = 26.7000 percent
+B seoul = 62.3000 percent
+B busan = 30.9000 percent
+B tokyo = 61.8000 percent
+B osaka = 30.0000 percent
+B taipei = 25.1000 percent
+The final private evaluation split has not been reported.
+References are rounded as displayed on the public page.

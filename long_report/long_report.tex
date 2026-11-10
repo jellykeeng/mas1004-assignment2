@@ -17,7 +17,7 @@
 \begin{document}
 \makeheader
 {\small Leaderboard nickname \texttt{SoSleepy}\hfill
-Selected releases \texttt{track-a-2} and \texttt{track-b-2}}\par
+Selected releases \texttt{track-a-2} and \texttt{track-b-3}}\par
 
 \section{Scope and experimental purpose}
 
@@ -35,7 +35,7 @@ Mac and seed 0 scored 49.51\% with the starter sampling and 50.91\% with
 balanced sampling, an observed increase of 1.40 percentage points.
 
 The report covers eight full Track A training runs across the recorded CUDA
-and MPS conditions and three full Track B training runs. The first Track B model scored 48.95\% in its
+and MPS conditions and four full Track B training runs. The first Track B model scored 48.95\% in its
 training-time validation. A subsequent paired comparison used the same MPS
 device and seed 0, with and without seven photographs supplied by the student.
 The scores were 48.61\% and 48.74\%, an observed increase of 0.13 percentage
@@ -45,9 +45,13 @@ On 10 November, the student selected reuse of the completed balanced Track A
 model for Track B. Its full ONNX/CPU validation score was 50.91\%, and it
 was published as \texttt{track-b-2}. The leaderboard updated at 17:45 KST
 reported 42.03\% and rank 14 among 27 scored models. Reusing this model
-added no training run. Student-selected MobileNetV3-Large experiments were
-still in progress when this revision was prepared, so their results are
-reserved for a subsequent revision.
+added no training run. The final experiment trained MobileNetV3-Large at
+448 $\times$ 448 with balanced sampling. Its full MPS validation score
+was 57.94\%, compared with 50.91\% for the balanced ResNet18 model.
+The student then chose to end experimentation and release the selected
+model. The planned MobileNet 224 control was cancelled. The comparison
+therefore measures a configuration change involving model, starting
+weights, resolution, and batch size.
 
 After training, we performed an optional occlusion analysis on ten validation
 photographs using the first Track B model, \texttt{track-b-1}. The student\textquotesingle{}s question about an
@@ -63,9 +67,9 @@ Track A baseline & Full training with seeds 0 and 1, followed by model format ch
 Photo review & Mistakes from all five cities reviewed, with 56 exclusions selected from 480 training candidates \\
 Track A changes & Exclusion and Random Erasing with two CUDA seeds, followed by balanced sampling and a matched MPS control with seed 0 \\
 Track A release & \texttt{track-a-2}, balanced sampling using the full training selection, selected and checked \\
-Track B experiments & Three full training runs, including a paired comparison of seven additional photographs \\
-Track B release & Balanced model reused as \texttt{track-b-2}, with full ONNX/CPU validation of 50.91\% \\
-Leaderboard & Track B scored 42.03\%, rank 14 of 27, in the 17:45 KST update on 10 November. Track A had no matching entry \\
+Track B experiments & Four full training runs, including a paired comparison of seven additional photographs and the final MobileNet 448 experiment \\
+Track B release & MobileNetV3-Large at 448 selected for \texttt{track-b-3}, after 57.94\% MPS validation and official ONNX verification \\
+Leaderboard & Track A scored 41.06\%, rank 11 of 28, in the 20:33 KST update on 10 November. The balanced B release scored 42.03\% \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -749,7 +753,7 @@ augmentations. Both full runs used commit \texttt{500ed72}.
 An initial short check with two workers was delayed during process shutdown
 after saving its outputs. With zero workers, training, export, checking, and
 normal shutdown were verified before full training began. These short checks
-were recorded separately from the eleven full experiments.
+were recorded separately from the twelve full experiments.
 
 The control tag was \path{b_control_seed0}, and the added-photo tag was
 \path{b_own_sb_seed0}. Seoul training photographs increased from 11,274 to
@@ -859,8 +863,8 @@ model from these available candidates. The two models also differ in
 training budget, device, and seed-setting conditions. The paired sampling
 comparison in Section 7 provides the controlled evidence for the sampling
 change, with 49.51\% and 50.91\% under the same MPS and seed-0 conditions.
-Reusing a completed model added no training run to the eleven recorded
-full experiments.
+Reusing a completed model added no training run to the eleven full
+experiments recorded at that stage.
 
 The checked model was published as \texttt{track-b-2} at 17:32:25 KST
 on 10 November, titled \texttt{ResNet18 at 224, balanced sampling, seed 0}.
@@ -894,6 +898,78 @@ Published overall score & 38.26 & 42.03 \\
 
 The per-city public values are rounded in the source data. The overall
 row uses each published score, retaining its provided precision.
+
+\subsection{Final MobileNetV3-Large experiment at 448}
+
+After selecting the balanced B model, the student asked for an additional
+improvement that might increase the leaderboard rank. The student chose
+the proposed MobileNetV3-Large comparison at 224 and 448 pixels. An initial
+448 execution check with batch size 64 was too slow on the 16 GiB Mac,
+and the student chose the same smaller batch for both planned resolutions.
+The full 448 run was executed first to allow more time for the longer run.
+The student later chose to end experimentation after 448 and proceed with
+release and the final report. The 224 full run was consequently cancelled.
+
+The new model used torchvision\textquotesingle{}s MobileNetV3-Large initialized with
+ImageNet-1k V2 weights. It used all 44,257 starter training photographs,
+balanced sampling, seed 0, batch size 32, and 7,812 steps, giving the same
+249,984 presentations as the balanced Track A run. Cropping at area
+0.35--1.0, horizontal flipping, color jitter, AdamW at $3\times10^{-4}$,
+weight decay 0.05, OneCycleLR, and label smoothing 0.1 were retained.
+
+The optional fixed-step mode added to \path{src/train_b.py} reused the
+official sampler\textquotesingle{}s draw order and a dedicated loader generator.
+Python, NumPy, and torch seeds were reset after model initialization.
+The epoch-based entry point retained its existing defaults. Quick checks
+were logged separately from the full training table. The completed full
+run used commit \texttt{49346fe} and tag \path{b_mnv3_448_seed0}.
+
+Training took 7,931.0 seconds, approximately 132.2 minutes. The final mean
+training loss was 0.886. Full validation and export required approximately
+another 51 minutes. During validation, the script used batches of 128,
+and a process sample recorded a physical memory footprint of approximately
+13.5 GB. This larger evaluation batch made the final stage much slower
+than the training-only runtime estimate suggested. The model and result
+files were saved at 20:53:40 KST on 10 November. The ONNX export gap
+recorded by the supplied exporter was \texttt{3.64e-6}.
+
+\begin{center}\small
+\begin{tabular}{lrrr}
+\toprule
+City & Balanced ResNet18 (\%) & MobileNet 448 (\%) & Change (pp) \\
+\midrule
+Seoul & 51.33 & 57.21 & +5.88 \\
+Busan & 46.62 & 50.58 & +3.96 \\
+Tokyo & 50.01 & 62.17 & +12.16 \\
+Osaka & 44.97 & 52.54 & +7.57 \\
+Taipei & 61.61 & 67.19 & +5.58 \\
+\midrule
+Mean across cities & 50.91 & 57.94 & +7.03 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+These are the recorded training-time MPS validation scores, rounded to two
+decimal places. The same public validation photographs, MPS device, seed,
+and number of training presentations were used. Accuracy increased for all
+five cities, with the largest observed gain for Tokyo. The configuration
+improved the measured city-mean accuracy by 7.03 percentage points in this
+single-seed comparison.
+
+Several factors changed together. ResNet18 used ImageNet V1 weights,
+224 inputs, batch size 64, and 3,906 optimizer steps. MobileNetV3-Large
+used ImageNet V2 weights, 448 inputs, batch size 32, and 7,812 optimizer
+steps. The cancelled MobileNet 224 run leaves the
+isolated resolution effect unmeasured. The observed gain supports model
+selection among the completed candidates. A separate matched comparison
+would be required to attribute a particular share of the gain to resolution
+or architecture. This interpretation is the agent\textquotesingle{}s analysis.
+
+The exported MobileNet has approximately 4.20 million parameters,
+0.85 GMACs per input, and a 16.8 MB file. It passed the official Track B
+format and limit checks. Full ONNX/CPU validation, release verification,
+and the selected submission files are recorded in Section 11 and the
+appendix.
 
 \section{Post-training occlusion analysis and interpretation checks}
 
@@ -1000,7 +1076,7 @@ which discusses artifacts introduced by sharp color contrasts from constant
 perturbations.
 
 This diagnostic changed the inputs to a completed model. Its case-level
-outputs and replacement controls are stored separately from the eleven full
+outputs and replacement controls are stored separately from the twelve full
 training experiments. The report distinguishes training changes, diagnostic
 input changes, observed output sensitivity, and hypotheses about semantic
 causes.
@@ -1042,6 +1118,13 @@ and seed-setting conditions also contribute to this model-selection
 comparison. The controlled evidence for balanced sampling comes from the
 matched Track A pair.
 
+The last MobileNetV3-Large 448 configuration scored 57.94\% on the full
+MPS validation set, exceeding the balanced ResNet18\textquotesingle{}s 50.91\% by
+7.03 percentage points. All five city accuracies increased. This result
+comes from one seed and a combined change in model, starting weights,
+resolution, and batch size. The student ended experimentation after this
+run, so the planned MobileNet 224 comparison was cancelled.
+
 With one more week, the agent would propose additional seeds under matching
 conditions and a larger, more varied collection of street, residential,
 and transport scenes from each city. Gradually increasing the collection
@@ -1053,37 +1136,54 @@ recorded with their rationale.
 
 \section{Final submission and validation checks}
 
-The selected releases use the completed balanced ResNet18 model for both
-tracks. The eleven completed full training runs and their measurement
-limitations are reported above. MobileNet experiments remain in progress.
+The selected releases use the balanced ResNet18 recipe for Track A and
+MobileNetV3-Large at 448 for Track B. Twelve full training runs were
+completed, eight in Track A and four in Track B. Their comparison conditions
+and measurement limitations are reported above.
 
 \subsection{Validation and leaderboard scores}
 
 \begin{center}\small
 \begin{tabular}{llrl}
 \toprule
-Track & Final release & Validation (\%) & Leaderboard \\
+Track & Release & Validation (\%) & Leaderboard \\
 \midrule
-A & \texttt{track-a-2} & 50.91, MPS seed 0 & Pending \\
-B & \texttt{track-b-2} & 50.91, ONNX/CPU & 42.03\% \\
+A & \texttt{track-a-2} & 50.91, MPS seed 0 & 41.06\% \\
+B, earlier & \texttt{track-b-2} & 50.91, ONNX/CPU & 42.03\% \\
+B, final & \texttt{track-b-3} & 57.94, ONNX/CPU & Pending \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-The public data checked at 17:54:05 KST on 10 November showed an update
-time of 17:45 KST. It contained \texttt{SoSleepy} with \texttt{track-b-2}
-and rank 14 of 27. The Track A list still contained no matching nickname,
-so its official leaderboard score remains unavailable. The original
-snapshot and extracted status are retained in
+The public data checked at 20:42:31 KST on 10 November showed an update
+time of 20:33 KST. It contained \texttt{SoSleepy} in both tracks.
+Track A ranked 11 among 28 scored recipes, with mean public accuracy of
+41.06\%. Its three-seed public scores ranged from 40.19\% to 42.22\%,
+and its server-side mean starter-validation score was 50.22\%.
+The balanced B release ranked 15 among 28 scored models with 42.03\%.
+That public B score belongs to \texttt{track-b-2}. A final check at
+21:02:54 KST retrieved the 20:52 KST update with the same A and B2
+results. The final MobileNet release, published at 21:00:46 KST, requires
+its own public grading result. The later snapshot and status are retained
+in \path{outputs/leaderboard_final.json} and
+\path{outputs/leaderboard_final_status.json}.
+The original snapshot and extracted status are retained in
 \path{outputs/leaderboard_status.json} and
-\path{outputs/leaderboard_1745.json}.
+\path{outputs/leaderboard_2033.json}.
+
+The displayed starter-recipe reference was 40.1\%, and the starter-model
+reference was 40.3\%. The recorded A release and balanced B release
+exceeded these rounded references by approximately 0.96 and 1.73 percentage
+points, respectively. These comparisons describe the public leaderboard
+split available before the deadline. The assignment also evaluates the last
+releases on a separate final set after the deadline.
 
 The leaderboard uses YouTube street-video frames from sources separate from
 starter validation. Its Track A result averages seeds 0, 1, and 2, while
-our final balanced result uses MPS seed 0. Source, scene, and execution
-differences can affect the scores. The local balanced result of 50.91\%
-and the B leaderboard result of 42.03\% therefore refer to different
-evaluation sets. The official A result still requires a public grading entry.
+our local balanced result uses MPS seed 0. Source, scene, execution, and
+seed differences can affect the scores. The local balanced result of 50.91\%,
+the server-side three-seed validation mean of 50.22\%, and the public A
+score of 41.06\% therefore have distinct evaluation conditions.
 
 \subsection{Submission file checks}
 
@@ -1092,17 +1192,29 @@ The final Track A recipe passed official rules and the 20-step MPS
 selection retained all original paths and their order. The downloaded
 release files matched the checked local files.
 
-The selected balanced Track B ONNX file passed official format and
-size-limit checks and full CPU validation on all 12,077 photographs.
-Its exact score was 0.509104010051048, or 50.91\%. Each checked local
-submission file matched the corresponding published \texttt{track-b-2}
-asset SHA-256. The appendix includes the evidence.
+The selected MobileNet Track B ONNX file passed official format and
+size-limit checks and full CPU evaluation on all 12,077 photographs.
+Its exact score was 0.5793640527634617, or 57.94\%, and its confusion
+matrix matched MPS validation. The CPU evaluation took 209 seconds.
+The earlier balanced model\textquotesingle{}s exact ONNX/CPU score was
+0.509104010051048, or 50.91\%, making the increase 7.03 percentage points.
+
+The selected exported model contains 4,196,243 parameters and requires
+0.85303744 GMACs per photograph. Its file size is 16,825,941 bytes,
+with ONNX opset 17. The submitted files match the full-check candidates.
+Release \texttt{track-b-3} was published at 21:00:46 KST on 10 November,
+before the 22:00 deadline, with title
+\texttt{MobileNetV3-Large at 448, balanced sampling}.
+The public release files were retrieved anonymously and matched those
+same bytes and SHA-256 values. Full hashes and release timing are
+reproduced in the appendix.
 
 \section*{References}
 \begin{enumerate}\footnotesize
 \item \href{https://github.com/jdasam/mas1004-assignment2}{Assignment README and official training code, GitHub}.
 \item \href{https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-a-2}{Student repository, final Track A release}.
-\item \href{https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-b-2}{Student repository, selected balanced Track B release}.
+\item \href{https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-b-3}{Student repository, final MobileNet Track B release}.
+\item \href{https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-b-2}{Student repository, earlier balanced Track B release}.
 \item \href{https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-b-1}{Student repository, first Track B release used for the occlusion analysis}.
 \item \href{https://jdasam.github.io/mas1004-leaderboard/board.json}{Public leaderboard data}.
 \item \href{https://news.seoul.go.kr/safe/archives/515090}{Seoul Metropolitan Government, overhead-line undergrounding plan update, 28 October 2024}.
@@ -1255,6 +1367,14 @@ release files were retrieved anonymously and matched the checked candidates.
 \outputfile{outputs/balanced_b_selection.txt}
 \outputfile{outputs/balanced_b_release_verification.txt}
 \outputfile{outputs/leaderboard_1745_analysis.txt}
+\outputfile{outputs/leaderboard_2033_analysis.txt}
+
+\clearpage
+\subsection*{Final MobileNet 448 training, validation, and release evidence}
+\outputfile{outputs/mobilenet_448_training.txt}
+\outputfile{outputs/mobilenet_448_analysis.txt}
+\outputfile{outputs/mobilenet_448_full_check.txt}
+\outputfile{outputs/mobilenet_448_release_verification.txt}
 
 \clearpage
 \subsection*{Occlusion measurements and replacement-control evidence}

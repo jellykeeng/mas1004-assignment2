@@ -1,0 +1,12 @@
+Final MobileNet 448 public release verification
+Tag = track-b-3
+Title = MobileNetV3-Large at 448, balanced sampling
+URL = https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-b-3
+Published = 2026-11-10T21:00:46+09:00
+Target commit = 595003fe99618621e28181bf2a176dd5be6e54a1
+Both assets uploaded and retrieved anonymously with HTTP 200.
+model.onnx bytes = 16825941
+model.onnx SHA-256 = e18718be94887a770658f32c5af64f84b9a43018ae601bd6ad7a0b7d6e999dd0
+submission.json bytes = 257
+submission.json SHA-256 = fef09ffebc7e6386435ac730873f884704b7a10ea0fd6d4bb43494b3e9d9ed0a
+Published files match the fully validated local model and metadata.

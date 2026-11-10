@@ -1,0 +1,39 @@
+Final MobileNetV3-Large 448 experiment
+Tag = b_mnv3_448_seed0
+Training source commit = 49346fe
+Training script SHA-256 = 2644cbf3f0b04f2dfb4315dda1a70230b8617b250017763558b5f4ab45d65093
+Training device = MPS, seed = 0, workers = 0
+Starting weights = torchvision mobilenet_v3_large IMAGENET1K_V2
+Training data = all 44257 starter photographs, balanced sampling
+Batch size = 32, steps = 7812, presentations = 249984
+Training seconds = 7931.0, minutes = 132.18
+Final mean training loss printed by train_b.py = 0.886
+Full training-time validation = 0.579364052763462 (57.94 percent), 12077 photographs
+Validation inference batch size in train_b.py = 128
+Finished and exported = 2026-11-10T20:53:40 KST
+Recorded ONNX export gap = 3.6358833313e-06
+Model bytes = 16825941
+Model SHA-256 = e18718be94887a770658f32c5af64f84b9a43018ae601bd6ad7a0b7d6e999dd0
+
+City       Balanced MPS (%)  MobileNet 448 MPS (%)  Change (pp)
+seoul                  51.33                  57.21         5.88
+busan                  46.62                  50.58         3.96
+tokyo                  50.01                  62.17        12.16
+osaka                  44.97                  52.54         7.57
+taipei                 61.61                  67.19         5.58
+Overall mean = 50.91 to 57.94 percent, an increase of 7.03 percentage points.
+The comparison changes architecture, pretrained weights, resolution, and batch size.
+Optimizer updates change from 3906 to 7812 with the same presentation budget.
+Both conditions use MPS, seed 0, full starter training data, balanced sampling, and full validation.
+Only one full run was completed per new condition. The student cancelled MobileNet 224.
+Full training count = 12, including 8 Track A and 4 Track B runs.
+Quick checks are stored in a separate CSV and are excluded from this count.
+
+Full official ONNX/CPU submission verification
+Command = uv run python src/check_submission.py --submission results/b_mnv3_448_seed0
+CPU score = 0.5793640527634617 (57.94 percent)
+CPU confusion matrix matches the complete MPS validation result.
+CPU validation = 12077 photographs, 209 seconds
+Official exported-model parameters = 4196243
+Official GMACs = 0.85303744
+Training command = uv run python src/train_b.py --tag b_mnv3_448_seed0 --model mobilenet_v3_large --size 448 --batch-size 32 --steps 7812 --seed 0 --balance --workers 0

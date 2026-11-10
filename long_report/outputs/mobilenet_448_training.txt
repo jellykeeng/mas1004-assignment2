@@ -1,0 +1,16 @@
+warning: Using incompatible environment (`.venv`) due to `--no-sync` (The project environment's Python interpreter does not meet the Python preference: `only managed`)
+44257 photos (seoul 11274, busan 5191, tokyo 13347, osaka 7200, taipei 7245) on mps
+step 781/7812: loss 1.417 (810s)
+step 1562/7812: loss 1.270 (1588s)
+step 2343/7812: loss 1.179 (2361s)
+step 3124/7812: loss 1.116 (3154s)
+step 3905/7812: loss 1.064 (3948s)
+step 4686/7812: loss 1.018 (4747s)
+step 5467/7812: loss 0.979 (5544s)
+step 6248/7812: loss 0.943 (6333s)
+step 7029/7812: loss 0.912 (7137s)
+step 7810/7812: loss 0.886 (7928s)
+step 7812/7812: loss 0.886 (7931s)
+epoch 1/1: loss 0.886 (7931s)
+validation score 0.579 (seoul 0.572, busan 0.506, tokyo 0.622, osaka 0.525, taipei 0.672)
+wrote /Users/seoyoung/.codex/visualizations/2026/10/24/01a16bf5-3269-7541-bc77-bab34c8f2a3f/assignment2-work/mas1004-assignment2/results/b_mnv3_448_seed0/model.onnx: 4.20 million parameters, 0.85 billion multiply-adds

@@ -1,0 +1,61 @@
+{
+  "source": "https://jdasam.github.io/mas1004-leaderboard/board.json",
+  "checked_at_kst": "2026-11-10T21:02:54+09:00",
+  "updated": "2026-11-10 20:52 KST",
+  "own": {
+    "A": [
+      {
+        "nick": "SoSleepy",
+        "tag": "track-a-2",
+        "submissions": 1,
+        "published_at": "2026-11-09T18:05:01Z",
+        "title": "Balanced sampling",
+        "score": 0.4106,
+        "low": 0.4019,
+        "high": 0.4222,
+        "per_city": {
+          "seoul": 0.586,
+          "busan": 0.2836666666666667,
+          "tokyo": 0.6216666666666667,
+          "osaka": 0.29466666666666663,
+          "taipei": 0.26699999999999996
+        },
+        "val": 0.5022333333333333
+      }
+    ],
+    "B": [
+      {
+        "nick": "SoSleepy",
+        "tag": "track-b-2",
+        "submissions": 2,
+        "published_at": "2026-11-10T08:32:25Z",
+        "title": "ResNet18 at 224, balanced sampling, seed 0",
+        "score": 0.4203,
+        "per_city": {
+          "seoul": 0.623,
+          "busan": 0.309,
+          "tokyo": 0.618,
+          "osaka": 0.3,
+          "taipei": 0.251
+        },
+        "gmacs": 1.814,
+        "parameters": 11174283,
+        "image_size": 224
+      }
+    ]
+  },
+  "ranks": {
+    "A": [
+      {
+        "rank": 11,
+        "total": 28
+      }
+    ],
+    "B": [
+      {
+        "rank": 15,
+        "total": 28
+      }
+    ]
+  }
+}

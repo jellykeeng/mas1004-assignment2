@@ -1,0 +1,72 @@
+{
+  "checked_at_kst": "2026-11-10T21:00:15+09:00",
+  "n": 12077,
+  "score": 0.5793640527634617,
+  "per_city": {
+    "seoul": 0.5720739219712526,
+    "busan": 0.5057553956834533,
+    "tokyo": 0.6217469724297862,
+    "osaka": 0.525375939849624,
+    "taipei": 0.6718680338831922
+  },
+  "confusion": [
+    [
+      1393,
+      308,
+      281,
+      151,
+      302
+    ],
+    [
+      409,
+      703,
+      101,
+      82,
+      95
+    ],
+    [
+      383,
+      93,
+      2413,
+      677,
+      315
+    ],
+    [
+      164,
+      78,
+      587,
+      1118,
+      181
+    ],
+    [
+      315,
+      60,
+      232,
+      129,
+      1507
+    ]
+  ],
+  "measurements": {
+    "parameters": 4196243,
+    "gmacs": 0.85303744,
+    "file_mb": 16.825941,
+    "opset": 17,
+    "ops": [
+      "Add",
+      "Conv",
+      "Div",
+      "Flatten",
+      "Gemm",
+      "GlobalAveragePool",
+      "HardSigmoid",
+      "HardSwish",
+      "Mul",
+      "Relu",
+      "Sub"
+    ],
+    "problems": []
+  },
+  "model_sha256": "e18718be94887a770658f32c5af64f84b9a43018ae601bd6ad7a0b7d6e999dd0",
+  "training_result_matches": true,
+  "cpu_validation_seconds_printed": 209
+}

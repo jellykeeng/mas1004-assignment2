@@ -1450,3 +1450,25 @@ MPS 기준 조건에 대비한 사진 7장 추가의 효과를 계산한다.
 
 1. 검증한 두 제출 파일을 새 릴리스로 게시하고 공개 자산을 확인한다.
 2. 최종 태그와 완료 결과를 반영한 Long report PDF를 전달한다.
+
+## 2026-11-10 track-b-3 최종 게시 확인
+
+- 학생이 릴리스 제목으로 `MobileNetV3-Large at 448, balanced sampling`을 선택했다.
+- 같은 제목의 `track-b-3`를 **21시 00분 46초 KST**에 게시했다.
+  태그 대상 commit은 `595003fe99618621e28181bf2a176dd5be6e54a1`이다.
+  공개 주소는 [최종 Track B 릴리스](https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-b-3)다.
+- 21시 01분에 첨부 파일 두 개를 비로그인 상태로 HTTP 200으로 내려받았다.
+  두 파일 모두 공식 전체 검증에 사용한 로컬 제출 파일과 바이트가 일치했다.
+- 모델 SHA-256은 `e18718be94887a770658f32c5af64f84b9a43018ae601bd6ad7a0b7d6e999dd0`,
+  메타데이터 SHA-256은 `fef09ffebc7e6386435ac730873f884704b7a10ea0fd6d4bb43494b3e9d9ed0a`다.
+- 최종 GitHub 제출은 Track A `track-a-2`, Track B `track-b-3`다.
+  A의 공개 점수 41.06%와 B2의 공개 점수 42.03%를, B3의 로컬 검증 점수
+  57.94%와 구분해 보고한다. B3의 공개 점수는 새 채점 결과에서 확인한다.
+- 원본 API 응답, 태그 commit, 내려받은 자산과 검증 결과를
+  `results/mobilenet_20261110_checks/`에 보관했다.
+- 학생 요청에 따라 최종 Long report를 영어 PDF로 갱신한다.
+
+### 최종 제출 계획
+
+1. 완료된 12개 전체 학습 결과와 최종 릴리스 정보를 Long report에 반영한다.
+2. 학생은 최종 Long report PDF로 LMS의 기존 파일을 교체해 22시 전에 제출한다.

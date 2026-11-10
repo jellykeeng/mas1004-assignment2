@@ -1,0 +1,70 @@
+{
+  "track": "B",
+  "tag": "b_mnv3_448_seed0",
+  "seed": 0,
+  "model": "mobilenet_v3_large",
+  "image_size": 448,
+  "balanced_sampling": true,
+  "batch_size": 32,
+  "steps": 7812,
+  "budget": 249984,
+  "device": "mps",
+  "selection_counts": {
+    "seoul": 11274,
+    "busan": 5191,
+    "tokyo": 13347,
+    "osaka": 7200,
+    "taipei": 7245
+  },
+  "validation_n": 12077,
+  "validation_every": 1,
+  "val_score": 0.5794,
+  "val_per_city": {
+    "seoul": 0.5721,
+    "busan": 0.5058,
+    "tokyo": 0.6217,
+    "osaka": 0.5254,
+    "taipei": 0.6719
+  },
+  "val_confusion": [
+    [
+      1393,
+      308,
+      281,
+      151,
+      302
+    ],
+    [
+      409,
+      703,
+      101,
+      82,
+      95
+    ],
+    [
+      383,
+      93,
+      2413,
+      677,
+      315
+    ],
+    [
+      164,
+      78,
+      587,
+      1118,
+      181
+    ],
+    [
+      315,
+      60,
+      232,
+      129,
+      1507
+    ]
+  ],
+  "train_seconds": 7931.0,
+  "onnx_gap": 3.635883331298828e-06,
+  "commit": "49346fe",
+  "finished": "2026-11-10T20:53:40"
+}

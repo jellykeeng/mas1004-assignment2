@@ -1,0 +1,13 @@
+warning: Using incompatible environment (`.venv`) due to `--no-sync` (The project environment's Python interpreter does not meet the Python preference: `only managed`)
+results/b_mnv3_448_seed0/model.onnx: 16.8 MB, 4.20 million parameters, 0.85 billion multiply-adds per 448 x 448 photo
+  limits: 12 million parameters, 2.0 billion multiply-adds
+  format and limits: OK
+
+/Users/seoyoung/.codex/visualizations/2026/10/24/01a16bf5-3269-7541-bc77-bab34c8f2a3f/assignment2-work/mas1004-assignment2/data/starter/val: score 0.579 on 12077 photos (209s)
+  seoul 0.572, busan 0.506, tokyo 0.622, osaka 0.525, taipei 0.672
+  confusion (rows: true city, columns: answer):
+    seoul    1393   308   281   151   302
+    busan     409   703   101    82    95
+    tokyo     383    93  2413   677   315
+    osaka     164    78   587  1118   181
+    taipei    315    60   232   129  1507
