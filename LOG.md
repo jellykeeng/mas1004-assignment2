@@ -1261,3 +1261,41 @@ MPS 기준 조건에 대비한 사진 7장 추가의 효과를 계산한다.
 1. 검증한 balanced 모델을 새 Track B 릴리스로 게시한다.
 2. 학생이 추가로 선택한 MobileNetV3-Large의 224와 448 입력 실험을 실행 검사한다.
 3. 완료된 실험과 최종 제출 선택을 영어 Long report와 제출 ZIP에 반영한다.
+
+## 2026-11-10 track-b-2 게시 확인
+
+- 검증한 balanced 모델을 `track-b-2`로 11월 10일 17시 32분 KST에 게시했다.
+  제목은 `ResNet18 at 224, balanced sampling, seed 0`, 대상 commit은 `8a8245d`다.
+  공개 주소는 [Track B 두 번째 릴리스](https://github.com/jellykeeng/mas1004-assignment2/releases/tag/track-b-2)다.
+- 두 첨부 파일을 비로그인 상태에서 HTTP 200으로 내려받아 로컬 검증 파일과
+  바이트 및 SHA-256이 일치함을 확인했다. 모델은
+  `ea94e4de284f9e685ba3736214871542069943c210bddade7287c0f13ffbefd5`,
+  메타데이터는 `d1f5eca299ace908479ffae7f05ba16a9498029ca0f001640b09b2581e621897`이다.
+- 공개 자산 확인 결과는 `results/balanced_track_b_candidate/release_verification.json`과
+  같은 이름의 TXT에 보관했다. 새 모델의 공개 채점 결과는 후속 확인 대상이다.
+
+## 2026-11-10 MobileNetV3-Large 비교 계획
+
+학생은 balanced 모델을 제출하기로 한 뒤 추가로 다음과 같이 요청했다.
+
+> 그리고 balance 와 별개로 좀 더 개선할 수 있으면 개선했으면 좋겠어 등수를 더 올릴 수 있을 만한
+
+에이전트가 모델 구조와 해상도를 차례로 비교하는 계획을 제안했고, 학생은 다음과 같이 선택했다.
+
+> MobileNetV3-Large 224→448 비교하기
+
+- 기존 ResNet18 224 모델과 같은 전체 훈련 사진, seed 0, balanced sampling,
+  batch size 64, 3,906 steps와 249,984회 제시를 사용한다.
+- 첫 실행은 MobileNetV3-Large 224, 다음 실행은 같은 모델의 448 입력이다.
+  모델별 ImageNet 사전학습 가중치는 ResNet18 V1, MobileNetV3-Large V2다.
+  224 실행은 사전학습 모델 구성의 비교이고, 224와 448 실행은 입력 해상도의 비교다.
+- `src/train_b.py`에 선택적인 `--steps` 인자를 추가해 학습량을 고정했다.
+  이 모드에서는 주어진 `official.draw_order`를 재사용하고 데이터 로더의 난수
+  생성기와 증강 seed를 고정한다. 기존 epoch 방식의 기본값을 지원한다.
+  실행 결과에는 학습량, 검증 사진 수, 도시별 정확도와 혼동행렬을 저장한다.
+- 새 코드의 commit은 `e101e80`이며, 구문 검사와 CLI 도움말 실행을 통과했다.
+  20-step 검사의 결과는 별도 CSV에 기록해 전체 학습 실험 표와 구분한다.
+- 가벼운 모델과 높은 입력 해상도로 작은 시각 정보를 활용할 가능성을 측정한다는
+  설명은 에이전트의 제안이다. 순위 상승은 실제 검증과 공개 채점 결과로 판단한다.
+- 실행 검사에서 로컬 학습 시간을 추정하고, 11월 10일 22시 마감 전에
+  완료할 수 있는 범위에서 전체 비교와 제출 검증을 진행한다.
